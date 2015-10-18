@@ -26,7 +26,7 @@ void FileReader::read(std::string p_filename) {
             while(cour < buffer.size()) {
                 if(isSeparator(buffer[cour])) {
                     if(cour!=start) {
-                        this->process(buffer.substr(start, cour-1));
+                        this->process(buffer.substr(start, cour-start));
                     }
                     start = cour + 1;
                 }
@@ -43,7 +43,6 @@ void FileReader::process(std::string p_stringToProcess) {
 bool FileReader::isSeparator(const char & p_char) {
     unsigned int i = 0;
     while(i < m_separator.size() && p_char!=m_separator[i++]);
-    std::cout << i << " " << m_separator.size()-1 << std::endl;
-    return m_separator[--i]==p_char;
+    return m_separator[i-1]==p_char;
 }
 
