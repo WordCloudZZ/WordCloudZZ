@@ -12,8 +12,8 @@ int main()
     std::string tmp;
 
     for(unsigned int i = 0; i<512; i++) {
-        tmp = (char)i + 48 % 122;
-        ht->addElement(Hashelement(tmp) );
+        tmp = 
+        ht->addElement(Hashelement("toto"+(char)i) );
     }
 
     std::cout << ht->toString();

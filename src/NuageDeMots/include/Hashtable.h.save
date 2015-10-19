@@ -13,8 +13,9 @@ class Hashtable
         Hashtable();
         Hashtable(int);
         virtual ~Hashtable();
-        
+
         Hashelement getAt(int) const;
+        int addElement(Hashelement);
 
     private:
 };

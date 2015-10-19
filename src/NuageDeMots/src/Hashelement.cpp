@@ -8,12 +8,20 @@ Hashelement::Hashelement() : key_(0), word_("")
 Hashelement::Hashelement(int key, std::string word) : key_(key), word_(word)
     {}
 
+Hashelement::Hashelement(std::string word) : key_(0), word_(word)
+    {}
+
 int Hashelement::getKey() const {
     return key_;
 }
 
 std::string Hashelement::getValue() const {
     return word_;
+}
+
+// Change the key for the element
+void Hashelement::setKey(int key) {
+    key_ = key;
 }
 
 const std::string Hashelement::toString() const {

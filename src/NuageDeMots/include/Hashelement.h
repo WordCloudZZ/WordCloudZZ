@@ -11,12 +11,15 @@ class Hashelement {
 
     public:
         Hashelement();
+        Hashelement(std::string);
         Hashelement(int, std::string);
         virtual ~Hashelement();
 
         int getKey() const;
         std::string getValue() const;
         const std::string toString() const;
+
+        void setKey(int);
 
 };
 

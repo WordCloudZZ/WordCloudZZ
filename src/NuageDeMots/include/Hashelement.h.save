@@ -1,6 +1,7 @@
 #ifndef HASHELEMENT_H
 #define HASHELEMENT_H
 
+#include <string>
 
 class Hashelement {
 
@@ -10,12 +11,15 @@ class Hashelement {
 
     public:
         Hashelement();
+        Hashelement(std::string);
         Hashelement(int, std::string);
         virtual ~Hashelement();
 
         int getKey() const;
         std::string getValue() const;
-        std::string toString() const;
+        const std::string toString() const;
+        
+        void setKey(int);
 
 };
 

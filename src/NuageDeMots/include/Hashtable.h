@@ -1,10 +1,13 @@
 #ifndef HASHTABLE_H
 #define HASHTABLE_H
 
+#include <string>
+#include <iostream>
+
 #include "Hashelement.h"
 
-class Hashtable
-{
+class Hashtable {
+
     protected:
         Hashelement* table_;
         int size_;
@@ -15,6 +18,10 @@ class Hashtable
         virtual ~Hashtable();
 
         Hashelement getAt(int) const;
+        int hashCode(std::string) const;
+        int addElement(Hashelement);
+
+        std::string toString() const;
 
     private:
 };
