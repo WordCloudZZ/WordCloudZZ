@@ -6,20 +6,20 @@
 class Hashelement {
 
     protected:
-        int key_;            // Hashcode of the element
         std::string word_;   // Value of the element
+        unsigned long int key_; // Hashcode of the element
 
     public:
         Hashelement();
         Hashelement(std::string);
-        Hashelement(int, std::string);
+        Hashelement(std::string, unsigned long int);
         virtual ~Hashelement();
 
-        int getKey() const;
+        unsigned long int getKey() const;
         std::string getValue() const;
         const std::string toString() const;
 
-        void setKey(int);
+        void setKey(unsigned long int);
 
 };
 

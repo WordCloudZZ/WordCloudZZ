@@ -1,21 +1,29 @@
 #ifndef HASHTABLE_H
 #define HASHTABLE_H
 
+#include <string>
+#include <iostream>
+
 #include "Hashelement.h"
 
-class Hashtable
-{
+class Hashtable {
+
     protected:
         Hashelement* table_;
-        int size_;
+        unsigned int size_;
 
     public:
         Hashtable();
-        Hashtable(int);
+        Hashtable(unsigned int);
         virtual ~Hashtable();
 
         Hashelement getAt(int) const;
+        int hashCode(std::string) const;
         int addElement(Hashelement);
+        
+        unsigned int getSize() 
+
+        std::string toString() const;
 
     private:
 };

@@ -6,7 +6,7 @@ Hashtable::Hashtable() : size_(256) {
 }
 
 // Constructor with parameters
-Hashtable::Hashtable(int table_size) : size_(table_size) {
+Hashtable::Hashtable(unsigned int table_size) : size_(table_size) {
     table_ = new Hashelement[size_];
 }
 
@@ -35,12 +35,15 @@ int Hashtable::addElement(Hashelement to_add) {
 
     to_add.setKey(hash_code); // Change the key for the element
 
+        std::cout << "Ajout de l'element " << to_add.getValue() << " a la place " << to_add.getKey() << std::endl;
+
     return to_add.getKey(); // In case we need it
 }
 
 std::string Hashtable::toString() const {
-    std::string out = "-- Table --\n";
-    out += "Taille max : " << size_;
+    std::string out;
+    out += "-- Table --\n";
+    out += "Taille max : " + this->getSize() ;
     return out;
 }
 

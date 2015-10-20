@@ -1,17 +1,17 @@
 #include "Hashelement.h"
 
 // Default constructor
-Hashelement::Hashelement() : key_(0), word_("")
+Hashelement::Hashelement() : word_(""), key_(0)
     {}
 
 // Constructor with parameters
-Hashelement::Hashelement(int key, std::string word) : key_(key), word_(word)
+Hashelement::Hashelement(std::string word, unsigned long int key) : word_(word), key_(key)
     {}
 
-Hashelement::Hashelement(std::string word) : key_(0), word_(word)
+Hashelement::Hashelement(std::string word) : word_(word), key_(0)
     {}
 
-int Hashelement::getKey() const {
+unsigned long int Hashelement::getKey() const {
     return key_;
 }
 
@@ -20,7 +20,7 @@ std::string Hashelement::getValue() const {
 }
 
 // Change the key for the element
-void Hashelement::setKey(int key) {
+void Hashelement::setKey(unsigned long int key) {
     key_ = key;
 }
 

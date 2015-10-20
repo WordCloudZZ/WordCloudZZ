@@ -35,8 +35,12 @@
 			<Add option="-fexceptions" />
 		</Compiler>
 		<Unit filename="include/FileReader.h" />
+		<Unit filename="include/Hashelement.h" />
+		<Unit filename="include/Hashtable.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="src/FileReader.cpp" />
+		<Unit filename="src/Hashelement.cpp" />
+		<Unit filename="src/Hashtable.cpp" />
 		<Extensions>
 			<code_completion />
 			<envvars />

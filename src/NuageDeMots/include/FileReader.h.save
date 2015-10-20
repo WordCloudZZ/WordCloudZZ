@@ -5,13 +5,11 @@
 #include <fstream>
 #include <string>
 
-#include "Hashtable.h"
-
 class FileReader {
     protected:
         std::ifstream   m_file; // Any file used
         std::string     m_separator; // Contains the list of separators
-        Hashtable*       m_hash_table; // Storing words we have to ignore
+        Hashtable       m_hash_table; // Storing words we have to ignore
 
     public:
         FileReader();

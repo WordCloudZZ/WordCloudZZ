@@ -1,28 +1,29 @@
 #include "FileReader.h"
+#include "Hashtable.h"
 
 // Constructor using default file
 FileReader::FileReader() {
     std::string buffer;
-
+    
     // Loading separators from given file in a string
     m_file.open("filereader.conf", std::ifstream::in);
     if(m_file.is_open()) {
         getline(m_file, m_separator);
         m_file.close();
     }
-
+    
     // Loading words to ignore from given file
     m_file.open("ignore.conf", std::ifstream::in);
     if(m_file.is_open()) {
         // Initializing a table to store words
         m_hash_table = new Hashtable(); // Using default size
-
+        
         // Reading each line from the file
         while(getline(m_file, buffer)) {
             m_hash_table->addElement(buffer);
         } //while
     } //if
-
+    
 }
 
 // Constructor using specific file
