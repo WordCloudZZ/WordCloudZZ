@@ -4,8 +4,10 @@
 #include <string>
 #include <vector>
 #include <iostream>
+#include <forward_list>
+#include <iterator>
 
-#include "Hashelement.h"
+#include "HashElement.h"
 
 template <typename T>
 class Hashtable {
@@ -30,6 +32,7 @@ class Hashtable {
         void printAll() const;
 
         std::string toString() const;
+        std::string sort() const;
 
     private:
 };

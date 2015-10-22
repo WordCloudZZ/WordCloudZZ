@@ -1,22 +1,22 @@
 #include "FileReader.h"
-#include "Hashtable.h"
 
 using namespace std;
 
 int main()
 {
     FileReader fr;
-<<<<<<< HEAD
-    fr.read("bigfile.txt"); // Fichier de test 100k lines
-    fr.printStudyTable();
+
+    setlocale(LC_ALL, "");
+    //fr.read("bigfile.txt"); // Fichier de test 100k lines
+  //  fr.printStudyTable();
 
 
     /// Test de la table seule
     //Hashtable<string> * ht = new Hashtable<string>(4096);
     //delete ht;
-=======
-    fr.read("verne.book");
->>>>>>> cd3fbec38353e73c68811fa04d38ac740182d2d3
+
+    fr.read("20000_lieues.book");
+
     return 0;
 }
 

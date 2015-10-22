@@ -57,6 +57,7 @@ void FileReader::read(std::string p_filename) {
                 cour++;
             } //while
         } //while
+        m_studiedWords.sort();
     } //if
 }
 

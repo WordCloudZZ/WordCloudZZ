@@ -99,10 +99,8 @@ template <typename T>
 void Hashtable<T>::printAll() const {
     std::cout << "-- TABLE CONTENT --\n" << std::endl;
     for(unsigned int i = 0; i < size_; i++) {
-        if(table_[i].size() != 0) { // Each elements in table not null
-            for(unsigned int j = 0; j < table_[i].size(); j++) { // Each vector
-                std::cout << table_[i].at(j).getValue() << " - #" << table_[i].at(j).getNumber() << std::endl;
-            }
+        for(unsigned int j = 0; j < table_[i].size(); j++) { // Each vector
+            std::cout << table_[i].at(j).getValue() << " - #" << table_[i].at(j).getNumber() << std::endl;
         }
     }
     std::cout << "\n-- END OF TABLE --" << std::endl;
@@ -114,5 +112,29 @@ std::string Hashtable<T>::toString() const {
     out += "-- Table --\n";
     out += "Taille max : " + this->size(); // TODO fix the printing of the size ...
     return out;
+}
+
+template <typename T>
+std::string Hashtable<T>::sort() const {
+    std::string result;
+    std::forward_list<HashElement<T> > sorted;
+    sorted.push_front(HashElement<T>());
+    for(int i = 0 ; i < size_ ; ++i) {
+        for(int j = 0 ; j < table_[i].size() ; ++j) {
+            typename std::forward_list<HashElement<T> >::iterator it = std::begin(sorted);
+            typename std::forward_list<HashElement<T> >::iterator pit = it;
+            while(it!=std::end(sorted) && (*it).getNumber() < table_[i][j].getNumber()) {
+                pit = it;
+                it++;
+            }
+            sorted.emplace_after(pit, table_[i][j]);
+        }
+    }
+    for(auto it = std::begin(sorted); it!=std::end(sorted) ; ++it) {
+        if((*it).getValue().size() > 4)
+            std::cout << (*it).getValue() << "\t#" << (*it).getNumber() << std::endl;
+    }
+
+    return result;
 }
 

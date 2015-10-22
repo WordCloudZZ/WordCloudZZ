@@ -34,6 +34,7 @@
 		<Compiler>
 			<Add option="-O2" />
 			<Add option="-Wswitch-default" />
+			<Add option="-std=c++11" />
 			<Add option="-Wextra" />
 			<Add option="-Wall" />
 			<Add option="-pg" />
