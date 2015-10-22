@@ -14,13 +14,13 @@ class Hashtable {
 
     public:
         Hashtable();
-        Hashtable(unsigned int);
+        Hashtable(const unsigned int &);
         virtual ~Hashtable();
 
-        Hashelement getAt(int) const;
+        Hashelement getAt(const int &) const;
         unsigned long int hashCode(std::string) const;
-        unsigned long int addElement(Hashelement);
-        unsigned long int addElement(std::string);
+        unsigned long int addElement(Hashelement &);
+        unsigned long int addElement(std::string &);
 
         unsigned int getSize() const;
 

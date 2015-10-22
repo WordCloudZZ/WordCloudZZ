@@ -6,12 +6,19 @@ Hashtable::Hashtable() : size_(256) {
 }
 
 // Constructor with parameters
-Hashtable::Hashtable(unsigned int table_size) : size_(table_size) {
+Hashtable::Hashtable(const unsigned int & table_size) : size_(table_size) {
     table_ = new Hashelement[size_];
 }
 
+// Destructor
+Hashtable::~Hashtable() {
+    if(table_) {
+        delete [] table_;
+    }
+}
+
 // Return element at a certain position
-Hashelement Hashtable::getAt(int place) const {
+Hashelement Hashtable::getAt(const int & place) const {
     return table_[place];
 }
 
@@ -31,7 +38,7 @@ unsigned long int Hashtable::hashCode(std::string str) const {
     return (code%size_); // To make sure we are in range
 }
 
-unsigned long int Hashtable::addElement(std::string str) {
+unsigned long int Hashtable::addElement(std::string & str) {
     unsigned long int hash_code = hashCode(str); // Get hash code
     Hashelement to_add = Hashelement(str, hash_code);
 
@@ -43,7 +50,7 @@ std::cout << "Ajout de l'element " << to_add.getValue() << " a la place " << to_
 }
 
 // Add an element in the right place
-unsigned long int Hashtable::addElement(Hashelement to_add) {
+unsigned long int Hashtable::addElement(Hashelement & to_add) {
     unsigned long int hash_code = hashCode(to_add.getValue()); // Get hash code
 
     table_[hash_code] = to_add; // TODO : collisions
@@ -62,9 +69,3 @@ std::string Hashtable::toString() const {
     return out;
 }
 
-// Destructor
-Hashtable::~Hashtable() {
-    if(table_) {
-        delete [] table_;
-    }
-}
