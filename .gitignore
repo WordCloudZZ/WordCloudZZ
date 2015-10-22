@@ -4,6 +4,9 @@
 */bin
 *.depend
 *.layout
+*.save
+*.cbp
+*.out
 
 #############
 ## Windows

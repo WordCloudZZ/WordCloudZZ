@@ -2,23 +2,25 @@
 
 // Default constructor
 Hashtable::Hashtable() : size_(256) {
-    table_ = new Hashelement[size_];
+    table_ = new Hashelement*[size_];
+    fillNull();
 }
 
 // Constructor with parameters
-Hashtable::Hashtable(const unsigned int & table_size) : size_(table_size) {
-    table_ = new Hashelement[size_];
+Hashtable::Hashtable(unsigned int table_size) : size_(table_size) {
+    table_ = new Hashelement*[size_];
+    fillNull();
 }
 
-// Destructor
-Hashtable::~Hashtable() {
-    if(table_) {
-        delete [] table_;
+// Fill the table with null pointers
+void Hashtable::fillNull() {
+    for(unsigned int i = 0; i < size_; i++) {
+        table_[i] = 0; // Set everything to NULL
     }
 }
 
 // Return element at a certain position
-Hashelement Hashtable::getAt(const int & place) const {
+Hashelement* Hashtable::getAt(int place) const {
     return table_[place];
 }
 
@@ -38,28 +40,28 @@ unsigned long int Hashtable::hashCode(std::string str) const {
     return (code%size_); // To make sure we are in range
 }
 
-unsigned long int Hashtable::addElement(std::string & str) {
+unsigned long int Hashtable::addElement(std::string str) {
     unsigned long int hash_code = hashCode(str); // Get hash code
-    Hashelement to_add = Hashelement(str, hash_code);
+    Hashelement* to_add = new Hashelement(str, hash_code);
 
     table_[hash_code] = to_add; // TODO : collision
 
-std::cout << "Ajout de l'element " << to_add.getValue() << " a la place " << to_add.getKey() << std::endl;
+std::cout << "Ajout de l'element " << to_add->getValue() << " a la place " << to_add->getKey() << std::endl;
 
-    return to_add.getKey(); // In case we need it
+    return to_add->getKey(); // In case we need it
 }
 
 // Add an element in the right place
-unsigned long int Hashtable::addElement(Hashelement & to_add) {
-    unsigned long int hash_code = hashCode(to_add.getValue()); // Get hash code
+unsigned long int Hashtable::addElement(Hashelement* to_add) {
+    unsigned long int hash_code = hashCode(to_add->getValue()); // Get hash code
 
     table_[hash_code] = to_add; // TODO : collisions
 
-    to_add.setKey(hash_code); // Change the key for the element
+    to_add->setKey(hash_code); // Change the key for the element
 
-std::cout << "Ajout de l'element " << to_add.getValue() << " a la place " << to_add.getKey() << std::endl;
+std::cout << "Ajout de l'element " << to_add->getValue() << " a la place " << to_add->getKey() << std::endl;
 
-    return to_add.getKey(); // In case we need it
+    return to_add->getKey(); // In case we need it
 }
 
 std::string Hashtable::toString() const {
@@ -69,3 +71,14 @@ std::string Hashtable::toString() const {
     return out;
 }
 
+// Destructor
+Hashtable::~Hashtable() {
+    if(table_) {
+        for(unsigned int i = 0; i < size_ ; i++) {
+            if(table_[i] != 0) {
+                delete (table_[i]);
+            }
+        }
+        delete [] table_;
+    }
+}
