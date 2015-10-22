@@ -9,8 +9,8 @@
 class Hashtable {
 
     protected:
-        Hashelement* table_;
         unsigned int size_;
+        Hashelement** table_;
 
     public:
         Hashtable();
@@ -18,10 +18,11 @@ class Hashtable {
         virtual ~Hashtable();
 
         Hashelement getAt(int) const;
-        int hashCode(std::string) const;
-        int addElement(Hashelement);
-        
-        unsigned int getSize() 
+        unsigned long int hashCode(std::string) const;
+        unsigned long int addElement(Hashelement);
+        unsigned long int addElement(std::string);
+
+        unsigned int getSize() const;
 
         std::string toString() const;
 
