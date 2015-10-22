@@ -1,13 +1,19 @@
 // Default constructor
 template <typename T>
-HashElement<T>::HashElement() : value_(""), key_(0) {
+HashElement<T>::HashElement() : value_(""), key_(0), number_collisions_(0) {
 
 }
 
 // Constructor with parameters
 template <typename T>
-HashElement<T>::HashElement(T value, unsigned long int key) : value_(value), key_(key) {
+HashElement<T>::HashElement(T value, unsigned long int key) : value_(value), key_(key), number_collisions_(0) {
 
+}
+
+// Destructor
+template <typename T>
+HashElement<T>::~HashElement() {
+    // Nothing to do
 }
 
 template <typename T>
@@ -38,8 +44,15 @@ const std::string & HashElement<T>::toString() const {
     return out;
 }
 
-// Destructor
 template <typename T>
-HashElement<T>::~HashElement() {
-    // Nothing to do
+HashElement<T> & HashElement<T>::operator++() {
+    number_collisions_++;
+    return *this;
 }
+
+template <typename T>
+HashElement<T> HashElement<T>::operator++(int) {
+    HashElement<T> inc = ++(*this);
+    return inc;
+}
+

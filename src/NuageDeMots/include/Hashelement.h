@@ -7,8 +7,9 @@ template <typename T>
 class HashElement {
 
     protected:
-        std::string value_;   // Value of the element
-        unsigned long int key_; // Key of the element
+        std::string         value_;   // Value of the element
+        unsigned long int   key_, // Key of the element
+                            number_collisions_; // Number of collisions
 
     public:
         HashElement();
@@ -21,7 +22,8 @@ class HashElement {
         const std::string & toString() const;
 
         void setKey(unsigned long int);
-
+        HashElement<T> & operator++();
+        HashElement<T> operator++(int);
 };
 
 #include "HashElement.tpp"

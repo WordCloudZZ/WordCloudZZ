@@ -2,6 +2,7 @@
 #define HASHTABLE_H
 
 #include <string>
+#include <vector>
 #include <iostream>
 
 #include "Hashelement.h"
@@ -10,14 +11,13 @@ template <typename T>
 class Hashtable {
 
     protected:
-        unsigned int        size_;
-        HashElement<T>   ** table_;
+        unsigned int                    size_;
+        std::vector<HashElement<T> >  * table_;
 
         unsigned long int hashCode(T) const;
         void fillNull();
 
     public:
-        Hashtable();
         Hashtable(unsigned int);
         virtual ~Hashtable();
 
