@@ -73,7 +73,7 @@ unsigned long int Hashtable<T>::addElement(T value) {
     }
     table_[hash_code][i]++;
 
-std::cout << "Ajout de l'element " << value << " a la place " << hash_code << " | " << i << std::endl;
+//std::cout << "Ajout de l'element " << value << " a la place " << hash_code << " | " << i << std::endl;
 
     return hash_code; // In case we need it
 }
@@ -89,7 +89,7 @@ unsigned long int Hashtable<T>::addElement(HashElement<T> * to_add) {
 
     to_add->setKey(hash_code); // Change the key for the element
 
-std::cout << "Ajout de l'element " << to_add->getValue() << " a la place " << to_add->getKey() << std::endl;
+//std::cout << "Ajout de l'element " << to_add->getValue() << " a la place " << to_add->getKey() << std::endl;
 
     return to_add->getKey(); // In case we need it
 }
