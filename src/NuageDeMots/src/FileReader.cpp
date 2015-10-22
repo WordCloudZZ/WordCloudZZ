@@ -62,8 +62,8 @@ void FileReader::read(std::string p_filename) {
 
 void FileReader::process(std::string p_stringToProcess) {
     std::transform(p_stringToProcess.begin(), p_stringToProcess.end(), p_stringToProcess.begin(), tolower);
-    //if(m_ignoredWords.contains(p_stringToProcess))
-        std::cout << p_stringToProcess << std::endl;
+    if(!m_ignoredWords.contains(p_stringToProcess))
+        m_studiedWords.addElement(p_stringToProcess);
 }
 
 bool FileReader::isSeparator(const char & p_char) {

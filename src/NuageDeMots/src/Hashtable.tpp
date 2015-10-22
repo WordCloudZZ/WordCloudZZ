@@ -33,6 +33,20 @@ unsigned int Hashtable<T>::size() const {
     return size_;
 }
 
+template <typename T>
+bool Hashtable<T>::contains(const T & value) const {
+    bool found = false;
+    unsigned long int   hash_code = hashCode(value), // Get hash code
+                        i = 0;
+    while(i < table_[hash_code].size() && table_[hash_code][i].getValue()!=value) {
+        i++;
+    }
+    if(table_[hash_code].size()>i && table_[hash_code][i].getValue()==value) {
+        found = true;
+    }
+    return found;
+}
+
 // Create a hash code, using a string                       /// ONLY for strings
 template <typename T>                                       /// TODO: Make a general method
 unsigned long int Hashtable<T>::hashCode(T key) const {
