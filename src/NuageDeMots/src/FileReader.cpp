@@ -14,12 +14,9 @@ FileReader::FileReader() {
     // Loading words to ignore from given file
     m_file.open("ignore.conf", std::ifstream::in);
     if(m_file.is_open()) {
-        // Initializing a table to store words
-        m_hash_table = new Hashtable(); // Using default size
-
         // Reading each line from the file
         while(getline(m_file, buffer)) {
-            m_hash_table->addElement(buffer);
+            m_ignoredWords.addElement(buffer);
         } //while
     } //if
 
@@ -37,9 +34,6 @@ FileReader::FileReader(std::string filename) {
 FileReader::~FileReader() {
     if(m_file.is_open()) {
         m_file.close();
-    }
-    if(m_hash_table) {
-        delete m_hash_table;
     }
 }
 
@@ -67,7 +61,9 @@ void FileReader::read(std::string p_filename) {
 }
 
 void FileReader::process(std::string p_stringToProcess) {
-    std::cout << p_stringToProcess << std::endl;
+    std::transform(p_stringToProcess.begin(), p_stringToProcess.end(), p_stringToProcess.begin(), tolower);
+    //if(m_ignoredWords.contains(p_stringToProcess))
+        std::cout << p_stringToProcess << std::endl;
 }
 
 bool FileReader::isSeparator(const char & p_char) {

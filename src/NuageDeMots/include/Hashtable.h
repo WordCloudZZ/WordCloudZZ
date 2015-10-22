@@ -6,13 +6,14 @@
 
 #include "Hashelement.h"
 
+template <typename T>
 class Hashtable {
 
     protected:
-        unsigned int size_;
-        Hashelement** table_;
+        unsigned int        size_;
+        HashElement<T>   ** table_;
 
-        unsigned long int hashCode(std::string) const;
+        unsigned long int hashCode(T) const;
         void fillNull();
 
     public:
@@ -20,15 +21,18 @@ class Hashtable {
         Hashtable(unsigned int);
         virtual ~Hashtable();
 
-        Hashelement* getAt(int) const;
-        unsigned long int addElement(Hashelement*);
-        unsigned long int addElement(std::string);
+        HashElement<T> * getAt(int) const;
+        unsigned long int addElement(HashElement<T>*);
+        unsigned long int addElement(T);
 
-        unsigned int getSize() const;
+        unsigned int size() const;
+        bool contains(const T &) const;
 
         std::string toString() const;
 
     private:
 };
+
+#include "Hashtable.tpp"
 
 #endif // HASHTABLE_H

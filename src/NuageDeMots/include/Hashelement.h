@@ -3,24 +3,27 @@
 
 #include <string>
 
-class Hashelement {
+template <typename T>
+class HashElement {
 
     protected:
-        std::string word_;   // Value of the element
-        unsigned long int key_; // Hashcode of the element
+        std::string value_;   // Value of the element
+        unsigned long int key_; // Key of the element
 
     public:
-        Hashelement();
-        Hashelement(std::string);
-        Hashelement(std::string, unsigned long int);
-        virtual ~Hashelement();
+        HashElement();
+        HashElement(T);
+        HashElement(T, unsigned long int);
+        virtual ~HashElement();
 
         unsigned long int getKey() const;
-        std::string getValue() const;
-        const std::string toString() const;
+        T getValue() const;
+        const std::string & toString() const;
 
         void setKey(unsigned long int);
 
 };
+
+#include "HashElement.tpp"
 
 #endif // HASHELEMENT_H

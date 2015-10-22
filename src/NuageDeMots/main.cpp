@@ -6,9 +6,9 @@ using namespace std;
 int main()
 {
     FileReader fr;
-//    fr.read("verne.book");
+    //fr.read("verne.book");
 
-    Hashtable* ht = new Hashtable(4096);
+    Hashtable<string> * ht = new Hashtable<string>(4096);
 
     delete ht;
     return 0;
