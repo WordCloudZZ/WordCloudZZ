@@ -23,6 +23,8 @@ class FileReader {
         void read(std::string);
         void process(std::string);
 
+        void printStudyTable() const;
+
     private:
         bool isSeparator(const char &);
 };

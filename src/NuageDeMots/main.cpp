@@ -6,11 +6,13 @@ using namespace std;
 int main()
 {
     FileReader fr;
-    fr.read("verne.book");
+    fr.read("bigfile.txt"); // Fichier de test 100k lines
+    fr.printStudyTable();
 
-    Hashtable<string> * ht = new Hashtable<string>(4096);
 
-    delete ht;
+    /// Test de la table seule
+    //Hashtable<string> * ht = new Hashtable<string>(4096);
+    //delete ht;
     return 0;
 }
 

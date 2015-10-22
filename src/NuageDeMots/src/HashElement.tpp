@@ -31,6 +31,11 @@ T HashElement<T>::getValue() const {
     return value_;
 }
 
+template <typename T>
+unsigned long int HashElement<T>::getNumber() const {
+    return number_collisions_;
+}
+
 // Change the key for the element
 template <typename T>
 void HashElement<T>::setKey(unsigned long int key) {

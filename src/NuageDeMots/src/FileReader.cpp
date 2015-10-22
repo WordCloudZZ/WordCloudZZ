@@ -66,6 +66,10 @@ void FileReader::process(std::string p_stringToProcess) {
         m_studiedWords.addElement(p_stringToProcess);
 }
 
+void FileReader::printStudyTable() const {
+    m_studiedWords.printAll();
+}
+
 bool FileReader::isSeparator(const char & p_char) {
     unsigned int i = 0;
     while(i < m_separator.size() && p_char!=m_separator[i++]);

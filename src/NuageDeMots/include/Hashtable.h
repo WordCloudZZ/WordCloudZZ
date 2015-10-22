@@ -27,6 +27,7 @@ class Hashtable {
 
         unsigned int size() const;
         bool contains(const T &) const;
+        void printAll() const;
 
         std::string toString() const;
 
