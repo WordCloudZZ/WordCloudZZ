@@ -8,7 +8,7 @@ int main()
     FileReader fr;
 //    fr.read("verne.book");
 
-    Hashtable* ht = new Hashtable(1024);
+    Hashtable* ht = new Hashtable(4096);
 
     delete ht;
     return 0;

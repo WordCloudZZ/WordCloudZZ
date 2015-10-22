@@ -31,9 +31,16 @@
 			</Target>
 		</Build>
 		<Compiler>
+			<Add option="-O2" />
+			<Add option="-Wswitch-default" />
+			<Add option="-Wextra" />
 			<Add option="-Wall" />
+			<Add option="-pg" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Linker>
+			<Add option="-pg -lgmon" />
+		</Linker>
 		<Unit filename="include/FileReader.h" />
 		<Unit filename="include/Hashelement.h" />
 		<Unit filename="include/Hashtable.h" />

@@ -10,7 +10,10 @@ class Hashtable {
 
     protected:
         unsigned int size_;
-        Hashelement* table_;
+        Hashelement** table_;
+
+        unsigned long int hashCode(std::string) const;
+        void fillNull();
 
     public:
         Hashtable();
@@ -19,7 +22,7 @@ class Hashtable {
 
         Hashelement getAt(const int &) const;
         unsigned long int hashCode(std::string) const;
-        unsigned long int addElement(Hashelement &);
+        unsigned long int addElement(Hashelement*);
         unsigned long int addElement(std::string &);
 
         unsigned int getSize() const;
