@@ -15,7 +15,8 @@ int main()
     //Hashtable<string> * ht = new Hashtable<string>(4096);
     //delete ht;
 
-    fr.read("20000_lieues.book");
+  //  fr.read("20000_lieues.book");
+    fr.read("hill.book");
 
     return 0;
 }

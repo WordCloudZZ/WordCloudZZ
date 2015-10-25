@@ -131,7 +131,7 @@ std::string Hashtable<T>::sort() const {
         }
     }
     for(auto it = std::begin(sorted); it!=std::end(sorted) ; ++it) {
-        if((*it).getValue().size() > 4)
+        if((*it).getValue().size() > 0)
             std::cout << (*it).getValue() << "\t#" << (*it).getNumber() << std::endl;
     }
 
