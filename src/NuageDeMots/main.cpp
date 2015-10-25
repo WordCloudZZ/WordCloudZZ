@@ -16,7 +16,7 @@ int main()
     //delete ht;
 
   //  fr.read("20000_lieues.book");
-    fr.read("hill.book");
+    fr.read("hill.bk");
 
     return 0;
 }
