@@ -17,7 +17,6 @@ class Hashtable {
         std::vector<HashElement<T> >  * table_;
 
         unsigned long int hashCode(T) const;
-        void fillNull();
 
     public:
         Hashtable(unsigned int);

@@ -1,4 +1,5 @@
 #include "FileReader.h"
+#include "BinarySearchTree.h"
 
 using namespace std;
 

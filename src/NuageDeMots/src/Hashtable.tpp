@@ -2,7 +2,6 @@
 template <typename T>
 Hashtable<T>::Hashtable(unsigned int table_size = 256) : size_(table_size) {
     table_ = new std::vector<HashElement<T> >[size_];
-    ///fillNull();
 }
 
 // Destructor
