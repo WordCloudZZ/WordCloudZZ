@@ -23,7 +23,7 @@ void Hashtable<T>::fillNull() {
 
 // Return element at a certain position
 template <typename T>
-HashElement<T>* Hashtable<T>::getAt(int place) const {
+HashElement<T>* Hashtable<T>::at(int place) const {
     return table_[place];
 }
 

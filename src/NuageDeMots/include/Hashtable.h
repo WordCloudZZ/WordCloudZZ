@@ -17,13 +17,13 @@ class Hashtable {
         std::vector<HashElement<T> >  * table_;
 
         unsigned long int hashCode(T) const;
+        unsigned long int addElement(HashElement<T>*);
 
     public:
         Hashtable(unsigned int);
         virtual ~Hashtable();
 
-        HashElement<T> * getAt(int) const;
-        unsigned long int addElement(HashElement<T>*);
+        HashElement<T> * at(int) const;
         unsigned long int addElement(T);
 
         unsigned int size() const;
