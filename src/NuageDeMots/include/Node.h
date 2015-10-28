@@ -1,8 +1,10 @@
 #ifndef NODE_H
 #define NODE_H
 
+#include "Countable.h"
+
 template <typename T>
-class Node{
+class Node : public Countable {
     protected:
         T           m_value;
         Node      * m_ls,

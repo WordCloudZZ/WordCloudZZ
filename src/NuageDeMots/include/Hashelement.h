@@ -2,14 +2,14 @@
 #define HASHELEMENT_H
 
 #include <string>
+#include "Countable.h"
 
 template <typename T>
-class HashElement {
+class HashElement : public Countable {
 
     protected:
-        std::string         value_;   // Value of the element
-        unsigned long int   key_, // Key of the element
-                            number_collisions_; // Number of collisions
+        T                   value_;   // Value of the element
+        unsigned long int   key_; // Key of the element
 
     public:
         HashElement();
@@ -23,8 +23,6 @@ class HashElement {
         const std::string & toString() const;
 
         void setKey(unsigned long int);
-        HashElement<T> & operator++();
-        HashElement<T> operator++(int);
 };
 
 #include "HashElement.tpp"

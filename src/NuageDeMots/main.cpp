@@ -5,9 +5,10 @@ using namespace std;
 
 int main()
 {
+    setlocale(LC_ALL, "");
+
     FileReader fr;
 
-    setlocale(LC_ALL, "");
     //fr.read("bigfile.txt"); // Fichier de test 100k lines
   //  fr.printStudyTable();
 

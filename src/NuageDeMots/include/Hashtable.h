@@ -32,8 +32,6 @@ class Hashtable {
 
         std::string toString() const;
         std::string sort() const;
-
-    private:
 };
 
 #include "Hashtable.tpp"

@@ -99,7 +99,7 @@ void Hashtable<T>::printAll() const {
     std::cout << "-- TABLE CONTENT --\n" << std::endl;
     for(unsigned int i = 0; i < size_; i++) {
         for(unsigned int j = 0; j < table_[i].size(); j++) { // Each vector
-            std::cout << table_[i].at(j).getValue() << " - #" << table_[i].at(j).getNumber() << std::endl;
+            std::cout << table_[i].at(j).getValue() << " - #" << table_[i].at(j).number() << std::endl;
         }
     }
     std::cout << "\n-- END OF TABLE --" << std::endl;
@@ -122,7 +122,7 @@ std::string Hashtable<T>::sort() const {
         for(int j = 0 ; j < table_[i].size() ; ++j) {
             typename std::forward_list<HashElement<T> >::iterator it = std::begin(sorted);
             typename std::forward_list<HashElement<T> >::iterator pit = it;
-            while(it!=std::end(sorted) && (*it).getNumber() < table_[i][j].getNumber()) {
+            while(it!=std::end(sorted) && (*it).number() < table_[i][j].number()) {
                 pit = it;
                 it++;
             }
@@ -131,7 +131,7 @@ std::string Hashtable<T>::sort() const {
     }
     for(auto it = std::begin(sorted); it!=std::end(sorted) ; ++it) {
         if((*it).getValue().size() > 0)
-            std::cout << (*it).getValue() << "\t#" << (*it).getNumber() << std::endl;
+            std::cout << (*it).getValue() << "\t#" << (*it).number() << std::endl;
     }
 
     return result;
