@@ -8,7 +8,7 @@ template<typename T>
 class BinarySearchTree {
     protected:
         int                         m_size;
-        Node<T>                   * m_tree;
+public:        Node<T>                   * m_tree;
 
     public:
         BinarySearchTree();
@@ -28,7 +28,7 @@ class BinarySearchTree {
         std::string sort() const;
 
     private:
-        Node<T> & search(const T &) const;
+        Node<T> ** search(const T &);
         void balance();
 
 };

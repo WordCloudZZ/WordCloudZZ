@@ -17,7 +17,7 @@ Node<T>::~Node() {
 }
 
 template<typename T>
-Node<T> & Node<T>::operator=(const Node<T> & p_toCopy) {
+Node<T> & Node<T>::operator=(Node<T> & p_toCopy) {
     if(*this != p_toCopy) {
         ((Countable*)this)->operator=(p_toCopy);
         this->m_value = p_toCopy.getValue();
@@ -28,17 +28,17 @@ Node<T> & Node<T>::operator=(const Node<T> & p_toCopy) {
 }
 
 template<typename T>
-T & Node<T>::getValue() const {
+T & Node<T>::getValue() {
     return m_value;
 }
 
 template<typename T>
-Node<T> & Node<T>::getLeftSon() const {
-    return *m_ls;
+Node<T> * Node<T>::getLeftSon() {
+    return m_ls;
 }
 
 template<typename T>
-Node<T> & Node<T>::getRightSon() const {
+Node<T> * Node<T>::getRightSon() {
     return m_rs;
 }
 
@@ -48,12 +48,12 @@ void Node<T>::setValue(const T & p_value) {
 }
 
 template<typename T>
-void Node<T>::setLeftSon(const Node & p_ls) {
+void Node<T>::setLeftSon(const Node * p_ls) {
     m_ls = p_ls;
 }
 
 template<typename T>
-void Node<T>::setRightSon(const Node & p_rs) {
+void Node<T>::setRightSon(const Node * p_rs) {
     m_rs = p_rs;
 }
 

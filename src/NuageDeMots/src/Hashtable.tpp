@@ -12,15 +12,6 @@ Hashtable<T>::~Hashtable() {
     }
 }
 
-// Fill the table with null pointers
-/**
-template <typename T>
-void Hashtable<T>::fillNull() {
-    for(unsigned int i = 0; i < size_; i++) {
-        table_[i] = 0; // Set everything to NULL
-    }
-}**/
-
 // Return element at a certain position
 template <typename T>
 HashElement<T>* Hashtable<T>::at(int place) const {
@@ -97,8 +88,8 @@ unsigned long int Hashtable<T>::addElement(HashElement<T> * to_add) {
 template <typename T>
 void Hashtable<T>::printAll() const {
     std::cout << "-- TABLE CONTENT --\n" << std::endl;
-    for(unsigned int i = 0; i < size_; i++) {
-        for(unsigned int j = 0; j < table_[i].size(); j++) { // Each vector
+    for(unsigned long int i = 0 ; i < size_ ; i++) {
+        for(unsigned long int j = 0; j < table_[i].size(); j++) { // Each vector
             std::cout << table_[i].at(j).getValue() << " - #" << table_[i].at(j).number() << std::endl;
         }
     }

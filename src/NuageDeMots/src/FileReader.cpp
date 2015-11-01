@@ -1,18 +1,18 @@
 #include "FileReader.h"
 
 // Constructor using default file
-FileReader::FileReader() {
+FileReader::FileReader(std::string p_fileignore, std::string p_fileconf) {
     std::string buffer;
 
     // Loading separators from given file in a string
-    m_file.open("filereader.conf", std::ifstream::in);
+    m_file.open(p_fileconf, std::ifstream::in);
     if(m_file.is_open()) {
         getline(m_file, m_separator);
         m_file.close();
     }
 
     // Loading words to ignore from given file
-    m_file.open("ignore.conf", std::ifstream::in);
+    m_file.open(p_fileignore, std::ifstream::in);
     if(m_file.is_open()) {
         // Reading each line from the file
         while(getline(m_file, buffer)) {
@@ -20,15 +20,6 @@ FileReader::FileReader() {
         } //while
     } //if
 
-}
-
-// Constructor using specific file
-FileReader::FileReader(std::string filename) {
-    m_file.open(filename.c_str() , std::ifstream::in);
-    if(m_file.is_open()) {
-        getline(m_file, m_separator);
-        m_file.close();
-    }
 }
 
 FileReader::~FileReader() {
@@ -48,7 +39,7 @@ void FileReader::read(std::string p_filename) {
         while(getline(m_file, buffer)) {
             unsigned int start=0, cour=0;
             while(cour < buffer.size()) {
-                if(isSeparator(buffer[cour])) {
+                if(isSeparator(buffer[cour]) || '\n'==buffer[cour]) {
                     if(cour!=start) {
                         this->process(buffer.substr(start, cour-start));
                     }
@@ -56,8 +47,11 @@ void FileReader::read(std::string p_filename) {
                 }
                 cour++;
             } //while
+                    if(cour!=start) {
+                        this->process(buffer.substr(start, -1));
+                    }
         } //while
-        m_studiedWords.sort();
+        //m_studiedWords.sort();
     } //if
 }
 
@@ -65,6 +59,10 @@ void FileReader::process(std::string p_stringToProcess) {
     std::transform(p_stringToProcess.begin(), p_stringToProcess.end(), p_stringToProcess.begin(), tolower);
     if(!m_ignoredWords.contains(p_stringToProcess))
         m_studiedWords.addElement(p_stringToProcess);
+}
+
+bool FileReader::contains(std::string p_toFind) const {
+    return m_studiedWords.contains(p_toFind);
 }
 
 void FileReader::printStudyTable() const {
