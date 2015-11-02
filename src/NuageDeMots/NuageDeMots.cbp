@@ -44,26 +44,22 @@
 			<Add option="-pg -lgmon" />
 		</Linker>
 		<Unit filename="include/BinarySearchTree.h" />
-		<Unit filename="include/Countable.h" />
 		<Unit filename="include/FileReader.h" />
 		<Unit filename="include/HashElement.h" />
 		<Unit filename="include/Hashtable.h" />
-		<Unit filename="include/Node.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="src/BinarySearchTree.tpp" />
-		<Unit filename="src/Countable.cpp" />
 		<Unit filename="src/FileReader.cpp" />
 		<Unit filename="src/HashElement.tpp" />
 		<Unit filename="src/Hashtable.tpp" />
-		<Unit filename="src/Node.tpp" />
 		<Extensions>
 			<code_completion />
 			<envvars />
 			<debugger />
 			<lib_finder disable_auto="1" />
 			<DoxyBlocks>
-				<comment_style block="4" line="2" />
-				<doxyfile_project output_language="French" />
+				<comment_style block="0" line="0" />
+				<doxyfile_project />
 				<doxyfile_build />
 				<doxyfile_warnings />
 				<doxyfile_output />
