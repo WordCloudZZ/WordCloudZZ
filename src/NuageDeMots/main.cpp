@@ -20,9 +20,9 @@ bool is_readable(const string &file) {
 
 int main() {
     std::string buff1, buff2, buff3;
-    int choice = 0, nb_letters;
+    int choice = 0, nb_letters = 5, nb_gen = 100000;
 
-    FileReader *f, *fl;
+    FileReader *f;
     WordsGenerator* wg;
 
     cout << "Lecture" << endl;
@@ -34,17 +34,24 @@ int main() {
 
     while(choice != 9) {
         cout << "-------------------- Nuage de Mots --------------------\n" << endl;
-        cout << "Selectionner une action :\n\t1 : Nuage de mots a partir de fichier texte\n\t2 : Generation de mots aleatoires\n\t9 : Quitter le programme\n\nChoix ? (1 / 2 / 9) : ";
+        cout << \
+"Selectionner une action :\
+\n\t1 : Nuage de mots a partir de fichier texte\
+\n\t2 : Generation de mots aleatoires\
+\n\t9 : Quitter le programme\
+\n\nChoix ? (1 / 2 / 9) : ";
         cin >> choice; fflush(stdin); // fflush pour pas que le \n soit pris dans le suivant cin
 
         if(choice == 1) { // Extraction du nuage
-            cout << "----- Extraction de Nuage de Mots -----\n";
+            cout << "\n----- Extraction de Nuage de Mots -----\n";
             cout << "Fichier de mots a ignorer (laisser vide pour fichier par defaut) : \n";
             getline(cin, buff1);
-            cout << "Fichier de sepatateurs (laisser vide pour fichier par defaut) : \n";
+            cout << "\nFichier de sepatateurs (laisser vide pour fichier par defaut) : \n";
             getline(cin, buff2);
-            cout << "Fichier a traiter (laisser vide pour fichier par defaut) : \n";
+            cout << "\nFichier a traiter (laisser vide pour fichier par defaut) : \n";
             getline(cin, buff3);
+
+            cout << "---------------" << endl; // Separation
 
             // Allocation du FileReader
             if((buff1.size() != 0 && buff2.size() != 0) && (is_readable(buff1) && is_readable(buff2))) {
@@ -61,21 +68,20 @@ int main() {
                 f = new FileReader(buff1, "filereader.conf");
             } else {
                 // On a rien
-                cout << "\n** Utilisation des fichiers par defaut" << endl;
+                cout << "** Utilisation des fichiers de configuration par defaut" << endl;
                 f = new FileReader();
             }
 
+            if(buff3.size() == 0 || !is_readable(buff3)) {
+                cout << "** Utilisation du fichier par defaut" << endl;
+                buff3.clear();
+                buff3="hill.bk";
+            }
+
+            cout << "\nL'analyse va débuter et les resultats seront immediatement affiches" << endl;
             system("pause"); // Attente de confirmation
 
-            // Ouverture du fichier a traiter
-            if(buff3 != "\n" && is_readable(buff3)) {
-                // Le fichier a traiter existe
-                f->read(buff3.c_str());
-            } else {
-                // Le fichier a traiter n'existe pas
-                cout << "\n** Utilisation du fichier a traiter par defaut" << endl;
-                f->read("hill.bk");
-            }
+            f->read(buff3.c_str());
 
             // Affichage de la liste de mots triee par occurences
             f->printStudyTable();
@@ -83,22 +89,44 @@ int main() {
             // Liberation de memoire
             delete f;
         } else if (choice == 2) { // Generation de mots
-            cout << "----- Creation de mots aleatoires -----" << endl;
+            cout << "----- Creation de mots aleatoires -----\nEntrer la taille des mots a generer (une valeur elevee peut entrainer un temps de calcul long) : ";
+            cin >> nb_letters;
+            cout << "Nombre de generations (une valeur elevee peut entrainer un temps de calcul long) : ";
+            cin >> nb_gen;
+            fflush(stdin); // Pour ne pas prendre le \n au prochain cin
 
-            fl = new FileReader("nawak.conf", "nawak.conf");
-            fl->read("dico.bk");
+            f = new FileReader("ignore.conf", "empty.conf"); // Juste avec un fichier de sepateurs
+
+            cout << "Fichier de mots a conserver (laisser vide pour fichier par defaut) : \n";
+            getline(cin, buff1);
+
+            cout << "Generation aleatoire de mots de " << nb_letters \
+            << " lettre(s) avec " << nb_gen << " generation(s) en utilisant le dictionnaire ";
+
+            if(buff1.size() != 0  && is_readable(buff1)) {
+                // Le dictionnaire existe
+                cout << "personnel" << endl;
+                f->read(buff1);
+            } else {
+                cout << "par defaut" << endl;
+                f->read("dico.bk");
+            }
+
+            cout << "L'alphabet utilisé est l'alphabet francais accentue.\n\
+            Seuls les mots du dictionnaire seront affichés avec le nombre de generations necessaire a leur obtenention" << endl;
             wg = new WordsGenerator("alphabet.az"); // Generation aleatoire de mots
 
+            system("pause");
 
-            for(unsigned long i = 0 ; i < 1000000 ; ++i) {
-                string str = wg->rand();
-                if(fl->contains(str)) {
+            for(unsigned long i = 0 ; i < nb_gen ; ++i) {
+                string str = wg->rand(nb_letters);
+                if(f->contains(str)) {
                     cout << str << "\t" << i+1 << endl;
                 }
             }
 
             // Liberation de memoire
-            delete fl;
+            delete f;
             delete wg;
         } else if (choice != 9) {
             cout << "Choix incorrect !" << endl;
