@@ -66,7 +66,7 @@ bool FileReader::contains(std::string p_toFind) const {
 }
 
 void FileReader::printStudyTable() const {
-    m_studiedWords.printAll();
+    m_studiedWords.sort();
 }
 
 bool FileReader::isSeparator(const char & p_char) {

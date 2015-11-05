@@ -1,0 +1,1483 @@
+P r e s s e s U n i v e r s i t a i r e s B l a i s e - P a s c a l
+Simulation informatique
+au service des Sciences de la Vie
+David R. C. HILL
+©
+Maison des Sciences de l’Homme
+4, rue Ledru – 63057 Clermont-Ferrand Cedex 1
+Tel. 04 73 34 68 09 – Fax 04 73 34 68 12
+Publi.Lettres@univ-bpclermont.fr
+www.pubp.fr
+Diff usion en librairie : CiD – en ligne : www.lcdpu.fr
+Maquette et Illustration de couverture :
+Montage, Diazo 1
+Simulation informatique
+au service des Sciences de la Vie
+David R. C. HILL
+Pour mon épouse Anne (Eph. 5, 25)
+
+TABLE DES MATIÈRES
+CHAPITRE 1 Introduction Générale
+1 Systémique et Complexité 9
+2 Les écosystèmes : archétype des systèmes complexes 10
+3 La simulation 11
+4 La modélisation d’écosystèmes 13
+5 Contexte de nos travaux de recherche 15
+6 Organisation de l’ouvrage 16
+CHAPITRE 2 Réfl exions sur la Modélisation
+et la Simulation
+1 Introduction 19
+2 Qu’est-ce qu’un système ? 20
+3 Complexité des systèmes et intérêt de la modélisation 21
+4 Qu’est-ce qu’un modèle ? 24
+4.1. La notion de modèle 24
+4.2. Modèles discrets, continus, stochastiques, déterministes 25
+4.3. Les qualités d’un modèle 27
+Simulation informatique au service des Sciences de la Vie
+© Presses Universitaires Blaise-Pascal, 2010
+6
+TANLE DES MATIÈRES
+5 À quoi sert un modèle ? 27
+5.1. Questions et problèmes 27
+5.2. Les modèles sont des instruments scientifi ques 29
+6 La simulation : le modèle plongé dans le temps 30
+6.1. Introduction 30
+6.2. Simulation par objets, acteurs et agents 31
+6.3. Langages, méthodes et outils visuels de simulation 33
+7 Choix méthodologiques 35
+7.1. Niveau d’abstraction 35
+7.2. Niveau de détail 36
+7.3. Granularité du temps 38
+8 Conclusion : exploitation d’un modèle 39
+CHAPITRE 3 Modélisation par Objets
+de Systèmes à Flux discrets
+1 Introduction 41
+2 Proposition d’un processus
+et d’une méthode de modélisation par objets 41
+2.1. La sunthèse des approches existantes 44
+2.2. La proposition d’un processus 45
+2.3. La proposition d’une méthode de modélisation 48
+2.4. Conclusion 52
+3 L’analyse et la conception d’outils d’animation
+de résultats de simulation 53
+3.1. Le contexte historique 53
+3.2. Les techniques proposées 55
+3.3. Conclusion 57
+4 La génération automatique de code
+pour l’animation et la simulation 58
+5 Conclusion 60
+7
+TABLE DES MATIÈRES
+CHAPITRE 4 Une approche
+de la Modélisation d’Écosystèmes
+1 Introduction 61
+2 Le nécessaire couplage
+Système d’Information Géographique / simulation 63
+2.1. Introduction 63
+2.2. Intérêt du couplage SIG - SAED 64
+2.3. Conclusion sur les relations entre les données d’une SAED
+et les informations fournies par un SIG 66
+3 Les simulations en foresterie 68
+3.1. Introduction 68
+3.2. Application à la croissance de forêts
+avec prise en compte de l’eff et spatial 71
+3.3. Conclusion 74
+4 Les simulations appliquées à l’Océanographie 76
+4.1. Introduction 76
+4.2. Le modèle d’expansion de l’algue Caulerpa raxifolia 78
+4.3. Résultats de la simulation de la croissance de Caulerpa taxifolia 81
+4.4. Simulation de la croissance de l’herbier de Posidonie 85
+4.5. La lutte par un agent de contrôle biologique 88
+4.6. Métamodélisation par un réseau de neurones 92
+4.7. Conclusion 97
+5 Les simulations multi-agents pour l’éthologie 99
+5.1. Introduction 99
+5.2. Étude de la mémoire des moutons 101
+5.3. L’entretien des paysages par des herbivores 108
+5.4. Conclusion 118
+6 Intégration des techniques du Web 119
+6.1. Introduction 119
+6.2. Quelques applications 122
+6.3. Conclusion sur les simulations de type « Web-based » 125
+7 Perspectives 126
+8
+CHAPITRE 5 Les Problèmes de Validation
+et de Vérifi cation des Modèles
+1 Introduction 131
+2 Les cadres expérimentaux 134
+3 La vérifi cation des programmes de simulation 134
+4 La validation des modèles et des résultats 138
+4.1. Introduction 138
+4.2. Analyse et validation des données 141
+4.3. La validation du modèle conceptuel 142
+5 Utilité de l’animation pour la validation
+de résultats de simulation 143
+6 L’analyse spectrale : une technique d’aide
+à la validation de modèles stochastiques spatialisés 146
+6.1. Interprétation de résultats de couplage SIG - SAED 146
+6.2. Analyse spatiale et analyse statistique 147
+6.3. Un exemple appliqué en océanographie 148
+7 Une approche logicielle
+pour la conception de plans d’expériences 154
+8 Une application à grande échelle
+des plans d’expériences 158
+9 Conclusion 163
+CHAPITRE 6 Conclusion 165
+Réfl exions 165
+Quelques apports 168
+Derniers travaux et perspectives 170
+ANNEXE Références bibliographiques 175
+TABLE DES FIGURES 203
+TANLE DES MATIÈRES
+CHAPITRE 1
+INTRODUCTION GÉNÉRALE
+Peu de gens parlent de l’humilité humblement… La vanité est
+si ancrée au coeur de l’homme… que ceux qui écrivent contre
+veulent avoir la gloire d’avoir bien écrit ; et ceux qui le lisent
+veulent avoir la gloire de l’avoir lu, et moi qui écrit ceci,
+ai peut-être cette envie ; et peut -être que ceux qui liront…
+Blaise Pascal (1632-1662)
+1. SYSTÉMIQUE ET COMPLEXITÉ
+Cet ouvrage synthétise des travaux menés en informatique pour les Sciences
+de la Vie depuis 1994 au sein du Laboratoire d’Informatique de Modélisation
+et d’Optimisation des Systèmes de l’Université Blaise-Pascal (LIMOS).
+Les dernières décennies sont caractérisées par un développement impressionnant
+des technologies de l’information. Cette puissance de traitement
+de l’information a cependant engendré une augmentation non négligeable
+de la complexité des systèmes à la base de l’activité économique des entreprises
+et des administrations qui, dans les pays « développés », reposent
+maintenant majoritairement sur du matériel et du logiciel informatique
+visant à améliorer la productivité et les communications. Par ailleurs, l’aug-
+Simulation informatique au service des Sciences de la Vie
+© Presses Universitaires Blaise-Pascal, 2010
+10
+CHAPITRE 1 – INTRODUCTION GÉNÉRALE
+mentation de la puissance de calcul et de mémorisation des informations a
+permis aux scientifi ques d’augmenter leurs connaissances des phénomènes
+physiques et de la nature en général. C’est précisément la confrontation
+avec des situations complexes de type naturel (physique, chimie, biologie,
+écologie, médecine, géographie,…) qui amenèrent les premiers travaux sur
+la notion de système et sur la systémique en général [Von Bertalanff y 1968]
+[Le Moigne 1977] [Simon 1991]. Ces réfl exions furent ensuite adaptées
+aux problèmes technologiques, d’ingénierie, d’architecture, d’économie,
+d’organisation… En eff et, pour toutes les situations où apparaissent des
+diffi cultés de compréhension, de prise de décision individuelle ou collective,
+il convient d’essayer d’étudier le système qualifi é de « complexe ». Un
+système est un ensemble d’éléments en interaction ; par opposition à un
+système qualifi é de « compliqué » qui peut être compris en le décomposant
+en éléments simples analysables séparément (approche réductionniste classique),
+un système qualifi é de « complexe » ne peut pas se réduire à la somme
+de ses parties [Atlan 1979]. Cette vision globale du système porte le nom
+d’holisme. En eff et, lorsque le système global présente des propriétés qui ne
+sont pas directement déductibles de celles des éléments qui le composent, et
+que les informations apportées par les éléments pris dans le tout sont plus
+riches que celles issues d’éléments pris isolément, le fonctionnement global
+du système doit être étudié par simulation.
+La théorie retenue est donc l’approche systémique. Les objets étudiés dans
+cet ouvrage sont des systèmes complexes et les outils utilisés sont les techniques
+informatiques. Mon objectif est de montrer comment des solutions
+informatiques permettent d’approfondir la compréhension de systèmes
+complexes, principalement en écologie. Toutes les réalisations eff ectuées
+reposent donc sur l’intégration d’outils logiciels pour la simulation de systèmes
+complexes.
+2. LES ÉCOSYSTÈMES : ARCHÉTYPE DES SYSTÈMES COMPLEXES
+On peut défi nir l’écologie comme une science qui étudie les conditions
+d’existence d’un être vivant ainsi que les rapports entre ce dernier et son
+environnement. La notion d’écosystème découle de cette défi nition : il s’agit
+d’un ensemble constitué par un milieu (sol, eau, etc.) et des êtres vivants, et
+entre lesquels existent des relations énergétiques trophiques (qui se rappor11
+INTRODUCTION GÉNÉRALE – CHAPITRE 1
+tent à la nutrition des tissus) [Gotelli 1998]. Un ensemble d’écosystèmes
+forme un complexe d’écosystèmes caractérisés par une origine commune ou
+des processus dynamiques communs [Coquillard et Hill 1997]. Dans son
+ouvrage sur l’apprentissage de la complexité, Gérard Clergue [Clergue 1997]
+terminait son chapitre sur l’apprentissage par simulation par le paragraphe
+suivant : « En résumé, la simulation est la seule façon d’aborder de plain pied la
+connaissance des systèmes complexes dont l’archétype pourrait être fourni par les
+écosystèmes. » Le lecteur intéressé par une approche théorique de l’écologie
+pourra se reporter utilement aux ouvrages suivants : [May 1973] [Frontier
+1977] [Roughgarden 1989] [Yodziz 1989] [Bulmer 1994] [Ågren et Bosatta
+1996]. Nous présentons dans [Hill et Coquillard 2007] une vue d’ensemble
+réactualisée des travaux internationaux en matière de modélisation et de
+simulation des écosystèmes.
+3. LA SIMULATION
+Dans cet ouvrage, on désignera par « simulation informatique » ou plus
+simplement « simulation », les programmes informatiques permettant de
+faire évoluer un modèle discret en fonction du temps (un temps virtuel,
+appelé « temps de simulation »). En conséquence, les techniques décrites
+dans cet ouvrage ne s’apparentent pas aux programmes de résolution numérique
+de modèles continus basés sur des systèmes d’équations diff érentielles
+(eux aussi appelés « simulations »), même si elles peuvent, dans le cadre de
+simulations hybrides ou de multi-modèles par exemple, utiliser ou collaborer
+avec de tels programmes.
+Certains scientifi ques considèrent que la simulation n’est pas un domaine
+de recherche. Il est vrai que la simulation est par essence un domaine applicatif
+plus qu’un domaine de recherche fondamentale au sens propre avec
+ses innovations ; l’utilisation de cette technique permet cependant de faire
+avancer la recherche fondamentale dans de nombreux domaines. En eff et,
+la simulation informatique est une activité essentiellement appliquée et elle
+force les collaborations pluridisciplinaires qui sont souvent le cadre d’échanges
+fructueux. Enfi n, pour un chercheur dans ce domaine, il reste rassurant
+de savoir que le CNRS attache, dans ses communiqués sur les procédures
+d’évaluation, autant d’importance au développement d’applications logicielles
+complexes qu’à la recherche fondamentale.
+12
+L’intérêt grandissant pour les techniques de modélisation dans de nombreux
+domaines scientifi ques est essentiellement motivé par les possibilités
+de prédictions qui leur sont associées. Toutefois, cet espoir est souvent déçu.
+L’intérêt majeur que l’on peut retirer d’un modèle reste, à notre avis, l’approfondissement
+de la connaissance des scientifi ques qui ont collaboré à sa
+construction, ou bien exploré de nombreux scénarios à l’aide de ce modèle.
+Cependant, n’omettons pas trop vite l’aspect prévisionnel : les modèles prédictifs
+sont nécessaires, la simulation possède intrinsèquement une réelle
+capacité d’aide à la décision et on peut élaborer des modèles à des coûts
+raisonnables. De ce fait, les besoins en simulation connaissent actuellement
+un essor, d’autant plus que l’infographie, la réalité virtuelle et la possibilité
+d’exécuter des modèles sur le Web permettent de communiquer avec le
+grand public ou avec des décideurs politiques. Cependant les scientifi ques
+restent attachés aux résultats statistiques, plus exploitables pour affi ner ou
+remettre en question leurs connaissances.
+Les systèmes étudiés par simulation, même très complexes, voire chaotiques,
+ont une organisation interne cohérente, mais encore faut-il être capable de
+la spécifi er. Les aspects statiques sont souvent assez faciles à décrire, mais
+la description du comportement dynamique d’un système est beaucoup
+plus délicate à réaliser. Les comportements dynamiques sont étudiés en
+exécutant les modèles dans un cadre expérimental réaliste. Les descriptions
+mathématiques ou algorithmiques des modèles permettent de représenter
+les changements d’état d’un système au cours du temps, ces changements
+pouvant être déterministes ou stochastiques dès lors que l’on introduit une
+part de hasard à l’aide de nombres pseudo-aléatoires. Lorsque l’on simule
+un système, on cherche à prévoir à partir de l’état de ce système à l’instant
+‘t’, ce que pourrait être son état à l’instant ‘t+dt’. Pendant une phase
+(souvent longue) de mise au point, de calibration et de remise en question
+d’un modèle, les résultats obtenus sont confrontés à la réalité. S’ils sont en
+accord avec la réalité, on suppose que le modèle explique certains mécanismes
+du système réel. Dans les meilleurs cas, il est parfois possible d’utiliser
+le modèle pour tenter des « prédictions », mais dans la majorité des cas c’est
+uniquement le rôle exploratoire des modèles qui sera d’un grand secours au
+scientifi que. Même lorsque le modèle donne des résultats prédictifs médiocres,
+sa construction aura néanmoins contribué à parfaire la connaissance
+des experts qui pourront peut-être identifi er une mauvaise hypothèse sur le
+fonctionnement du système réel.
+CHAPITRE 1 – INTRODUCTION GÉNÉRALE
+13
+4. LA MODÉLISATION D’ÉCOSYSTÈMES
+Les modèles mathématiques d’écosystèmes ont déjà largement été étudiés,
+mais ils ont rapidement montré leurs limites (le lecteur intéressé peut se
+reporter aux ouvrages suivants : [Maynard Smith 1974] [Pielou 1977]
+[Okubo 1980] [Vandermer 1981] [Levin 1989] [Hallam et Levin 1986]
+[Jeff ries 1989] [Pavé 1994]. Ces modèles sortent du cadre de notre domaine
+d’étude, tout comme les travaux théoriques de modélisation pour l’écologie
+des populations qui sont par ailleurs bien décrits dans la littérature : [Pielou
+1974] [Nisbet et Gurney 1982] [Caswell 1989] [Renshaw 1993].
+Mon expérience m’a conduit à me spécialiser dans la simulation stochastique
+à événements discrets. Une des meilleures références en français sur le
+sujet reste [Leroudier 1980]. L’introduction d’éléments stochastiques dans
+les modèles est bien une conséquence des limites de notre connaissance.
+Dans [Stewart 1992] et [Clergue 1997] nous trouvons : « Spinoza écrivait :
+"Il n’y a rien d’aléatoire dans la nature… une chose paraît aléatoire seulement à
+travers l’insuffi sance de nos connaissances". Ainsi conçu le déterminisme implique
+une prédictibilité absolue pour peu que toutes les causes soient connues. C’est
+la vision classique de la science de Newton à Einstein, pour qui Dieu ne joue pas
+aux dés ». La simulation à événements discrets qui était encore peu utilisée
+en écologie dans le début des années 1990 [Keen et Spain 1992], commence
+maintenant à être très prisée par les écologues [Grimm 1999]. Cette technique
+de simulation permet non seulement une représentation structurelle du
+système étudié, mais surtout elle autorise la modélisation d’interactions stochastiques
+discrètes dans le temps et dans l’espace entre les diff érentes entités
+du système à modéliser [Schneider 1994]. Les phénomènes écologiques
+que nous modélisons présentent des discontinuités spatiales et temporelles
+diffi ciles à reproduire avec des outils purement mathématiques.
+La modélisation d’écosystèmes est une entreprise complexe, de longue
+haleine, parsemée de pièges et de diffi cultés. L’établissement d’objectifs clairs
+dès la décision d’élaborer un modèle (qu’attend-on du modèle ?) évitera bien
+des modifi cations ultérieures hasardeuses. Pour un modèle d’écosystème, les
+choix du niveau d’abstraction et du degré de détail sont cruciaux. L’expression
+de Frontier : « ni réductionisme, ni holisme », pourrait être la devise
+des concepteurs de modèles [Frontier 1977]. Un des points les plus délicats
+dans la modélisation constitue à défi nir une fermeture de l’écosystème, alors
+que celui-ci par essence se trouve être ouvert. Cette fermeture constitue l’hy-
+INTRODUCTION GÉNÉRALE – CHAPITRE 1
+14
+pothèse simplifi catrice la plus forte. Quels que soient les choix, la simplicité
+restera une vertu en matière de modélisation.
+En ce qui concerne le niveau d’abstraction, notre choix a été celui des modèles
+individus centrés [Huston et al. 1988] [De Angelis et Gross 1992] [Breckling
+et Müller 1994]. Une étude récente de Volker Grimm publiée dans la
+revue Ecological Modelling présente une synthèse de l’utilisation des modèles
+individus centrés lors de ces dix dernières années [Grimm 1999]. Notre thématique
+de recherche aborde précisément ce type de modèle, encore appelés
+« Individual Based Models » (IBM) dans la terminologie anglo-saxonne. Si
+par contre, on a retenu le niveau d’une population biologique, il y a fort
+à parier que dans un grand nombre de cas, on soit néanmoins amené à
+recueillir des données relatives aux individus. En eff et, le comportement de
+la population (résultat attendu) résulte des interactions individuelles. Dans
+d’autres cas, on pourra eff ectuer une agrégation, c’est-à-dire simuler le comportement
+global de la population au moyen d’une fonction que l’on estime
+suffi samment représentative de celui-ci. Les individus eux-mêmes ne sont
+pas exempts d’infl uences provenant des niveaux supérieurs de la hiérarchie
+(autres populations, facteurs de l’environnement). Doit-on prendre en
+compte ou non ces facteurs ? Lesquels d’entre eux peuvent-être considérés
+comme négligeables ? Il n’y a pas de règle absolue dans ce domaine, ce qui
+peut faire dire que la modélisation s’apparente quelque peu à un art.
+La qualité des données écologiques constitue un deuxième impératif : leur
+adaptation aux objectifs fi xés, bien sûr, mais aussi la qualité de leur échantillonnage.
+L’écologie de terrain est saisonnière. Quoi de plus désappointant,
+en fi n de saison, que de constater un nombre insuffi sant de relevés
+ou d’expériences sur le terrain, des lacunes, des données manquantes, trop
+d’incertitudes dans les mesures, toutes choses qui ont pour eff et de retarder
+encore la mise au point du modèle ?
+Le choix de la technique à utiliser découle directement des objectifs de la
+modélisation. Méthodes analytiques et simulations discrètes n’off rent pas les
+mêmes possibilités. Seul l’expert du domaine peut infl uer sur ce choix par
+les objectifs qu’il fi xe et les éléments qu’il souhaite prendre en compte.
+Nous avons fait le choix d’utiliser pour ces modélisations des méthodes
+mêlant déterminisme et stochasticité. Nous pensons que ce sont précisément
+ces méthodes qui permettent d’approcher la complexité des écosystèmes en
+améliorant sensiblement le réalisme des modèles. De même, nous avons
+retenu les techniques à objets pour le développement de tous mes modèles
+CHAPITRE 1 – INTRODUCTION GÉNÉRALE
+15
+et, c’est également le choix retenu par de nombreux autres collègues pour
+des applications variées (ex : [Lhotka 1991] [Breckling et Müller 1994]
+[Baveco et Smeulders 1994]). En eff et, en biologie et en écologie, l’approche
+orientée-objet, par ses concepts si proches des raisonnements en matière
+de taxonomie, est une aide précieuse ; elle s’adapte remarquablement bien
+aux modèles nécessitant la prise en compte de l’espace et des comportements
+individuels. Cette approche facilite largement la réutilisabilité et la
+maintenance, elle oblige l’expert (l’écologue) à un recensement exhaustif et
+hiérarchisé de tous les facteurs qu’il souhaite prendre en compte, et elle facilite
+grandement le dialogue entre le biologiste et l’informaticien qui trouvent
+ici un langage commun. Ce dernier point est un élément de garantie
+pour limiter les oublis et ne négliger aucun des aspects importants d’un
+écosystème.
+Malgré tout, l’apprentissage par un biologiste ou un écologue d’une méthode
+d’analyse et de conception par objets, ainsi que d’un langage à objets reste
+un sérieux investissement en temps et en eff orts d’abstraction ; mais les
+bénéfi ces compenseront largement les sacrifi ces. Par ailleurs, l’obtention,
+l’expression et l’analyse des résultats doivent être adaptées à la méthode.
+L’expression des résultats doit faire l’objet d’un soin tout particulier. Ainsi,
+dans le domaine des méthodes de simulations discrètes stochastiques,
+l’usage d’intervalles de confi ance est impératif. On ne peut que regretter le
+peu d’attention porté aux phases de validation en matière de modélisation
+d’écosystèmes [Hill 1995b]. À la décharge des modélisateurs, la validation
+de modèles d’écosystèmes ne peut pas être poussée aussi loin que dans le
+domaine industriel où l’ensemble des paramètres peuvent être spécifi és par
+l’homme. Une attention toute particulière doit être cependant portée à la
+validation. En eff et, la validation par confrontation avec la réalité prend ici
+toute son importance.
+5. CONTEXTE DE NOS TRAVAUX DE RECHERCHE
+La thématique de recherche en modélisation et en simulation pour les Sciences
+de la Vie s’inscrit dans le cadre de la participation du LIMOS aux actions
+de recherche interdisciplinaires. Après avoir consacré les années 1990 à 1993
+à la simulation visuelle par objets, de systèmes de production, de transports,
+de systèmes informatiques ou de systèmes complexes en général, nous avons
+INTRODUCTION GÉNÉRALE – CHAPITRE 1
+16
+estimé que ces techniques pouvaient s’appliquer à la modélisation de certains
+écosystèmes où les aspects spatiaux limitent le champ d’application des
+outils mathématiques usuels. Ainsi depuis 1993, nous avons recentré notre
+thématique sur la modélisation des écosystèmes et du vivant en tant que
+systèmes complexes naturels.
+La résolution des problèmes posés par la modélisation d’écosystèmes nécessite
+de nombreuses collaborations. Les principaux laboratoires avec lesquels
+nous avons pu collaborer sont : le Laboratoire d’Écologie Végétale et Cellulaire
+de l’Université d’Auvergne, le Laboratoire d’Environnement Marin
+Littoral de l’Université de Nice Sophia-Antipolis, plusieurs unités de l’INRA
+et du CEMAGREF.
+6. ORGANISATION DE L’OUVRAGE
+Le chapitre qui suit présente les concepts généraux que nous manipulons.
+Les notions de système, de modèle et de complexité sont abordées. Le rôle
+d’un modèle et celui de la simulation sont également traités avant de discuter
+les choix méthodologiques.
+Le chapitre 3 présente nos activités de recherche lors de mon doctorat.
+Celui-ci était consacré au développement d’outils logiciels pour la modélisation
+et la simulation de systèmes complexes. Au début des années 1990,
+nous avons conçu et réalisé des outils de simulation visuelle par objets pour
+des systèmes à fl ux discrets (de production, de transports, de systèmes informatiques
+et des systèmes administratifs). Nous avons également proposé
+un processus et une méthode de modélisation par objets et un environnement
+de programmation visuelle de modèles de systèmes à fl ux discrets. Cet
+environnement était capable, à partir d’une saisie graphique et interactive,
+de générer automatiquement du code pour diff érents outils et langages de
+simulation (Siman IV, Qnap 2, Simula 67) en se basant sur le formalisme
+des réseaux de fi les d’attentes. J’avais également développé un outil d’animation
+de résultats de simulation reposant sur le même type de programmation
+visuelle. Les outils développés avaient été validés sur de nombreux systèmes
+de production du groupe Valeo et commercialisés par la société Simulog.
+La capacité à générer automatiquement des codes de simulation à partir de
+spécifi cations graphiques et grâce à des méta-modèles, était préconisée et
+mise en oeuvre depuis le début des années 1990. En 2000, l’Object Manage-
+CHAPITRE 1 – INTRODUCTION GÉNÉRALE
+17
+ment Group a introduit des concepts similaires au sein de son architecture
+dirigée par les modèles (MDA : Model Driven Engineering) ; les techniques
+de transformation mise en oeuvre de façon plus générale dans l’Ingénierie
+de Modèles au début du nouveau millénaire sont fortement inspirées de ces
+travaux.
+Le chapitre 4 présente synthétiquement les principaux projets de modélisation
+que nous avons réalisés et encadrés en écologie terrestre et en océanographie.
+Les détails techniques sont omis afi n de ne pas alourdir cet ouvrage.
+Pour chaque projet l’apport principal réside dans le développement et l’intégration
+concrète de techniques logicielles pour la simulation d’écosystèmes.
+Nous avons été amené à associer le Web, les Systèmes d’Information Géographique,
+l’infographie, les outils d’analyse statistique et la conception de
+plans d’expérience. Étant donnée la grande complexité des écosystèmes étudiés,
+nous préconisons dans un grand nombre de situations, l’utilisation de
+modèles utilisant la simulation à événements discrets couplés à des Systèmes
+d’Information Géographique. Cette approche présente le double avantage
+de pouvoir prendre en compte à la fois les phénomènes spatiaux discontinus
+des écosystèmes et les aspects individuels (intégrant aussi bien la diversité
+génétique des individus que les aspects sociaux des groupes d’individus).
+Le chapitre 5 est consacré exclusivement aux problèmes de validation des
+modèles. La complexité des modèles d’écosystèmes nécessite un intérêt particulier
+pour les techniques de validation et de vérifi cation applicables au
+cours du cycle de développement d’un modèle de simulation stochastique,
+ainsi que lors de l’analyse statistique des résultats (analyse spectrale, détermination
+d’intervalles de confi ance, etc.). Pour tout modèle d’écosystème
+réel, il est diffi cile d’obtenir des résultats de qualité. Les résultats des simulations
+stochastiques sous contraintes spatiales produisent néanmoins des
+cartes utiles et une technique d’analyse spectrale de séries de cartes est présentée.
+Les outils de visualisation et d’animation des résultats sont abordés
+car nous avons travaillé sur ces aspects qui sont des atouts supplémentaires
+pour la validation des modèles et des résultats.
+Le dernier chapitre conclura en présentant une réfl exion sur les travaux de
+simulation réalisés et abordera également un ensemble de perspectives de
+recherche.
+INTRODUCTION GÉNÉRALE – CHAPITRE 1
+
+CHAPITRE 2
+RÉFLEXIONS SUR LA MODÉLISATION
+ET LA SIMULATION
+Là où il n’y a pas d’amour,
+semez de l’amour et vous recolterez de l’amour.
+Saint Jean de la Croix
+1. INTRODUCTION
+L’étude de systèmes qui semblent complexes à nos pauvres esprits constitue
+une dimension essentielle de l’approche scientifi que. La réalisation d’une
+représentation simplifi ée qui aide à comprendre le fonctionnement du système
+est alors l’essence de l’activité de modélisation. Cette activité est fréquemment
+pluridisciplinaire car, en eff et, elle nécessite le rapprochement
+d’outils, de techniques, de méthodes et d’experts de diff érents domaines.
+C’est précisément dans l’intégration de techniques, d’outils et de méthodes
+pour divers domaines d’application que je situe mes travaux de recherche.
+Avant de présenter les applications que j’ai pu réaliser, je tiens à défi nir
+plusieurs termes génériques, notamment : système, modèle, simulation,
+complexité dont la signifi cation peut varier entre deux informaticiens qui
+n’abordent pas le même thème de recherche.
+Simulation informatique au service des Sciences de la Vie
+© Presses Universitaires Blaise-Pascal, 2010
+20
+CHAPITRE 2 – RÉFLEXIONS SUR LA MODÉLISATION ET LA SIMULATION
+2. QU’EST-CE QU’UN SYSTÈME ?
+La notion de système embrasse une grande variété d’objets : système d’équations,
+système naturel, système mécanique… Aussi une défi nition unique
+du terme système est-elle malaisée à trouver. La défi nition suivante pourrait
+à la rigueur convenir à l’ensemble des entités que nous reconnaissons
+comme des systèmes : un système est une collection d’objets en interactions.
+Même si les systèmes statiques existent (minéraux, roches, métaux…), les
+plus intéressants sont naturellement les systèmes dans lesquels les interactions
+provoquent fréquemment des changements d’état.
+Il est trivial de constater qu’en matière de systèmes « naturels », il n’existe pas
+de systèmes juxtaposés, indépendants – isolés au sens thermodynamique –,
+c’est-à-dire n’entretenant avec le milieu ambiant aucun échange d’énergie
+ni de matière ; les systèmes naturels sont dits ouverts. Par commodité, nous
+distinguons des sous-systèmes, c’est-à-dire des entités qui, au sein du système
+naturel, fonctionnent de façon apparemment autonome mais en entretenant
+des relations avec le reste du système naturel. Ceci conduit naturellement
+à considérer un système et son environnement. Ainsi, les écosystèmes dont
+nous parlerons sont-ils des sous-systèmes de notre biosphère.
+Un système est donc constitué d’un ensemble d’objets en interaction,
+constituant autant d’entités du système caractérisées par un (des) attribut(s)
+et une (des) activité(s). Nous appelons activité tout processus susceptible
+de changer l’état du système. Pour prendre un exemple simple, un végétal
+constitue une entité caractérisée par les attributs taille, type de feuillage, etc.
+Ses activités seront essentiellement d’absorber des substances nutritionnelles,
+de croître et de se reproduire. Chacune de ces activités est susceptible
+de modifi er l’état d’un système « collection de végétaux », comme une forêt
+par exemple. On appelle état d’un système la description de l’ensemble des
+entités, attributs et activités qui le composent à un instant ‘t’ donné.
+Un système, nous l’avons mentionné, entretient des relations avec son environnement.
+Les activités de l’environnement qui peuvent aff ecter l’état du
+système sont dites exogènes par opposition aux activités endogènes, i.e.
+internes au système.
+Par ailleurs, l’activité d’un système semble pouvoir être déterminée complètement
+par les entrées du système. Ainsi, il semble que l’on peut décrire le
+développement d’un arbre en connaissant l’intensité lumineuse, les ressour21
+RÉFLEXIONS SUR LA MODÉLISATION ET LA SIMULATION – CHAPITRE 2
+ces en nutriments et en eau comme paramètres d’une loi de croissance. Un
+tel système est dit déterministe.
+À y regarder de plus près, cette hypothèse doit être levée car bien des entrées
+du système varient aléatoirement, notamment les paramètres climatiques,
+les attaques parasitaires et les activités humaines qui vont perturber la croissance
+de l’arbre. De même, un système de production automatisé sera sujet
+à des pannes. L’activité résultante comporte donc une part d’aléatoire et
+le système est dit stochastique. En réalité un système n’est jamais totalement
+déterministe ou stochastique, mais comporte une part des deux types
+d’activités. On dira qu’un système est stochastique si son activité comporte
+au moins un processus stochastique, et il sera dit déterministe dans le cas
+inverse.
+Enfi n, une dernière distinction doit être faite entre les systèmes continus et
+discrets. Typiquement, la croissance d’un arbre au cours de la saison de végétation
+constitue une activité continue – sans à-coups. Par opposition, certaines
+activités peuvent modifi er le système de manière discontinue à certaines
+dates du déroulement de l’activité. Par exemple, l’assemblage de pièces au
+sein d’un système de production est une activité discrète, puisqu’elle intervient
+à date fi xe et fournit un nombre entier de pièces. On devra cependant
+porter attention à la nature réelle de cette activité. Si l’on s’intéresse par
+exemple à la reproduction au sein d’une population de bactéries, l’activité
+« reproduction » pourra à la rigueur être considérée comme continue en
+raison du temps très court de génération, du nombre considérable d’individus
+en jeu et de la désynchronisation des divisions bactériennes. Mais il
+s’agit bien, en dernière analyse, d’une activité discrète. À l’inverse, au sein
+d’une population d’animaux supérieurs, cette activité, considérée comme
+continue chez les bactéries, devra préférentiellement être considérée comme
+discrète.
+3. COMPLEXITÉ DES SYSTÈMES ET INTÉRÊT DE LA MODÉLISATION
+La réalité est souvent beaucoup plus complexe que ce que nous imaginons.
+L’illusion de pouvoir un jour tout expliquer scientifi quement est tenace,
+et nos tentatives de compréhension, de classifi cation sont parfois dérisoires.
+Il faut défi nitivement raisonner dans des espaces multivariés, c’est-àdire
+possédant de nombreuses variables avec toutes leurs interactions ; il
+22
+faut alors pouvoir explorer ces espaces notamment en essayant de trouver
+les variables sensibles, en agissant sur elles afi n d’améliorer notre compréhension
+des phénomènes observés. L’analyse statistique de données permet
+d’analyser des situations complexes, telles qu’elles sont dans la réalité (ou
+presque), et d’étudier simultanément plusieurs variables et plusieurs facteurs
+de variations. Il faut cependant être conscient que si l’on ne dispose pas d’un
+minimum de compréhension d’un système toutes les statistiques que l’on
+pourrait obtenir n’auront aucun contenu sémantique. Par contre, dans de
+nombreux cas, il n’est pas possible ou il est relativement diffi cile d’obtenir
+des données sur un système réel complexe, la construction d’un modèle sera
+alors toujours très diffi cile. Toutefois elle s’impose comme technique exploratoire
+d’hypothèses.
+Dans tous les domaines d’application des techniques de simulation que
+nous avons pu aborder lors de ces dix dernières années, la mesure de la complexité
+reste diffi cile à quantifi er [Cellier 1991]. En eff et, comment pouvons
+nous déterminer qu’un système est plus complexe qu’un autre ? La taille
+du système, la quantité d’informations qu’il manipule, le comportement
+« imprévisible » ou « chaotique » sont souvent des caractéristiques mises
+en avant pour justifi er du caractère complexe d’un système. En réalité la
+complexité peut commencer avec des systèmes apparemment « très simples
+». Ce qui signifi e qu’il faut diff érencier la complexité du système, que
+l’on peut associer grossièrement au nombre de relations internes (l’aspect
+« compliqué » [Atlan 1979]) et la complexité du comportement, qui est en
+fait le résultat du fonctionnement du système. Des équations simples telles
+que celle présentée en 1848 par Verlhust pour modéliser la croissance d’une
+population a fait émerger un comportement complexe (bifurcation). Ainsi
+il apparaît clairement que la complexité ne saurait véritablement se mesurer
+comme une grandeur du nombre d’attributs ou de relations aff ectant les
+entités d’un système. Il est désormais admis par l’ensemble de la communauté
+scientifi que que les systèmes complexes (ne pouvant être analysés avec
+une approche réductionniste), se caractérisent par des phénomènes de réitération
+au cours desquels se produisent un auto-contrôle, une régulation
+du résultat. Une des particularités des systèmes écologiques est qu’ils reposent
+sur de tels types de rétrocontrôles agissant dans un environnement plus
+ou moins stable mais fl uctuant sur de courtes périodes (journalières, saisonnières,
+annuelles). Les rétrocontrôles des eff ectifs de population s’eff ectuent
+par exemple par le biais des naissances et des disponibilités des ressources,
+par les relations proie-prédateur, etc. L’étude des phénomènes de régulation
+se rapporte à la la dynamique des systèmes [Forrester 1961].
+CHAPITRE 2 – RÉFLEXIONS SUR LA MODÉLISATION ET LA SIMULATION
+23
+Nous pensons, tout comme [Legay 1996], que l’organisation interne d’un
+système est à même de justifi er la complexité. En eff et, le concept de complexité
+est lié pour un nombre croissant de scientifi ques au concept d’organisation.
+Les scientifi ques sont de plus en plus persuadés de l’organisation
+du monde vivant et des systèmes naturels. Einstein ne se demandait-il pas :
+« Pourquoi le monde est-il compréhensible, au lieu de nous apparaître comme
+un chaos sans ordre lisible ? »
+L’organisation des systèmes se présente souvent sous la forme de réseaux de
+relations et de structures s’articulant entre elles, régies par un ensemble de
+contraintes. Il n’est pas étonnant de voir le succès des méthodes d’analyse et
+de conception par objets qui reposent toutes sur des schémas permettant de
+mettre en évidence l’organisation des systèmes sous forme de classes d’objets
+avec leurs relations. Les avancées scientifi ques dans le domaine des systèmes
+naturels, les plus complexes que nous connaissons, font découvrir de nouveaux
+mécanismes, de nouvelles contraintes plus précises et plus fi nes, de
+nouvelles relations qui n’avaient pas été envisagées. Il est alors possible de
+donner une nouvelle représentation du système présentant une organisation
+plus fi ne, statique et dynamique, quitte à remettre en cause les recherches
+antérieures ce qui est le propre de la recherche scientifi que. Nos connaissances
+humaines dans tous les domaines sont limitées ; le « fl ou artistique » qui
+règne lorsque des « informaticiens » posent aux experts d’un domaine des
+questions précises pour construire leur modèle refl ète plus l’image de notre
+ignorance collective que celle de la non-organisation. Comme nous l’avons
+dit, un des principaux gains que nous obtenons en réalisant des modèles est
+précisément l’augmentation de la connaissance, qui conduit à une meilleure
+spécifi cation de l’organisation du système. Même si cette amélioration est
+infi me, elle devrait être le but premier de toute recherche qui utilise des
+modèles.
+Les modèles informatiques sont utilisés non seulement pour la conception
+d’outils ou de systèmes, mais leur intérêt est unique lorsqu’on essaye de « percer
+» toutes les grandes énigmes scientifi ques, que ce soit en astro physique,
+en biochimie, ou plus généralement pour les Sciences de la Terre et de la
+Vie. Dans certaines situations et dans certains domaines, des états d’équilibre
+peuvent apparaître. On a également appris que les variations pouvaient
+être importantes sans entraîner de catastrophes, tant que le retour à ces états
+d’équilibre était assuré. Par contre dans de nombreuses autres situations l’irrégularité
+des phénomènes renvoie les chercheurs à leurs modèles, et ceci
+quel que soit le domaine abordé. La constante reste que, dans tous les cas,
+RÉFLEXIONS SUR LA MODÉLISATION ET LA SIMULATION – CHAPITRE 2
+24
+la modélisation informatique est un outil précieux pour étudier et découvrir
+les détails des processus qui régissent des systèmes dits complexes.
+« La variabilité du monde vivant n’est pas le chaos ; on la sent liée au
+milieu physique, au climat, à sa propre histoire ; » … « Les variations les
+plus fi nes suivent elles-mêmes des lois complexes, et c’est leur exploration
+qui constitue le champ habituel de la science. Mais ces variations ne sont
+pas isolées, indépendantes ; elles sont celles des éléments d’un système et
+c’est leur approche multiple et simultanée qui rend maintenant nécessaire
+l’usage des moyens informatiques comme outils de la recherche, tant au
+niveau technique que méthodologique. » [Legay 1996]
+4. QU’EST-CE QU’UN MODÈLE ?
+4.1. La notion de modèle
+Avant d’aborder la notion de modèle proprement dit, il convient d’attirer
+l’attention sur un point particulier. Il ne faudra pas confondre la nature
+d’un système et celle de son modèle. Ainsi, un système peut être continu et
+déterministe, mais le modèle discret et stochastique. L’introduction d’éléments
+stochastiques dans un modèle refl ète, dans bien des cas, notre incapacité
+à modéliser l’ensemble d’une activité dont il faudrait une connaissance
+très approfondie pour la reproduire fi dèlement. La reproduction des événements
+climatiques en est un bon exemple.
+La notion de modèle n’est pas récente en science. Ainsi le modèle astronomique
+héliocentrique de Copernic révolutionna-t-il la conception géocentrique
+d’inspiration aristotélicienne et judéo-chrétienne. Le modèle
+copernicien fut lui-même par la suite enrichi pour être remplacé par le
+modèle planétaire actuel de notre système solaire. On le voit aisément, les
+modèles ne sont pas destinés à survivre indéfi niment. C’est qu’ils représentent,
+à un instant donné, la somme des connaissances accessibles aff érentes
+à un domaine particulier. Que l’expérimentation ou l’observation viennent
+à prendre en défaut le modèle, et tout est à reconsidérer… Il s’agit là du
+processus même de l’avancement de la science. Poser une hypothèse – ou
+une série d’hypothèses – relative à un phénomène observable et mesurable
+fonde l’acte de la modélisation. L’ensemble des observations ultérieures du
+système réel en fonctionnement permettra la validation ou l’invalidation du
+modèle.
+CHAPITRE 2 – RÉFLEXIONS SUR LA MODÉLISATION ET LA SIMULATION
+25
+La notion de modèle est si intimement liée à la pensée scientifi que que nous
+pouvons nous surprendre très souvent à confondre modèle – l’idée que nous
+nous faisons de… – et réalité, au point que cette prise de conscience nous
+demande parfois quelques eff orts. En un mot, un modèle est une abstraction
+qui simplifi e le système réel étudié en ignorant de nombreuses caractéristiques
+de celui-ci, pour se focaliser sur les aspects qui intéressent le modélisateur
+et qui défi nissent la problématique du modèle.
+En 1965, Marvin Minsky proposait la défi nition suivante :
+« To an observer B, an object A* is a model of an object A to the extent
+that B can use A* to answer questions that interest him about A »
+[Minsky 1965]
+C’est le moins que l’on puisse demander à un modèle, direz-vous ! Pourtant,
+cette phrase est bien plus lourdement chargée de sens qu’il n’y paraît. Si le
+modèle nous permet d’apprendre quelque chose d’utile sur le fonctionnement
+du système, l’observateur peut se considérer comme satisfait. Voilà
+qui peut lever bien des réticences et des préjugés à propos de la modélisation.
+Que l’on se reporte au modèle logistique : les bifurcations, les régimes
+cycliques et le comportement chaotique furent découverts au travers de ce
+modèle bien avant d’être reconnus dans les systèmes réels [Gleick 1989].
+Pourtant, bien peu de systèmes réels peuvent être modélisés très exactement
+par l’équation logistique. C’est bien sous l’impulsion de la modélisation que
+ces phénomènes ont été découverts dans la nature. Deux autres exemples :
+la double hélice de l’ADN (acide désoxyribonucléique) de Watson et Crick
+ainsi que les a-hélices des chaînes polypeptidiques proposées par Pauling
+ont été des modèles avant que de trouver confi rmation dans l’expérimentation.
+Ici, la théorie peut précéder l’observation. Si le modèle reproduit
+fi dèlement en termes quantitatifs le système réel, tout est pour le mieux.
+S’il ne le peut, contentons-nous tout d’abord d’explorer ses divers comportements
+et interrogeons-nous sur la validité de ceux-ci dans le réel. En tout
+cas, aurons-nous appris quelque chose, à savoir que nos connaissances du
+système à modéliser sont encore insuffi santes.
+4.2. Modèles discrets, continus, stochastiques, déterministes
+Les critères de classifi cation évoqués précédemment pour les systèmes s’appliquent
+aux modèles : suivant la technique de représentation des changements
+d’états au sein d’un modèle celui-ci va être considéré comme étant discret
+ou continu. Si les changements d’états du modèle s’opèrent de manière
+RÉFLEXIONS SUR LA MODÉLISATION ET LA SIMULATION – CHAPITRE 2
+26
+continue au cours du temps on parle de modèle et de simulation continue.
+Une simulation de barrage (remplissage, vidange,…) sera eff ectuée par un
+modèle continu reposant sur des équations diff érentielles. Lorsque les changements
+d’états interviennent seulement à des dates précises, appelées dates
+d’occurrence des événements, on parle de modèle discret et de simulation
+à événements discrets. Il est également possible de coupler des modèles discrets
+à des modèles continus, on parle alors de modèles combinés. Les derniers
+travaux de Zeigler en sont un bon exemple [Zeigler et al. 2000].
+Les techniques de simulation discrète ne sont pas limitées par une formalisation
+mathématique du problème. Cependant elles sont aussi les plus complexes
+à mettre en oeuvre et les plus gourmandes en temps de calcul.
+La distinction que nous avions faite pour les systèmes vaut pour les modèles.
+Lorsqu’un modèle fait apparaître explicitement le hasard (en utilisant par
+exemple des tirages de nombres pseudo-aléatoires distribués suivant des lois
+de probabilités), il est classé parmi les modèles stochastiques. Par opposition,
+un modèle déterministe ne reproduit pas de comportements aléatoires.
+Nous avions vu que les systèmes réels qui ne présentent pas d’incertitudes de
+fonctionnement sont rares (qu’elles soient dues à la complexité interne du
+système ou à son environnement) ; c’est pourquoi les modèles stochastiques
+(ou encore probabilistes) sont les plus intéressants. De plus, ces modèles
+permettent de compenser notre manque de connaissance en introduisant
+volontairement des fl uctuations aléatoires guidées par des lois de probabilités.
+Il est par exemple souvent possible de trouver la loi de distribution des
+graines autour du tronc d’un arbre, ou encore la loi de distribution des arrivées
+d’appels téléphoniques sur un central. On peut ainsi, grâce à la génération
+de nombres pseudo-aléatoires reproduire des phénomènes complexes
+pour lesquels une mise en équation totale est encore impossible. Il se peut
+cependant qu’en fonction des objectifs fi xés on ait décidé d’ignorer les phénomènes
+aléatoires s’ils ont un impact négligeable et, dans ce cas, le choix
+d’un modèle déterministe est tout à fait justifi é. Un modèle déterministe
+ne contient plus que des relations certaines. Un modèle de croissance de la
+population mondiale basé sur une série mathématique peut être un modèle
+simple et déterministe, mais si les objectifs sont d’avoir un modèle prédictif,
+il n’est pas certain que ce soit le meilleur modèle.
+CHAPITRE 2 – RÉFLEXIONS SUR LA MODÉLISATION ET LA SIMULATION
+27
+4.3. Les qualités d’un modèle
+La dernière caractéristique fondamentale que nous voulons mettre en évidence
+pour un modèle réside dans le fait qu’il est construit en fonction d’un
+ensemble d’objectifs. Ce sont ces objectifs qui déterminent les hypothèses
+de modélisation et le degré de simplifi cation du modèle. Finalement, qu’estce
+donc qu’un modèle ? Sa principale caractéristique est d’être une simplifi -
+cation de la réalité, une approximation qui, bon an mal an, reproduit à peu
+près la réalité. [Popper 1973] relève trois caractéristiques communes à tous
+les modèles :
+1. Un modèle doit avoir un caractère de ressemblance avec le système réel,
+2. Un modèle doit constituer une simplifi cation du système réel,
+3. Un modèle est une idéalisation du système réel.
+auxquelles nous ajouterons : un modèle est dépendant des objectifs fi xés
+par la problématique d’une étude précise et c’est dans ce cadre qu’il doit
+reproduire le mieux possible le comportement du système réel (cf. premier
+point de Popper).
+5. À QUOI SERT UN MODÈLE ?
+5.1. Questions et problèmes
+Nous pourrions esquiver la question en affi rmant qu’un modèle doit satisfaire
+les objectifs qui lui sont associés. Détaillons cependant le sujet en factorisant
+les objectifs communs à toute modélisation. Un modèle sert principalement
+à répondre à des questions et dans le meilleur des cas à résoudre
+un certain nombre de problèmes posés par un système (qualifi é de complexe
+du fait de sa taille ou de son organisation), ainsi que, comme nous l’avons
+déjà souligné, à améliorer notre connaissance sur ce système. En eff et, la
+complexité engendre des interrogations et des problèmes, aussi bien lors de
+l’étude et de la conception que lors de l’exploitation d’un système. Citons
+quelques exemples en modélisation d’écosystèmes :
+• la détermination d’un dimensionnement adapté : par exemple la taille
+des zones à laisser en friche, le nombre d’animaux à placer sur une
+estive (notion de chargement), le nombre de limaces nécessaires pour
+une lutte biologique contre une autre espèce ; si l’on considère les
+RÉFLEXIONS SUR LA MODÉLISATION ET LA SIMULATION – CHAPITRE 2
+28
+systèmes de production, de transport, les systèmes informatiques et
+administratifs… ; les problèmes à résoudre concernent : le nombre de
+machines, de camions, de processeurs ou de fonctionnaires qu’il faut
+prévoir, la taille des zones des stocks-tampons, de la mémoire cache,
+des aires de parking ou des salles d’attentes,…
+• la compréhension de leur fonctionnement : comment les ovins organisent-
+ils leur mémoire, comment s’en servent-ils ? L’algue tropicale
+Caulerpa taxifolia peut-elle se déplacer avec des courrants alors que sa
+fl ottabilité est négative ? Combien peut-on ajouter de chevaux sur une
+estive pâturée par des bovins sans induire trop de perturbations… ?
+• l’amélioration de leur productivité : qu’il s’agisse d’estives pâturées par
+des vaches, des agnelles ou des chevaux, ou d’une cellule d’assemblage
+fl exible dans une usine, comment peut-on s’assurer que les ressources
+sont utilisées au mieux ? N’y a-t-il pas des ressources actives qui passent
+plus de temps à attendre qu’à produire, des zones non exploitées
+par les vaches qui pourraient l’être par des chevaux ?
+• les problèmes de maintenance : doit-on arrêter la traite des vaches
+pendant certaines périodes pour éviter l’apparition de mammites ?
+Doit-on « forcer » une personne à prendre des vacances avant qu’elle
+ne tombe malade, et avec quelle fréquence ?
+• les problèmes d’aléas : qu’il s’agisse de propagation de boutures au gré
+des vents ou des marées, de pannes dans un matériel de production
+automatisé, il est intéressant de connaître le comportement stochastique
+d’un système. Dans un système naturel, la prise en compte des
+aspects stochastiques est souvent nécessaire pour calibrer un modèle
+avec des données réelles.
+• les problèmes d’ordonnancement des fl ux dans les systèmes : existet-
+il un ou plusieurs ordonnancements qui améliorent le rendement
+d’un système ? Que ce soit au niveau de l’alimentation en fourrage
+d’un troupeau de vaches à lait ou du déplacement des troupeaux sur
+plusieurs estives, il convient d’essayer d’optimiser la production.
+• …
+Pour appréhender le comportement d’un système et donc pour essayer de
+résoudre les problèmes évoqués précédemment, on essaye de recueillir de
+l’information, de prendre des mesures, tout en sachant que toute prise de
+mesure perturbe le système étudié. L’analyse des valeurs mesurées conduit à
+une meilleure compréhension du système étudié. Dans certains cas, la prise
+CHAPITRE 2 – RÉFLEXIONS SUR LA MODÉLISATION ET LA SIMULATION
+29
+de mesure est impossible, trop complexe ou trop coûteuse à mettre en oeuvre
+et on ne peut comprendre le fonctionnement du système qu’à partir d’un
+modèle. Si le système réel n’existe pas, et que l’on cherche à le concevoir,
+on parlera de modélisation « a priori », ce qui n’empêche pas de chercher à
+évaluer et à améliorer les « performances du système futur ». Évaluer signifi e
+« déterminer une quantité par le calcul sans recourir à la mesure directe ».
+L’évaluation est donc toujours eff ectuée à l’aide d’un modèle. Les modèles
+de simulation sont souvent utilisés en tant qu’aide pour la prise de décisions
+sur des projets coûteux. Les utilisateurs de ces modèles doivent donc être
+en mesure de faire confi ance aux modèles. Pour que cette confi ance soit
+justifi ée, il est toujours nécessaire de vérifi er et de valider ces modèles en
+fonction des objectifs que l’on s’est fi xés. Nous reviendrons plus tard sur les
+notions de vérifi cation et de validation.
+En matière d’écologie, les connaissances acquises ces dernières décennies
+ont connu une croissance spectaculaire corrélativement à l’acquisition de
+nouvelles techniques d’échantillonnage (télédétection et imagerie spatiale ;
+suivi radiogoniométrique des animaux ; automatisation de l’acquisition de
+données physico-chimiques de l’air et de l’eau, etc.), de techniques d’analyse
+numérique (analyse statistique de données multidimensionnelles, analyse
+de séries), ainsi que de l’outil informatique (matériel et logiciel). Dans le
+même temps, ce fl ot de données fi t prendre conscience à un nombre croissant
+de décideurs qu’une organisation de la gestion des activités humaines
+était nécessaire afi n d’améliorer la gestion de notre environnement.
+Face à l’insondable complexité du fonctionnement des écosystèmes, seules
+les techniques de modélisation, associées aux performances croissantes de
+l’outil informatique, permettent dans un certain nombre de cas de proposer
+des aides fi ables à la gestion raisonnée de notre environnement : modèles de
+gestion des quotas de pêche, de croissance forestière, de fonctionnements
+lacustres, de dispersion d’émissions polluantes, de prévision d’extension des
+incendies, etc. Les besoins sont ressentis aujourd’hui comme considérables.
+5.2. Les modèles sont des instruments scientifi ques
+Les modèles écologiques ne diff èrent pas fondamentalement – pas même
+par leur complexité – des modèles développés dans d’autres disciplines. L’incroyable
+complexité que présente le fonctionnement d’un écosystème ne
+peut être saisie par la simple acquisition de l’ensemble des paramètres qui
+le caractérise. Or, pendant longtemps l’écologie s’est réduite à cette seule
+RÉFLEXIONS SUR LA MODÉLISATION ET LA SIMULATION – CHAPITRE 2
+30
+démarche descriptive. Cette démarche fut une étape nécessaire, mais les
+multiples interactions et rétroactions (eff ets feed-back) au sein de tels systèmes
+font apparaître des comportements que l’on ne saurait saisir par la
+simple juxtaposition des données recueillies sur l’ensemble du système, fussent-
+elles exhaustives. En d’autres termes, le comportement du système n’est
+pas équivalent à la somme des comportements des parties. Seule une modélisation
+mettant en interaction les diff érentes parties du système peut faire
+apparaître les comportements émergeants. Il n’est donc pas surprenant que
+les modèles en matière d’écologie soient de plus en plus utilisés pour une
+meilleure compréhension des écosystèmes [Pavé 1994]. Jorgensen résume
+en quatre points les avantages de la modélisation [Jorgensen 1994] :
+• Les modèles ont leur utilité dans la surveillance de systèmes
+complexes.
+• Les modèles peuvent être utilisés pour révéler les propriétés des systèmes
+écologiques.
+• Les modèles peuvent montrer des carences dans nos connaissances et
+être utilisés pour défi nir des priorités dans la recherche.
+• Les modèles sont utiles pour tester des hypothèses scientifi ques, dans
+la mesure où le modèle peut simuler les réactions de l’écosystème,
+lesquelles peuvent être comparées aux observations.
+6. LA SIMULATION : LE MODÈLE PLONGÉ DANS LE TEMPS
+6.1. Introduction
+Beaucoup d’auteurs associent le terme de simulation à une technique de
+résolution de problème. Ainsi, la génération d’une variable aléatoire X de
+distribution exponentielle négative par la méthode de l’anamorphose est
+appelée simulation de la variable X. Nous considérons d’une façon plus
+générale que la simulation consiste à faire évoluer le modèle d’un système
+au cours du temps et que ce n’est pas de la méthode de génération des événements
+qui fait évoluer ce modèle, cette vision purement technique constituant
+à notre avis une restriction. La simulation associe étroitement modèle
+et temps. Nous retenons la défi nition suivante de la simulation :
+« La simulation consiste à faire évoluer une abstraction d’un système au
+cours du temps afi n d’aider à comprendre le fonctionnement et le compor-
+CHAPITRE 2 – RÉFLEXIONS SUR LA MODÉLISATION ET LA SIMULATION
+31
+tement de ce système, et à appréhender certaines de ses caractéristiques dynamiques
+dans l’objectif d’évaluer diff érentes décisions. » [Hill 1993b].
+6.2. Simulation par objets, acteurs et agents
+Rappelons qu’en introduction nous précisions qu’un système est considéré
+comme un « ensemble d’objets en interaction ». Après avoir abordé les
+concepts clés de la modélisation en esquissant des défi nitions de la notion
+de système et de modèle sans se préoccuper des techniques informatiques,
+nous allons utiliser la notion d’objet logiciel puis esquisser une introduction
+aux techniques de simulation par objets.
+Le modèle objet, issu du monde de la simulation dès 1957 lors du projet
+du missile Minuteman [Tend Dyke et Kunz 1989], a été concrétisé à la
+fi n des années soixante par Simula [Dahl et al. 1966]. Depuis, il a conquis
+la communauté du génie logiciel en se montrant adapté à la production
+industrielle de logiciels de qualité. Par rapport aux approches procédurales
+ou fonctionnelles, un logiciel utilisant les possibilités de la technologie à
+objets devient, selon Bertrand Meyer, un modèle opérationnel où les objets
+logiciels refl ètent la réalité. À ce propos, nous tenons à citer un extrait de
+son ouvrage de référence : « Tout cela est particulièrement frappant dans le
+domaine de la simulation. Ce n’est pas par accident que depuis Simula 67, la
+simulation est un domaine d’application privilégié des techniques à objets. Pour
+modéliser le monde réel en vue de le simuler, quoi de mieux que de décrire les
+objets à simuler. » [Meyer 1990, p. 78]. La technologie à objets s’applique
+aussi bien aux simulations continues [Cellier 1991] qu’aux simulations discrètes
+[Hill 1993a].
+La simulation d’un système complexe fait intervenir de nombreux processus
+concurrents et en interaction. Des objets actifs, autonomes et concurrents
+(implémentés par un parallélisme physique ou logique) sont communément
+appelés acteurs et sont aptes à représenter les processus d’un modèle
+de simulation. Le mode de communication de référence pour les acteurs
+reste l’envoi de messages asynchrones non bloquants et il existe bien sûr des
+extensions pour les communications bloquantes. Les acteurs tels qu’ils sont
+présentés ci-dessus et dans [Briot 1989] sont à diff érencier du modèle de
+calcul des acteurs introduit par Agha [Agha 1990]. Les modèles d’acteurs
+sont des modèles à objets particuliers, aptes à appréhender le parallélisme des
+systèmes réels, et susceptibles d’être implantés sur des architectures parallèles
+(multiprocesseurs ou autres). Plusieurs modes de concurrence peuvent
+RÉFLEXIONS SUR LA MODÉLISATION ET LA SIMULATION – CHAPITRE 2
+32
+être isolés pour permettre une collaboration des acteurs fonctionnant en
+parallèle [Yonezawa et al. 1987]. L’utilisation de la programmation concurrente
+permet d’obtenir des simulations qui peuvent profi ter des techniques
+à objets distribués et des réseaux à hauts débits. L’utilisation et la normalisation
+IEEE du DIS (Distributed Interactive Simulation) par le Département
+de la Défense américaine en est un exemple concret.
+Une évolution des acteurs a conduit à la notion d’agent. Le but initial de
+l’intelligence artifi cielle était la modélisation des connaissances et du raisonnement
+humain. Un autre objectif ambitieux est connu sous le nom
+d’Intelligence Artifi cielle Distribuée et se base sur la collaboration d’une
+multitude d’agents simples et autonomes, organisés en société pour résoudre
+collectivement un problème qui peut être complexe [Drogoul 1993]. Les systèmes
+multi-agents prennent donc comme référence les interactions sociales
+élémentaires, et ceci pour favoriser l’émergence d’organisations complexes.
+Grâce au concept d’agent, il est possible de simuler des systèmes économiques,
+biologiques,… où chaque individu peut présenter un comportement
+diff érent. Cette approche de la simulation est utile dans des domaines très
+divers même si l’éthologie, où l’on souhaite étudier le comportement des
+animaux, reste un domaine de prédilection [Drogoul 1993] [Ferber 1995,
+1999]. Le lecteur intéressé par l’utilisation de ces techniques pour la robotique
+se reportera utilement à [Drogoul 2000].
+Les systèmes multi-agents se séparent en deux catégories principales : les
+systèmes d’agents cognitifs et les systèmes d’agents réactifs. Les systèmes
+d’agents réactifs présentent de nombreux agents simples, sans mémoire
+et avec une vision locale de leur environnement. Ces agents réagissent à
+des stimuli élémentaires leur permettant d’exprimer leur comportement,
+au besoin de coopérer, de s’organiser, de se reproduire… On parle d’écorésolution
+lorsque l’ensemble des interactions non déterministes d’agents
+réactifs cherchant à se satisfaire permet l’apparition d’états stationnaires sur
+des systèmes initialement instables [Ferber 1990]. D’une manière opposée,
+les systèmes d’agents cognitifs ne présentent que peu d’agents : par contre,
+ces agents possèdent une mémoire du passé, connaissent leur environnement,
+ainsi que les autres agents avec lesquels ils s’organisent afi n d’arriver à
+leurs objectifs [Wayner 1995].
+Les agents communiquent entre eux soit en partageant de l’information
+(mécanisme de tableau noir), soit par échanges de message. Il est possible de
+tenter une classifi cation des agents basée sur les protocoles de communication
+(asynchrone, synchrone, synchrone diff éré,…). Le lecteur intéressé par
+CHAPITRE 2 – RÉFLEXIONS SUR LA MODÉLISATION ET LA SIMULATION
+33
+une synthèse présentant plus de 20 catégories d’agents pourra se référer à
+[Wolridge 1997]. En ce qui concerne la conception et la réalisation de système
+multi-agents, les travaux de Guessoum sont également une référence
+utile [Guessoum 1996].
+6.3. Langages, méthodes et outils visuels de simulation
+Si l’on parle de langages de simulation par objets, Simula reste incontournable
+: les objets actifs et passifs sont issus de la pratique de la simulation et de
+la modélisation, et si l’on compare les possibilités off ertes par Simula à celles
+de récentes bibliothèques dédiées à la simulation, on est obligé d’admettre
+que ce langage est loin d’être obsolète. Smalltalk, également, propose les
+mécanismes de base pour écrire des modèles de simulation [Bézivin 1987].
+Des langages tels que ROSS, dérivé de Simula et des langages d’acteurs, ont
+été développés aux États-Unis pour les simulations de champs de bataille…
+Il existe également des dizaines d’outils commerciaux pour la simulation.
+La « Society for Computer Simulation International » en recense plus de
+300, dont au moins 50 sont dits « orientés objets ». Parmi ceux-ci on distingue
+les environnements dédiés à certaines classes d’applications (réseaux,
+systèmes de production,…) des langages de simulation plus puissants mais
+plus diffi ciles à maîtriser. En outre, des bibliothèques de simulation dérivées
+de Java, d’Eiff el [Howard 1995] ou de C++ sont disponibles sur Internet
+(Simpack et Sim++, C++Sim, SimEX,…) [Fishwick 1995] [Hill 1996]. En
+ce qui concerne les langages de simulation par objets, il convient de citer
+Modsim III (dérivé de Modula 2), Simple++ (dérivé de C++) et Qnap2 (qui
+repose sur la théorie des réseaux de fi les d’attente et qui présente des caractéristiques
+basées sur les objets). De même, des langages de spécifi cation
+comme VHDL ou SDL sont sortis de leurs cadres d’application respectifs
+(modélisation de circuits et télécommunications) et sont utilisables pour
+la conception et la simulation de nombreux types de systèmes communicants.
+SDL (Specifi cation and Description Language) est standardisé par
+l’« International Telecommunication Union » depuis 1980 et propose des
+extensions orientées objets depuis 1992. De même, OOVHDL propose
+maintenant une version orientée objet de VHDL.
+Il n’est plus concevable d’utiliser directement des langages sans méthode. La
+communauté de la simulation propose des cadres méthodologiques où les
+objets sont sous-jacents, comme CS (Condition Specifi cation) d’Overstreet
+[Overstreet 1982], CM (Conical Methodology) [Nance 1987], ou encore
+RÉFLEXIONS SUR LA MODÉLISATION ET LA SIMULATION – CHAPITRE 2
+34
+STA/DEVS (System Th eoretic Approach / Discrete EVent Specifi cation)
+de Zeigler [Zeigler 1990] [Zeigler et al. 2000] qui tire avantage des techniques
+de spécifi cations formelles avec le formalisme DEVS (Discrete Event
+System Specifi cation). Toutes ces méthodologies se basent sur une analogie
+forte entre les objets réels du système physique à modéliser et les objets
+logiciels, des cycles de vie associés à la modélisation ont été proposés par
+la communauté du génie logiciel, tels que ceux dérivés du cycle en spirale
+de Bohem [Bohem 1988], ou du modèle de la fontaine d’Edwards et Henderson-
+Sellers [Edwards et Henderson-Sellers 1990]. Les méthodes traditionnelles
+du génie logiciel sont souvent peu adaptées à la représentation de
+problèmes de simulation où de nombreux objets se mettent à jour d’euxmêmes
+au cours du temps. Un rapprochement entre les communautés du
+génie logiciel et de la simulation a été tenté avec un cycle de vie pour la
+modélisation orientée objets associé à une méthode d’analyse de conception
+par objets [Hill 1993a]. Par la suite, des cycles de vie comme OSM (Object
+Select and Merge) [Barbier et Bézivin 1993], reposant sur l’ingénierie des
+besoins [Jacobson et al. 1993] [Bézivin 1995], ont permis d’intégrer plus
+simplement les applications de simulation. D’après Rumbaugh, les simulations
+sont parmi les applications les plus simples à concevoir avec OMT
+et une approche orientée objets [Rumbauch 1991] alors que, dans la classifi
+cation des logiciels de Lehman, les modèles de simulation se retrouvent
+dans la catégorie de diffi culté de réalisation maximale [Lehman 1980]. La
+méthode unifi ée d’analyse et de conception qui était promise en 1996, s’est
+concrétisée par la proposition d’un langage unifi é : UML (Unifi ed Modeling
+Language). UML se présente actuellement comme un langage autorisant
+la modélisation par objets de toutes catégories de systèmes et qui facilite
+la spécifi cation de modèles de simulation complexes grâce à ses aspects
+temps réels [Booch 1996] [Lai 1997] [Fowler et Scott 1997] [Muller 1997]
+[Booch et al. 2000]. Un processus unifi é de développement le USDP (Unifi
+ed Software Development Process) est également en train de voir le jour
+[Jacobson et Bylund 2000].
+Que ce soit pour des ateliers de génie logiciel ou pour des environnements
+de simulation, les produits commerciaux de qualité ne peuvent se passer
+d’interfaces de programmation visuelle et de sorties graphiques simples ou
+animées. On parle de simulation visuelle interactive lorsque, comme pour
+les jeux électroniques, il est possible d’interagir avec une représentation graphique
+du modèle en cours de simulation. Cette technique est adaptée à
+une classe de problèmes, comme la formation des pilotes par exemple, mais
+elle limite considérablement la production de statistiques prévisionnelles.
+CHAPITRE 2 – RÉFLEXIONS SUR LA MODÉLISATION ET LA SIMULATION
+35
+Les techniques graphiques et de réalité virtuelle reposent maintenant sur des
+technologies à objets qui peuvent s’interfacer avec des outils de simulation
+par objets.
+7. CHOIX MÉTHODOLOGIQUES
+7.1. Niveau d’abstraction
+Dans la pratique, l’élaboration d’un modèle s’appuie sur les deux contraintes
+suivantes qu’il convient de ne jamais perdre de vue au cours du travail :
+• les objectifs à atteindre (quels types de résultats attendons-nous ?,
+quelles sont les questions auxquelles nous souhaitons répondre ? ou
+quels sont les problèmes que nous souhaitons résoudre ?),
+• l’état des connaissances concernant le système et les données à disposition
+(ou du moins qu’il est raisonnable d’espérer acquérir dans le
+temps imparti).
+Ces deux contraintes vont défi nir le niveau d’abstraction du modèle. En
+écologie, les experts parlent plus volontiers de l’échelle d’étude. Étant donné
+que nos applications concernent principalement la biologie et l’écologie,
+nous allons raisonner sur ce domaine. Le choix de l’échelle est en eff et en
+relation directe avec ce qui vient d’être exposé. Nous intéresserons-nous à
+des individus biologiques, à des parties d’individus, à des ensembles d’individus,
+à des populations tout entières voire à des ensembles de populations ?
+Il doit y avoir une cohérence étroite entre les objectifs et les données. Il faut
+également bien avoir à l’esprit que le niveau d’abstraction va directement
+infl uer, d’une part sur la complexité du modèle, et d’autre part, sur les techniques
+de modélisation à mettre en oeuvre.
+Par ailleurs, l’identifi cation du niveau d’abstraction impose un examen
+approfondi des données : les objectifs étant fi xés et donc le niveau d’abstraction
+déterminé, encore faut-il que les données relatives à ce niveau d’abstraction
+soient disponibles.
+RÉFLEXIONS SUR LA MODÉLISATION ET LA SIMULATION – CHAPITRE 2
+36
+Figure 1. Hiérarchie des niveaux d’abstraction en modélisation d’écosystèmes
+7.2. Niveau de détail
+Le niveau d’abstraction étant choisi en fonction des objectifs, il convient de
+préciser ce que l’on entend par niveau de détail de la modélisation. Ainsi,
+pour un modèle de croissance forestière (avec un niveau d’abstraction correspondant
+à une population), devra-t-on ou non, tenir compte des paramètres
+suivants ? :
+• variation saisonnière de l’intensité lumineuse,
+• pression partielle en CO2 de l’atmosphère,
+• compétition pour les ressources en eau et les nutriments du sol,
+• compétition pour l’espace,
+• densité du peuplement,
+• compétition pour la lumière,
+• compétition avec les espèces arbustives et herbacées,
+• …
+On voit rapidement qu’objectifs et données vont interagir et que les choix
+vont être fonction du cadre de l’expérimentation. Ainsi, si l’on s’assigne la
+modélisation de la croissance des arbres sur les cinq années à venir, il n’y a
+certainement pas lieu de tenir compte d’éventuelles et infi nitésimales variations
+de la teneur en CO2 sur cet intervalle de temps. Enfi n, la compétition
+pour les ressources avec les espèces arbustives/herbacées devra être écartée
+dans la mesure où les arbres y échappent largement et où l’on peut supposer
+que l’écosystème forestier est relativement homogène de ce point de
+CHAPITRE 2 – RÉFLEXIONS SUR LA MODÉLISATION ET LA SIMULATION
+37
+vue. Une constante de prélèvement des ressources par les espèces herbacées
+donnera sans doute un résultat acceptable. Remarquons qu’il en irait tout
+autrement si nous devions modéliser un peuplement se répartissant sur deux
+versants, un ubac et un adret. Il y aurait alors lieu de tenir compte de la
+variation lumineuse. L’eff et de la répartition spatiale des individus se ferait
+alors sentir.
+Il n’est donc pas exact que l’accroissement systématique de la complexité du
+modèle par ajout de variables d’état et de forçage donnera de substantiels
+gains en termes de validité du modèle et de connaissances sur le système
+étudié. Au-delà d’un certain point, l’ajout de variables supplémentaires ne
+fait qu’augmenter la complexité du modèle et accumuler les incertitudes.
+Il se peut même que ces accroissements d’incertitudes fassent alors radicalement
+diverger le modèle par rapport au système réel. Il convient souvent
+de préférer des variables holistiques1 à plusieurs variables élémentaires dont
+les incertitudes ne peuvent qu’oblitérer la qualité du modèle ; on parle aussi
+dans ce cas d’agrégation. Il va de soi, par ailleurs, qu’accroître la complexité
+du modèle ne peut qu’ajouter aux diffi cultés de mise en oeuvre informatique
+: très rapidement des problèmes de capacité de mémoire, de facilité
+de vérifi cation de la cohérence interne du logiciel, de vitesse de calcul peuvent
+apparaître. La simplifi cation – dans certaines limites – est une vertu en
+modélisation.
+À l’inverse, une simulation sur le long terme imposerait certainement un
+changement radical de stratégie, et aux paramètres ci-dessus il conviendrait
+d’ajouter la régénération des arbres, leur espérance de vie, les chablis, etc. De
+la même manière, le choix d’intégrer un certain nombre de sous-modèles
+repose sur l’arbitraire. Seuls les objectifs et les données disponibles peuvent
+guider empiriquement l’élaboration du modèle.
+Le choix du niveau de détail constitue donc une phase majeure du processus
+de modélisation, aux répercussions importantes en termes de coût économique,
+de temps et d’eff ort de travail, d’acquisition de données, et, bien
+entendu, de temps de calcul des machines. Une discussion dans [Coquillard
+et Hill 1997] montre que la majorité des chercheurs ont développé des
+modèles de faible articulation (peu de variables) mais de forte précision, à
+savoir qu’ils ont cherché à restreindre le champ de modélisation tout en se
+focalisant sur des processus de plus en plus fi ns, abandonnant la complexité.
+1. C’est-à-dire de variables globales dont on estime qu’elles sont la résultante d’actions d’un ensemble
+de variables agissant de manière conjointe et simultanée.
+RÉFLEXIONS SUR LA MODÉLISATION ET LA SIMULATION – CHAPITRE 2
+38
+« Ces modèles nous informent beaucoup à propos de très peu » écrit Jorgensen
+[Jorgensen 1994], qui fait remarquer à juste titre qu’« il est impossible de
+décrire le comportement de toutes les espèces d’un système en fonction des combinaisons
+possibles des variables de forçage [c’est-à-dire les entrées du système]
+en utilisant des réponses précises à des questions étroites ». Il suggère de s’acheminer
+vers des modèles « informant peu à propos de beaucoup », et donc
+d’augmenter la complexité et le pouvoir explicatif des modèles au détriment
+de la précision.
+Ces dernières remarques nous renvoient à la fois à la question de la qualité
+des données (nombre de mesures) et du nombre de variables (lié au niveau
+de détail). Comment procéder alors pour eff ectuer ces choix ? Il n’existe pas
+à notre connaissance de méthode véritablement effi cace. Le lecteur intéressé
+peut cependant trouver quelques indications, suggérées par Jorgensen [Jorgensen
+1994]. Il ne s’agit cependant que d’approches empiriques, ne pouvant
+s’appliquer qu’aux modèles à formalisme purement mathématique.
+7.3. Granularité du temps
+Quel pas de temps choisir ? Voilà sans aucun doute l’une des questions les
+plus importantes en matière de simulation. La cohérence est de rigueur :
+si l’on s’intéresse à des populations dont la génération est d’une année, il
+vient naturellement à l’esprit de retenir le pas de temps d’une année. Mais
+attention ! Les pas de temps ne sont pas forcément fi xes et il faut pouvoir
+prendre en compte tous les événements élémentaires déterminants pour le
+comportement de la population. Si on choisit de retenir un pas fi xe, une
+bonne règle pourrait être la suivante : le pas de temps à retenir est celui des
+événements pris en compte dans la modélisation et intervenant le plus fréquemment
+dans le système réel. Ici encore, les objectifs de la modélisation
+induisent les événements à prendre en compte et sont déterminants dans
+le choix. Notons aussi que si la modélisation sur plusieurs pas de temps
+très diff érents est possible, elle présente cependant peu d’intérêt. En eff et,
+lorsque les échelles de temps déterminant les fréquences d’événements sont
+très diff érentes, le rapport de la fréquence la plus rapide par rapport à la fréquence
+la plus lente devrait être inférieur à 106. En eff et, s’il fallait générer
+environ 106 événements à fréquence rapide pour ne générer q’un seul événement
+à fréquence lente, l’obtention de résultats statistiques cohérents nécessiterait
+la génération d’un nombre suffi sant d’événement à fréquence lente,
+et cela imposerait la génération d’un nombre gigantesque d’événements à
+CHAPITRE 2 – RÉFLEXIONS SUR LA MODÉLISATION ET LA SIMULATION
+39
+fréquence rapide et génèrerait des problèmes de précision arithmétique lors
+du calcul des statistiques.
+8. CONCLUSION : L’EXPLOITATION D’UN MODÈLE
+Un processus de modélisation consiste en un ensemble d’opérations à eff ectuer
+en séquence, avec, dans de nombreux cas, des retours en arrière. Le processus
+de modélisation que nous retenons a été présenté dans [Hill 1993b].
+Il va de l’analyse fonctionnelle de l’écosystème et du recueil des données à la
+mise à disposition d’un logiciel apte à l’exploitation. Dès lors que la phase
+d’analyse est terminée et que le modèle est conçu, on procède à l’implémentation.
+Vient ensuite un ensemble de phases cruciales que nous résumons
+ci-dessous :
+• Vérifi cation. Elle consiste en la vérifi cation de la cohérence interne du
+logiciel et l’élimination des erreurs de programmation.
+• Calibration. C’est l’initialisation des paramètres du modèle permettant
+l’ajustement du comportement de celui-ci au comportement du
+système étudié, dans un cas connu.
+• Robustesse et fi abilité logicielle. C’est l’examen du comportement du
+logiciel dans des conditions extrêmes.
+• Validation. Test de la cohérence des résultats du modèle sur plusieurs
+séries de données.
+• Exploitation, exploration. C’est l’utilisation pour la découverte de
+comportements insoupçonnés ou pour la prédiction.
+Il est utile de dissocier la notion de validation de celle de vérifi cation, la
+distinction entre ces deux notions étant souvent confuse selon [Balci et Sargent
+1981]. La validation d’un modèle cherche à constater qu’il possède
+une marge de précision de ses résultats suffi sante et si ces résultats sont
+cohérents avec ceux attendus de ce modèle dans son cadre d’application. La
+vérifi cation consiste à s’assurer que le programme correspondant au modèle
+est fonctionnellement correct, et qu’il traduit bien les choix et les hypothèses
+eff ectués. Sachant qu’une étude de simulation doit être menée dans un
+but précis et pour une utilisation bien défi nie, la validation et la vérifi cation
+d’un modèle doivent donc être faites dans le cadre de cet objectif.
+RÉFLEXIONS SUR LA MODÉLISATION ET LA SIMULATION – CHAPITRE 2
+
+CHAPITRE 3
+MODÉLISATION PAR 0BJETS
+DE SYSTÈMES À FLUX DISCRETS
+Que reste-t-il à l’homme de toute la peine et de tous les calculs
+pour lesquels il se fatigue sous le soleil ?
+L’Écclésiaste, 2,21
+1. INTRODUCTION
+Les logiciels de simulation se retrouvent dans la catégorie de diffi culté de
+réalisation maximale dans la classifi cation des logiciels de Lehman [Lehman
+1980]. Ma thèse de doctorat portait sur la conception et la réalisation
+d’outils logiciels pour la modélisation de systèmes complexes [Hill
+1993a,b]. Un des objectifs majeurs de mes travaux à cette époque consistait
+précisément à rapprocher le génie logiciel et la modélisation. J’ai cherché
+à recenser les techniques avancées du génie logiciel qui étaient exploitables
+pour la simulation, puis j’ai proposé des outils du génie logiciel pour
+l’analyse, la conception, la vérifi cation et la validation de modèles de simulation.
+Ce recensement a été eff ectué sur la base du modèle objet exploité
+par la communauté du génie logiciel et celle de la simulation. L’un des
+nombreux intérêts des techniques à objets est qu’elles facilitent les liens
+Simulation informatique au service des Sciences de la Vie
+© Presses Universitaires Blaise-Pascal, 2010
+42
+entre, d’une part, l’analyse et la spécifi cation d’un système réel et, d’autre
+part, la conception et l’implémentation du modèle par un simulateur. Des
+techniques de génération automatique de code à partir de spécifi cation graphique
+étaient déjà présentes. On s’appuyait bien sûr sur des métamodèles
+même si la terminologie liée maintenant à l’ingénierie des modèles n’était
+pas encore présente.
+La conception et l’exploitation de systèmes à fl ux discrets, tels que les systèmes
+de production, les systèmes informatiques, les systèmes de transport,
+systèmes administratifs,… a toujours été problématique. Parmi les diff érents
+problèmes posés aux concepteurs et aux ingénieurs, on retrouve bien
+sûr des soucis de compréhension du fonctionnement de ces systèmes (que
+ce soit en fonctionnement nominal ou en mode dégradé) ; le dimensionnement
+de tels systèmes est également un problème ; de plus les objectifs économiques
+imposent systématiquement l’amélioration de leur productivité
+et donc l’évaluation de leurs performances.
+Pour résoudre ces problèmes, la simulation aléatoire à événements discrets
+est quasiment indispensable notamment pour l’étude de phénomènes
+transitoires. La maîtrise de cette technique n’est pas évidente malgré la
+disponibilité de logiciels de simulation puissants qu’ils soient dédiés ou
+généraux. Les outils dédiés ne savent traiter qu’une partie restreinte des
+problèmes, et les logiciels généraux reposent sur un formalisme diffi cile à
+acquérir rapidement. Ils autorisent cependant la modélisation de systèmes
+très complexes.
+Partant de ce constat à la fi n des années 1980, il était intéressant de concevoir,
+à partir de logiciels généraux de simulation, des environnements de
+modélisation conviviaux qui permettent, dans un domaine d’application
+donné de construire facilement un modèle de connaissance d’un système,
+et de déduire automatiquement un programme de simulation valide. Dans
+les débuts des années 1990, plusieurs chercheurs du LIMOS avec lesquels
+nous travaillions, ont défi ni un environnement de modélisation, comme un
+ensemble comprenant : un logiciel d’évaluation des performances (constituant
+le noyau de l’environnement), des outils graphiques, des outils de
+statistiques et de recherche opérationnelle, un système d’aide à la décision,
+un système de gestion de bases de données, une méthode d’analyse, des
+outils de spécifi cation, une méthodologie de modélisation et les interfaces
+logicielles permettant de relier ces outils [Breugnot et al. 1990].
+CHAPITRE 3 – MODÉLISATION PAR OBJETS DE SYSTÈMES À FLUX DISCRETS
+43
+Au sein d’un environnement, tel que nous le défi nissions, la méthodologie
+de modélisation reposait sur un ensemble de méthodes, certaines orientées
+objet, et s’appuyait sur un processus de modélisation [Kellert 1992]. Les
+principaux objectifs que nous fi xions au LIMOS pour un environnement de
+modélisation de systèmes à fl ux discrets étaient les suivants :
+• fournir à l’utilisateur des outils de spécifi cation de son système lui
+permettant de construire le modèle de connaissance de ce système,
+• construire une méthodologie évitant d’élaborer pour chaque système
+un simulateur dédié,
+• traduire automatiquement ce modèle de connaissance en un modèle
+d’action,
+• aider à vérifi er et à valider le modèle d’action.
+Entre 1990 et 1993, j’ai principalement abordé les deux derniers points,
+tout en ayant contribué au deux premiers. Mes objectifs étaient :
+• de trouver une méthode d’analyse et de conception par objets adaptée
+aux problèmes de la modélisation des systèmes discrets afi n de
+construire des programmes de simulation de qualité,
+• de concevoir des outils graphiques de vérifi cation et de validation en
+utilisant des techniques d’animation par objets,
+• de générer automatiquement du code de simulation à partir d’outils
+de programmation visuelle. On parlerai aujourd’hui de transformation
+de modèle.
+Les principales applications que j’avais traitées à l’époque concernaient les
+systèmes d’assemblage fl exibles à fl ux discrets. Cependant dans un souci
+de généricité, nous avions avec d’autres doctorants également abordé un
+système administratif (une préfecture), un service hospitalier (urgences de
+l’hopital de Bastia), un système informatique parallèle à base de transputers
+et également la spécifi cation de systèmes parallèles à fl ux discrets par des
+réseaux de Petri.
+MODÉLISATION PAR OBJETS DE SYSTÈMES À FLUX DISCRETS – CHAPITRE 3
+44
+2. PROPOSITION D’UN PROCESSUS
+ET D’UNE MÉTHODE DE MODÉLISATION PAR OBJETS
+2.1. La synthèse des approches existantes
+Pour proposer une méthode de modélisation par objets dans le début des
+années 1990, j’ai tout d’abord cherché à recenser les travaux invariants des
+diff érentes méthodes d’analyse et de conception par objets [Hill 1992]. Les
+résultats de cette synthèse m’ont permis de proposer un processus et une
+méthode de modélisation (M2PO) adaptée à la simulation à événements
+discrets [Hill 1993a]. Il ne s’agissait pas d’imposer une nouvelle méthode.
+Dans l’attente du langage de modélisation unifi é (UML Unifi ed Modeling
+Language), le nombre de méthodes d’analyse et de conception par objet
+allait croissant. Je préférais à l’époque ne pas introduire de nouvelles notations
+graphiques en m’attachant aux notations les plus couramment utilisées.
+Le but n’était cependant pas de rassembler au sein d’une méthode
+un maximum d’éléments composites mais de proposer un modèle d’une
+complexité raisonnable, intégrant une partie des préoccupations de la communauté
+de la simulation.
+Les méthodes d’analyse et de conception par objets, existant à l’époque, proposaient
+toutes un certain nombre d’étapes accompagnées d’une démarche
+propre à chaque auteur. Comme je l’annonçais, ma démarche a tenté une
+classifi cation des travaux invariants présents dans les méthodes que j’avais
+étudiées [Hill 1992]. J’avais eff ectué ce travail de synthèse car si la majorité
+des méthodes avaient en commun un grand nombre de travaux élémentaires,
+chacune possédait des particularités intéressantes qu’il est souhaitable
+d’intégrer dans une méthode d’analyse et de conception par objets. J’ai donc
+pu présenter en 1993 une synthèse des travaux élémentaires qu’un concepteur
+est susceptible d’eff ectuer [Hill 1993a]. Ces travaux n’étaient pas destinés
+à être réalisés séquentiellement car le processus de conception par objets
+restait incrémental et itératif. Pour chaque travail à réaliser, il convient de
+vérifi er s’il est possible de réutiliser des résultats d’analyse ou de conception
+existants. Les travaux élémentaires que j’avais sélectionnés à l’époque parmi
+les méthodes étudiées, sont donnés ci-après :
+• Identifi cation des classes relatives au système logiciel que l’on
+conçoit,
+• Classifi cation au moyen de l’héritage et de l’agrégation,
+CHAPITRE 3 – MODÉLISATION PAR OBJETS DE SYSTÈMES À FLUX DISCRETS
+45
+• Établissement des relations de communication existantes entre les différentes
+classes,
+• Défi nition des structures permettant aux objets de collaborer pour
+atteindre les objectifs fi xés,
+• Choix de l’interface des classes et de leur représentation interne,
+• Évaluation de la qualité des abstractions obtenues,
+• Amélioration des résultats obtenus par chaque travail élémentaire
+jusqu’à obtenir le niveau de détail souhaité. (Test d’arrêt du processus
+itératif ).
+Le résultat de ces travaux conduisait à l’obtention d’un modèle objet qui
+comportait une partie statique et une partie dynamique. La partie statique
+décrit la structure des classes en termes de classifi cation par héritage et composition,
+de relations entre classes mais également en termes de méthodes
+et d’attributs (que ce soit pour les instances ou pour les classes). La partie
+dynamique élémentaire permet de spécifi er, d’une part, les interactions existantes
+entre les diff érents objets, et d’autre part, le comportement individuel
+des objets.
+2.2. La proposition d’un processus
+Lors de l’étude des méthodes d’analyse et de conception par objets, j’avais
+eff ectué une synthèse comparative des principaux cycles de développement
+par objets. Le processus de modélisation par objets que nous proposions
+était dérivé de ces cycles tout en prenant en compte le point de vue de la
+simulation. Ceci permettait de se placer dans un cadre de modélisation plus
+général que celui de la création de logiciels.
+La vue générale du cycle de modélisation que j’avais proposé prend en
+compte successivement, une analyse de domaine, une analyse par objets,
+une conception par objets et enfi n une implémentation. Par analogie avec
+les logiciels, la maintenance constitue la vie des modèles en matière d’évolution
+et de correction d’erreurs. Le cycle que je proposais était incrémental
+et itératif, chaque étape étant susceptible d’alimenter les autres. Ce cycle est
+arrêté dès que le niveau d’information atteint est jugé suffi sant par l’expert
+en modélisation. La Figure 2 schématise le processus de modélisation proposé
+à l’époque.
+MODÉLISATION PAR OBJETS DE SYSTÈMES À FLUX DISCRETS – CHAPITRE 3
+46
+Figure 2. Vue générale du processus de modélisation par objets
+Je tiens à préciser que je ne proposais pas de technique particulière pour
+les phases de spécifi cation des besoins, de vérifi cation et de validation des
+modèles et des logiciels. Les tests, la conception de plans d’expériences, les
+techniques de validation et de vérifi cation des modèles mériteraient à elles
+seules un ouvrage entier [Kleijnen 1987].
+L’identifi cation des classes (au sens « objet ») communes à toutes les
+applications d’un domaine particulier, reste, encore aujourd’hui, une des
+tâches les plus ardues de l’analyse. La qualité des abstractions obtenues
+CHAPITRE 3 – MODÉLISATION PAR OBJETS DE SYSTÈMES À FLUX DISCRETS
+Analyse
+du domaine
+Analyse
+par Objets
+dédiée
+Conception
+par Objets
+Maintenance
+Modèle de
+connaissance
+du domaine
+Modèle
+Conceptuel
+Modèle de
+connaissance
+du système
+Modèle
+d'action
+Cadres
+expérimentaux
+Système
+réel ou à
+concevoir
+Vérification, tests
+et évaluation
+des
+Performances
+action sur le
+système
+Exploitation du modèle d'action avec
+différents cadres expérimentaux
+DOMAINE
+Validation et
+évaluation
+des modeles
+Implémentation
+- Evolutive
+- Curative
+Spécification des
+besoins et objectifs
+de la modélisation
+47
+reste encore fortement liée à l’expérience des spécialistes en modélisation.
+Les objets, les relations et les comportements découverts et retenus doivent
+être ceux qui sont perçus comme étant importants par les experts du
+domaine. Le résultat de ce travail constitue un modèle de connaissance du
+domaine, qui comporte aussi un glossaire donnant le vocabulaire de ces
+experts. Avec la démarche préconisée, il est possible de réutiliser les résultats
+d’une analyse de domaine, afi n d’initialiser des analyses par objets
+pour d’autres systèmes du même domaine. Puis pour chaque analyse on
+peut « concevoir » diff érentes solutions, elles mêmes implémentables de
+diff érentes manières. Les relations hiérarchiques entre les diff érents modèles
+sont données par la Figure 3. Les problèmes de terminologie ne doivent
+pas être négligés, une étude avait été menée par nos collègues dans le
+domaine des systèmes de production [Breugnot et al. 1991c], la constitution
+de glossaires et leur intégration au sein du modèle de connaissance du
+domaine s’est révélée être indispensable.
+Figure 3. Relations hiérarchiques entre les différents modèles
+La phase d’implémentation comprend le codage d’un simulateur sur une
+plateforme cible, suivi des diff érentes étapes de tests puis de validation du
+modèle d’action lors d’utilisations réelles. Pour un même modèle concep-
+MODÉLISATION PAR OBJETS DE SYSTÈMES À FLUX DISCRETS – CHAPITRE 3
+48
+tuel, il peut y avoir plusieurs modèles d’action (machines cibles diff érentes,
+outils d’évaluation des performances ou langages de simulation diff érents,…).
+La séparation du modèle et de ses cadres expérimentaux, est basée
+sur les travaux de Zeigler [Zeigler 1976]. Le modèle d’action d’un système
+implémente les caractéristiques statiques et dynamiques du système. Le cadre
+d’expérimentation défi nit les conditions sous lesquelles un modèle d’action
+est exécuté. Il est ainsi possible d’eff ectuer de nombreuses exploitations du
+modèle d’action en modifi ant seulement la valeur de certains paramètres.
+La phase de maintenance, qu’elle soit curative ou évolutive, peut entraîner
+des remises en question et des modifi cations dans les résultats obtenus avec
+les autres phases. Aucun travail ne peut être considéré comme « parfait ou
+complet », le refus d’éventuels changements est comparé à la stratégie de la
+ligne Maginot par Cox [Cox 1986].
+2.3. La proposition d’une méthode de modélisation
+La méthode M2PO (Méthode de Modélisation Par Objets) que je proposais
+suit le processus de modélisation présenté précédemment. M2PO peut être
+considérée comme une méthode hybride car elle était basée, d’une part,
+sur la synthèse des diff érents travaux élémentaires des principales méthodes
+d’analyse et de conception par objets et, d’autre part, sur un ensemble de
+critères jugés essentiels à la réalisation de modèles objets pour la simulation
+et l’animation de systèmes à fl ux discrets. Le point de vue d’un spécialiste
+en simulation permettait d’aborder la modélisation de systèmes complexes
+en général sans se limiter aux systèmes logiciels.
+La méthode M2PO comportait les phases suivantes, qui découlaient du
+processus de modélisation par objets proposé précédemment (Figure 4) :
+Phase 1 : une analyse de domaine,
+Phase 2 : une analyse par objets pour le système que l’on souhaite
+modéliser,
+Phase 3 : une conception par objets apportant une solution au
+problème de modélisation posé.
+CHAPITRE 3 – MODÉLISATION PAR OBJETS DE SYSTÈMES À FLUX DISCRETS
+49
+Figure 4. Les phases de la méthode M2PO
+Les phases de spécifi cation des besoins, d’implémentation et de tests sortaient
+du cadre de M2PO et étaient abordées par d’autres méthodes. L’implémentation
+par objets fournissant un simulateur n’était pas détaillée, ni
+celle qui consiste à élaborer des tests, les diverses méthodes ou solutions
+existantes suffi saient sans que nous ayons à rajouter de nouvelles techniques
+personnelles [Sommerville 1993]. De même, la spécifi cation des besoins
+était abordée avec succès [Jacobson et al. 1993] et il nous semblait inutile
+de proposer d’autres techniques alors que celles qui existaient alors rencontraient
+un succès croissant (spécifi cation à base de cas d’utilisation).
+Précisons maintenant le détail des objectifs qui étaient fi xés pour M2PO :
+1. Utiliser tous les concepts majeurs de l’approche orientée objets, en
+préconisant l’utilisation de classes abstraites partout où cela est possible.
