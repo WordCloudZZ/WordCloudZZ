@@ -3,6 +3,7 @@
 
 #include <string>
 #include <fstream>
+#include <iostream>
 #include "Mersenne.h"
 
 class WordsGenerator {
@@ -12,7 +13,7 @@ class WordsGenerator {
 
     public:
         /** Default constructor */
-        WordsGenerator(const char []);
+        WordsGenerator(const char [] = "alphabet.az");
         /** Copy constructor */
         WordsGenerator(const WordsGenerator &);
         /** Default destructor */
@@ -21,6 +22,7 @@ class WordsGenerator {
         WordsGenerator & operator=(WordsGenerator &);
 
         std::string rand(unsigned = 5);
+        unsigned long long expectWord(std::string = "hazard");
 };
 
 #endif // WORDSGENERATOR_H
