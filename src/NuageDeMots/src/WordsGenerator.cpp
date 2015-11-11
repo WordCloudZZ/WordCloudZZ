@@ -1,6 +1,6 @@
 #include "WordsGenerator.h"
 
-WordsGenerator::WordsGenerator(const char p_filename[] = "alphabet.az") {
+WordsGenerator::WordsGenerator(const char p_filename[]) {
     std::ifstream   file; // Any file used
     // Loading alphabet from given file in a string
     file.open(p_filename, std::ifstream::in);
@@ -32,3 +32,28 @@ std::string WordsGenerator::rand(unsigned p_size) {
     }
     return retour;
 }
+
+unsigned long long WordsGenerator::expectWord(std::string p_str) {
+    unsigned                courrant    = 0;
+    unsigned long long      tirages     = 0;
+    char                    lettre      = '\0';
+
+    while(courrant < p_str.length()) {
+        lettre = m_alphabet[m_random.rand(0,m_alphabet.length()-1)];
+        //courrant = (p_str[courrant] == lettre) ? courrant++ : 0;
+        if(p_str[courrant] == lettre) {
+          //  std::cout << lettre;
+            courrant++;
+        } else {
+        /*    if(courrant > 0)
+                std::cout << std::endl;*/
+            courrant = 0;
+        }
+        tirages++;
+    }
+
+    std::cout << std::endl << "Nombre de tirages : " << tirages << std::endl;
+
+    return tirages;
+}
+
