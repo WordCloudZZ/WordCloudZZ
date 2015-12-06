@@ -1,0 +1,15 @@
+RandomWords.o: RandomWords.cpp include/FileReader.h include/Hashtable.h \
+ include/HashElement.h include/Countable.h src/HashElement.tpp \
+ src/Hashtable.tpp include/BinarySearchTree.h include/Node.h src/Node.tpp \
+ src/BinarySearchTree.tpp
+main.o: main.cpp include/FileReader.h include/Hashtable.h \
+ include/HashElement.h include/Countable.h src/HashElement.tpp \
+ src/Hashtable.tpp include/BinarySearchTree.h include/Node.h src/Node.tpp \
+ src/BinarySearchTree.tpp include/WordsGenerator.h include/Mersenne.h
+Countable.o: src/Countable.cpp include/Countable.h
+FileReader.o: src/FileReader.cpp include/FileReader.h include/Hashtable.h \
+ include/HashElement.h include/Countable.h src/HashElement.tpp \
+ src/Hashtable.tpp
+Mersenne.o: src/Mersenne.cpp include/Mersenne.h
+WordsGenerator.o: src/WordsGenerator.cpp include/WordsGenerator.h \
+ include/Mersenne.h

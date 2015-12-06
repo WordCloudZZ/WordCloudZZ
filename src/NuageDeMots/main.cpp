@@ -17,7 +17,7 @@ bool is_readable(const string &file) {
   ifstream fichier(file.c_str());
   return !fichier.fail();
 }
-/**
+
 int main() {
     std::string buff1, buff2, buff3;
     int choice = 0, nb_letters = 5, nb_gen = 100000;
@@ -133,19 +133,6 @@ int main() {
             choice = -1;
         }
     }
-
-    return 0;
-}
-
-**/
-
-int main() {
-    setlocale(LC_ALL, "");
-
-    WordsGenerator wg;
-
-    for(int i = 0 ; i < 10 ; ++i)
-        wg.expectWord("hasard");
 
     return 0;
 }

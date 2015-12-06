@@ -1,0 +1,4 @@
+main.o: main.cpp include/WordsGenerator.h include/Mersenne.h
+Mersenne.o: src/Mersenne.cpp include/Mersenne.h
+WordsGenerator.o: src/WordsGenerator.cpp include/WordsGenerator.h \
+ include/Mersenne.h
