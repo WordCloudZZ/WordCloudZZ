@@ -9,7 +9,7 @@ int main(int argc, char** argv) {
     setlocale(LC_ALL, "");
     WordsGenerator 			wg;
     unsigned 				iter_number 	= 10;
-    string 					sentence 		= "hasard";
+    string 					sentence 		= "bleu";
 
     if(argc > 1) {
     	sentence = argv[1];
@@ -18,8 +18,8 @@ int main(int argc, char** argv) {
     	iter_number = atoi(argv[2]);
     }
 
-    for(int i = 0 ; i < iter_number ; ++i)
-        wg.expectWord(sentence);
+    for(unsigned i = 0 ; i < iter_number ; ++i)
+        wg.expectWord(sentence.c_str());
 
     return 0;
 }

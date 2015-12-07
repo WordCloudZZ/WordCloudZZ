@@ -7,6 +7,8 @@ WordsGenerator::WordsGenerator(const char p_filename[]) {
     if(file.is_open()) {
         getline(file, m_alphabet);
         file.close();
+    } else {
+    	std::cout << "Error: can't open this file." << std::endl;
     }
 }
 
