@@ -18,6 +18,8 @@ public:
 private slots:
     void on_actionQuitter_triggered();
 
+    void on_pushButton_2_released();
+
 private:
     Ui::MainWindow *ui;
 };
