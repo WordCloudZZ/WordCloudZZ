@@ -1,117 +1,89 @@
 template <typename T>
-BinarySearchTree<T>::BinarySearchTree() : m_size(0), m_tree(nullptr) {
+BinarySearchTree<T>::BinarySearchTree() : m_abr() {
 
 }
 
 template <typename T>
 BinarySearchTree<T>::BinarySearchTree(const BinarySearchTree & p_toCopy) {
-    m_tree = p_toCopy.m_tree;
-    m_size = p_toCopy.m_size;
+    m_abr = p_toCopy.m_abr;
 }
 
 template <typename T>
 BinarySearchTree<T>::~BinarySearchTree() {
-	Node<T> * cur = m_tree,
-            * tmp = nullptr;
-	std::stack<Node<T>*> pile;
 
-	while(cur != nullptr) {
-            pile.push(cur->getRightSon());
-            tmp = cur;
-            cur = cur->getLeftSon();
-            delete tmp;
-        while(cur == nullptr && !pile.empty()) {
-            cur = pile.top();
-            pile.pop();
-        }
-	}
 }
 
 template <typename T>
 BinarySearchTree<T> & BinarySearchTree<T>::operator=(const BinarySearchTree & p_toCopy) {
-    m_tree = p_toCopy.m_tree;
-    m_size = p_toCopy.m_size;
+    m_abr = p_toCopy.m_abr;
     return *this;
 }
 
 template <typename T>
-const T & BinarySearchTree<T>::at(int) const {
-
+const T & BinarySearchTree<T>::operator[](int) const {
+    return T();
 }
 
 template <typename T>
 bool BinarySearchTree<T>::add(const T & p_toAdd) {
-    bool retour;
-    Node<T> ** prev = search(p_toAdd);      /// recherche du precedent de la valeur
-    std::cout << prev << "\t" << (*prev) << std::endl;
-    if(*prev==nullptr) {        /// si la valeur n'a pas ete trouve
-        (*prev) = new Node<T>(p_toAdd,0,0);  /// on l'ajoute en tant que feuille
-        m_size++;               /// on augmente la taille
-        retour = true;
-    } else {            /// si la valeur est deja presente
-        //(**prev)++;          /// on incremente son nombre d'occurences
-        retour = false;
+    bool                                retour      = true;
+    auto                                it          = m_abr.find(p_toAdd);
+
+    if(it != m_abr.end()) {
+        m_abr.insert(std::pair<T, Node<T> >(p_toAdd, Node<T>(p_toAdd)));
+    } else {
+        it->second++;
     }
+
     return retour;
 }
 
 template <typename T>
-bool BinarySearchTree<T>::erase(const T &) {
-    return false;
-}
-
-template <typename T>
-unsigned long long int BinarySearchTree<T>::size() const {
-    return m_size;
-}
-
-template <typename T>
-unsigned long long int BinarySearchTree<T>::height() const {
-
+unsigned int BinarySearchTree<T>::size() const {
+    return m_abr.size();
 }
 
 template <typename T>
 bool BinarySearchTree<T>::contains(const T & p_toFind) const {
-    bool retour = false;
-    Node<T> ** prev = search(p_toFind);      /// recherche du precedent de la valeur
-    if(*prev!=nullptr) {        /// si on a trouve la valeur
-        retour = true;
-    }
-    return retour;
+    return (m_abr.find(p_toFind) != m_abr.end());
 }
 
 template <typename T>
 void BinarySearchTree<T>::printAll() const {
-
+    std::cout << "-- TREE CONTENT --\n" << std::endl;
+    for(auto it = m_abr.begin() ; it != m_abr.end() ; ++it) {
+        std::cout << it->second.getValue() << "\t#" << it->second.number() << std::endl;
+    }
+    std::cout << "\n-- END OF TABLE --" << std::endl;
 }
 
 template <typename T>
 std::string BinarySearchTree<T>::toString() const {
-
+    std::string str = "Arbre binaire de recherche (BinarySearchTree)";
+    return str;
 }
 
 template <typename T>
 std::string BinarySearchTree<T>::sort() const {
-
-}
-
-template <typename T>
-Node<T> ** BinarySearchTree<T>::search(const T & p_toFind) {
-    Node<T> * cur = m_tree,
-            **prev= &m_tree;
-    while(cur!=nullptr && cur->getValue()!=p_toFind) {
-        if(p_toFind <= cur->getValue()) {
-            cur = cur->getLeftSon();
-        } else {
-            cur = cur->getRightSon();
+    std::string result;
+    std::forward_list<Node<T> > sorted;
+    sorted.push_front(Node<T>());
+    for(int i = 0 ; i < size_ ; ++i) {
+        for(int j = 0 ; j < table_[i].size() ; ++j) {
+            typename std::forward_list<Node<T> >::iterator it = std::begin(sorted);
+            typename std::forward_list<Node<T> >::iterator pit = it;
+            while(it!=std::end(sorted) && (*it).number() < table_[i][j].number()) {
+                pit = it;
+                it++;
+            }
+            sorted.emplace_after(pit, table_[i][j]);
         }
-        prev = &cur;
     }
-    return prev;
-}
+    for(auto it = std::begin(sorted); it!=std::end(sorted) ; ++it) {
+        if((*it).getValue().size() > 0)
+            std::cout << (*it).getValue() << "\t#" << (*it).number() << std::endl;
+    }
 
-template <typename T>
-void BinarySearchTree<T>::balance() {
-
+    return result;
 }
 

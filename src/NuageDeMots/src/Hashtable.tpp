@@ -51,7 +51,7 @@ unsigned long int Hashtable<T>::hashCode(T key) const {
 }
 
 template <typename T>
-unsigned long int Hashtable<T>::addElement(T value) {
+bool Hashtable<T>::add(const T & value) {
     unsigned long int   hash_code = hashCode(value), // Get hash code
                         i = 0;
 
@@ -59,13 +59,11 @@ unsigned long int Hashtable<T>::addElement(T value) {
         i++;
     }
     if(table_[hash_code].size()==i) {
-        table_[hash_code].push_back(HashElement<T>(value, hash_code)); // TODO : collision
+        table_[hash_code].push_back(HashElement<T>(value, hash_code)); /// TODO : collision
     }
     table_[hash_code][i]++;
 
-//std::cout << "Ajout de l'element " << value << " a la place " << hash_code << " | " << i << std::endl;
-
-    return hash_code; // In case we need it
+    return true;
 }
 
 // Add an element in the right place
@@ -90,7 +88,7 @@ void Hashtable<T>::printAll() const {
     std::cout << "-- TABLE CONTENT --\n" << std::endl;
     for(unsigned long int i = 0 ; i < size_ ; i++) {
         for(unsigned long int j = 0; j < table_[i].size(); j++) { // Each vector
-            std::cout << table_[i].at(j).getValue() << " - #" << table_[i].at(j).number() << std::endl;
+            std::cout << table_[i].at(j).getValue() << "\t#" << table_[i].at(j).number() << std::endl;
         }
     }
     std::cout << "\n-- END OF TABLE --" << std::endl;

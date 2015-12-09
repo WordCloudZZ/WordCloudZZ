@@ -1,14 +1,13 @@
 #ifndef BINARYSEARCHTREE
 #define BINARYSEARCHTREE
 
-#include <stack>
+#include <map>
 #include "Node.h"
 
 template<typename T>
 class BinarySearchTree {
     protected:
-        int                         m_size;
-public:        Node<T>                   * m_tree;
+        std::map<std::string,Node<T> >      m_abr;
 
     public:
         BinarySearchTree();
@@ -16,11 +15,10 @@ public:        Node<T>                   * m_tree;
         virtual ~BinarySearchTree();
         BinarySearchTree & operator=(const BinarySearchTree &);
 
-        const T & at(int) const;
+        const T & operator[](int) const;
+
         bool add(const T &);
-        bool erase(const T &);
-        unsigned long long int size() const;
-        unsigned long long int height() const;
+        unsigned int size() const;
         bool contains(const T &) const;
         void printAll() const;
 

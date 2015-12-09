@@ -18,14 +18,13 @@ class Hashtable {
 
         unsigned long int hashCode(T) const;
         unsigned long int addElement(HashElement<T>*);
+        HashElement<T> * at(int) const;
 
     public:
         Hashtable(unsigned int);
         virtual ~Hashtable();
 
-        HashElement<T> * at(int) const;
-        unsigned long int addElement(T);
-
+        bool add(const T &);
         unsigned int size() const;
         bool contains(const T &) const;
         void printAll() const;
