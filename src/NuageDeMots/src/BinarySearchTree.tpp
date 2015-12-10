@@ -68,17 +68,17 @@ std::string BinarySearchTree<T>::sort() const {
     std::string result;
     std::forward_list<Node<T> > sorted;
 
- //   sorted.push_front(m_abr.begin());
-    for(auto j = m_abr.begin() ; j != m_abr.end() ; ++j) {
+    sorted.push_front(m_abr.begin()->second);
+    for(auto j = ++(m_abr.begin()) ; j != m_abr.end() ; ++j) {
         typename std::forward_list<Node<T> >::iterator it = std::begin(sorted);
         typename std::forward_list<Node<T> >::iterator pit = it;
         while(it!=std::end(sorted) &&
               (*it).number() <
-              (*j).second.number()) {
+              j->second.number()) {
             pit = it;
             it++;
         }
-        sorted.emplace_after(pit, j);
+        sorted.emplace_after(pit, j->second);
     }
     for(auto it = std::begin(sorted); it!=std::end(sorted) ; ++it) {
         if((*it).getValue().size() > 0)
