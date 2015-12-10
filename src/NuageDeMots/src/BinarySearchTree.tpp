@@ -2,34 +2,34 @@ template <typename T>
 BinarySearchTree<T>::BinarySearchTree() : m_abr() {
 
 }
-
+/*
 template <typename T>
 BinarySearchTree<T>::BinarySearchTree(const BinarySearchTree & p_toCopy) {
     m_abr = p_toCopy.m_abr;
 }
-
+*/
 template <typename T>
 BinarySearchTree<T>::~BinarySearchTree() {
 
 }
-
+/*
 template <typename T>
 BinarySearchTree<T> & BinarySearchTree<T>::operator=(const BinarySearchTree & p_toCopy) {
     m_abr = p_toCopy.m_abr;
     return *this;
 }
-
+*//*
 template <typename T>
 const T & BinarySearchTree<T>::operator[](int) const {
     return T();
 }
-
+*/
 template <typename T>
 bool BinarySearchTree<T>::add(const T & p_toAdd) {
-    bool                                retour      = true;
-    auto                                it          = m_abr.find(p_toAdd);
+    bool                                        retour      = true;
+    typename std::map<T, Node<T> >::iterator    it          = m_abr.find(p_toAdd);
 
-    if(it != m_abr.end()) {
+    if(it == m_abr.end()) {
         m_abr.insert(std::pair<T, Node<T> >(p_toAdd, Node<T>(p_toAdd)));
     } else {
         it->second++;
@@ -67,17 +67,18 @@ template <typename T>
 std::string BinarySearchTree<T>::sort() const {
     std::string result;
     std::forward_list<Node<T> > sorted;
-    sorted.push_front(Node<T>());
-    for(int i = 0 ; i < size_ ; ++i) {
-        for(int j = 0 ; j < table_[i].size() ; ++j) {
-            typename std::forward_list<Node<T> >::iterator it = std::begin(sorted);
-            typename std::forward_list<Node<T> >::iterator pit = it;
-            while(it!=std::end(sorted) && (*it).number() < table_[i][j].number()) {
-                pit = it;
-                it++;
-            }
-            sorted.emplace_after(pit, table_[i][j]);
+
+ //   sorted.push_front(m_abr.begin());
+    for(auto j = m_abr.begin() ; j != m_abr.end() ; ++j) {
+        typename std::forward_list<Node<T> >::iterator it = std::begin(sorted);
+        typename std::forward_list<Node<T> >::iterator pit = it;
+        while(it!=std::end(sorted) &&
+              (*it).number() <
+              (*j).second.number()) {
+            pit = it;
+            it++;
         }
+        sorted.emplace_after(pit, j);
     }
     for(auto it = std::begin(sorted); it!=std::end(sorted) ; ++it) {
         if((*it).getValue().size() > 0)

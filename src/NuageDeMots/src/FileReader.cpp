@@ -33,7 +33,6 @@ void FileReader::read(std::string p_filename) {
     if(m_file.is_open()) {
         m_file.close();
     }
-
     m_file.open(p_filename.c_str(), std::ifstream::in);
     if(m_file.is_open()) {
         while(getline(m_file, buffer)) {
@@ -57,8 +56,9 @@ void FileReader::read(std::string p_filename) {
 
 void FileReader::process(std::string p_stringToProcess) {
     std::transform(p_stringToProcess.begin(), p_stringToProcess.end(), p_stringToProcess.begin(), tolower);
-    if(!m_ignoredWords.contains(p_stringToProcess))
+    if(!m_ignoredWords.contains(p_stringToProcess)) {
         m_studiedWords.add(p_stringToProcess);
+    }
 }
 
 bool FileReader::contains(std::string p_toFind) const {

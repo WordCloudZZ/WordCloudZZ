@@ -10,11 +10,10 @@ class Node : public Countable {
 
     public:
         Node(T);
-        Node(const Node &);
         virtual ~Node();
         Node & operator=(Node &);
 
-        T & getValue() const;
+        T getValue();
         void setValue(const T &);
 };
 

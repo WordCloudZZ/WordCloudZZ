@@ -1,11 +1,6 @@
 template<typename T>
-Node<T>::Node(T p_value = T()) : Countable(), m_value(p_value) {
+Node<T>::Node(T p_value /*= T()*/) : Countable(), m_value(p_value) {
 
-}
-
-template<typename T>
-Node<T>::Node(const Node & p_toCopy) : Countable(p_toCopy) {
-    this->m_value = p_toCopy.getValue();
 }
 
 template<typename T>
@@ -23,7 +18,7 @@ Node<T> & Node<T>::operator=(Node<T> & p_toCopy) {
 }
 
 template<typename T>
-T & Node<T>::getValue() const {
+T Node<T>::getValue() {
     return m_value;
 }
 

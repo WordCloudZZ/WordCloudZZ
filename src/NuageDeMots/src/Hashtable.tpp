@@ -59,7 +59,7 @@ bool Hashtable<T>::add(const T & value) {
         i++;
     }
     if(table_[hash_code].size()==i) {
-        table_[hash_code].push_back(HashElement<T>(value, hash_code)); /// TODO : collision
+        table_[hash_code].push_back(HashElement<T>(value, hash_code));
     }
     table_[hash_code][i]++;
 
