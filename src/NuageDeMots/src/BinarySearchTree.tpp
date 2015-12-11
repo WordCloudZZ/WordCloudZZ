@@ -30,10 +30,9 @@ bool BinarySearchTree<T>::add(const T & p_toAdd) {
     typename std::map<T, Node<T> >::iterator    it          = m_abr.find(p_toAdd);
 
     if(it == m_abr.end()) {
-        m_abr.insert(std::pair<T, Node<T> >(p_toAdd, Node<T>(p_toAdd)));
-    } else {
-        it->second++;
+        it = m_abr.insert(std::pair<T, Node<T> >(p_toAdd, Node<T>(p_toAdd))).first;
     }
+    it->second++;
 
     return retour;
 }
