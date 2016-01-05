@@ -65,7 +65,8 @@ bool FileReader::contains(std::string p_toFind) const {
     return m_studiedWords.contains(p_toFind);
 }
 
-void FileReader::printStudyTable() const {
+void FileReader::printStudyTable() {
+    m_studiedWords.deletePlurals();
     m_studiedWords.sort();
 }
 

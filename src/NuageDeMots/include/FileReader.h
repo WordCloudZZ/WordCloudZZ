@@ -13,8 +13,8 @@ class FileReader {
     protected:
         std::ifstream                           m_file; // Any file used
         std::string                             m_separator; // Contains the list of separators
-        BinarySearchTree<std::string>           m_ignoredWords; // Storing words we have to ignore
-        BinarySearchTree<std::string>           m_studiedWords; // Storing words we have to study
+        Hashtable<std::string>           m_ignoredWords; // Storing words we have to ignore
+        Hashtable<std::string>           m_studiedWords; // Storing words we have to study
 
     public:
         FileReader(std::string = "ignore.conf", std::string = "filereader.conf");
@@ -24,7 +24,7 @@ class FileReader {
         bool contains(std::string) const;
         void process(std::string);
 
-        void printStudyTable() const;
+        void printStudyTable();
 
     private:
         bool isSeparator(const char &);

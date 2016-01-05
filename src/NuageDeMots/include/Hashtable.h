@@ -15,22 +15,27 @@ class Hashtable {
     protected:
         unsigned int                    size_;
         std::vector<HashElement<T> >  * table_;
+        std::forward_list<HashElement<T> > sorted_;
 
         unsigned long int hashCode(T) const;
         unsigned long int addElement(HashElement<T>*);
-        HashElement<T> * at(int) const;
+        HashElement<T> * search(const T &) const;
+        bool increase(HashElement<T> *, long);
 
     public:
         Hashtable(unsigned int);
         virtual ~Hashtable();
 
         bool add(const T &);
+        bool erase(const T & value);
         unsigned int size() const;
         bool contains(const T &) const;
+        bool increase(const T &, long);
         void printAll() const;
 
         std::string toString() const;
-        std::string sort() const;
+        std::string sort();
+        void deletePlurals();
 };
 
 #include "Hashtable.tpp"

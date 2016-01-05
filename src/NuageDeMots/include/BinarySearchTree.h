@@ -2,6 +2,7 @@
 #define BINARYSEARCHTREE
 
 #include <map>
+#include <algorithm>
 #include "Node.h"
 
 template<typename T>

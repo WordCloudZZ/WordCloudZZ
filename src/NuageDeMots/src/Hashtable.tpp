@@ -12,12 +12,6 @@ Hashtable<T>::~Hashtable() {
     }
 }
 
-// Return element at a certain position
-template <typename T>
-HashElement<T>* Hashtable<T>::at(int place) const {
-    return table_[place];
-}
-
 template <typename T>
 unsigned int Hashtable<T>::size() const {
     return size_;
@@ -66,6 +60,23 @@ bool Hashtable<T>::add(const T & value) {
     return true;
 }
 
+template <typename T>
+bool Hashtable<T>::erase(const T & value) {
+    unsigned long int   hash_code = hashCode(value), // Get hash code
+                        i = 0;
+    bool success = false;
+
+    while(i < table_[hash_code].size() && table_[hash_code][i].getValue()!=value) {
+        i++;
+    }
+    if(table_[hash_code].size()!=i) {
+        table_[hash_code].erase(table_[hash_code].begin()+i);
+        success = true;
+    }
+
+    return success;
+}
+
 // Add an element in the right place
 template <typename T>
 unsigned long int Hashtable<T>::addElement(HashElement<T> * to_add) {
@@ -103,22 +114,21 @@ std::string Hashtable<T>::toString() const {
 }
 
 template <typename T>
-std::string Hashtable<T>::sort() const {
+std::string Hashtable<T>::sort() {
     std::string result;
-    std::forward_list<HashElement<T> > sorted;
-    sorted.push_front(HashElement<T>());
+    sorted_.push_front(HashElement<T>());
     for(int i = 0 ; i < size_ ; ++i) {
         for(int j = 0 ; j < table_[i].size() ; ++j) {
-            typename std::forward_list<HashElement<T> >::iterator it = std::begin(sorted);
+            typename std::forward_list<HashElement<T> >::iterator it = std::begin(sorted_);
             typename std::forward_list<HashElement<T> >::iterator pit = it;
-            while(it!=std::end(sorted) && (*it).number() < table_[i][j].number()) {
+            while(it!=sorted_.end() && (*it).number() < table_[i][j].number()) {
                 pit = it;
                 it++;
             }
-            sorted.emplace_after(pit, table_[i][j]);
+            sorted_.emplace_after(pit, table_[i][j]);
         }
     }
-    for(auto it = std::begin(sorted); it!=std::end(sorted) ; ++it) {
+    for(auto it = std::begin(sorted_); it!=std::end(sorted_) ; ++it) {
         if((*it).getValue().size() > 0)
             std::cout << (*it).getValue() << "\t#" << (*it).number() << std::endl;
     }
@@ -126,3 +136,54 @@ std::string Hashtable<T>::sort() const {
     return result;
 }
 
+template <typename T>
+HashElement<T> * Hashtable<T>::search(const T & value) const {
+    HashElement<T> * result = NULL;
+    unsigned long int   hash_code = hashCode(value), // Get hash code
+                        i = 0;
+    while(i < table_[hash_code].size() && table_[hash_code][i].getValue()!=value) {
+        i++;
+    }
+    if(table_[hash_code].size()>i && table_[hash_code][i].getValue()==value) {
+        result = &(table_[hash_code][i]);
+    }
+    return result;
+}
+
+template <typename T>
+bool Hashtable<T>::increase(HashElement<T> * he, long val) {
+    bool success = false;
+    if(he!=NULL) {
+            std::cout << val << " " << (he->number()) << std::endl;
+        he->setNumber(val+(he->number()));
+        success = true;
+    }
+    return success;
+}
+
+template <typename T>
+bool Hashtable<T>::increase(const T & key, long val) {
+    bool success = false;
+    HashElement<T> * result = search(key);
+    if(result!=NULL) {
+        if(increase(result, val))
+            success = true;
+    }
+    return success;
+}
+
+template <typename T>
+void Hashtable<T>::deletePlurals() {
+    for(int i = 0 ; i < size_ ; ++i) {
+        for(int j = 0 ; j < table_[i].size() ; ++j) {
+            HashElement<T> word = table_[i][j];
+            if(word.getValue().c_str()[word.getValue().size()-1] == 's' || word.getValue().c_str()[word.getValue().size()-1] == 'x') {
+                std::string singulier = word.getValue().substr(0,word.getValue().length()-1);
+                std::cout << singulier << " " << word.getValue() << std::endl;
+                if(increase(singulier, word.number())) {
+                    erase(word.getValue());
+                }
+            }
+        }
+    }
+}

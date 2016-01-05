@@ -19,7 +19,6 @@ class HashElement : public Countable {
 
         unsigned long int getKey() const;
         T getValue() const;
-        unsigned long int getNumber() const;
         const std::string & toString() const;
 
         void setKey(unsigned long int);
