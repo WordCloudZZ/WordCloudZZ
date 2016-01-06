@@ -13,9 +13,9 @@ template <typename T>
 class Hashtable {
 
     protected:
-        unsigned int                    size_;
-        std::vector<HashElement<T> >  * table_;
-        std::forward_list<HashElement<T> > sorted_;
+        unsigned int                              size_;
+        std::vector<HashElement<T> >            * table_;
+        std::forward_list<HashElement<T> >        sorted_;
 
         unsigned long int hashCode(T) const;
         unsigned long int addElement(HashElement<T>*);

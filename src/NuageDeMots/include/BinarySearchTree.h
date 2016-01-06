@@ -24,7 +24,8 @@ class BinarySearchTree {
         void printAll() const;
 
         std::string toString() const;
-        std::string sort() const;
+        std::string sort();
+        void deletePlurals();
 };
 
 #include "BinarySearchTree.tpp"

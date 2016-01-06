@@ -63,48 +63,43 @@ std::string BinarySearchTree<T>::toString() const {
 }
 
 template <typename T>
-std::string BinarySearchTree<T>::sort() const {
-/*
+std::string BinarySearchTree<T>::sort() {
+
     class CompPair {
-        bool operator()(std::pair<T, Node<T> > & a, std::pair<T, Node<T> > & b){
+        public:
+        bool operator()(const std::pair<T, Node<T> > & a, const std::pair<T, Node<T> > & b){
             return a.second.number() < b.second.number();
         }
     } bob;
 
-    class CompNode {
-        bool operator()(Node<std::string> & a, Node<std::string> & b){
-            return a.number() < b.number();
-        }
-    } bib;
-
     std::string result;
-    std::forward_list<Node<T> > sorted;
-    std::vector<Node<std::string> > trie;
+    std::forward_list<std::pair<T,Node<T> > > sorted;
+    std::vector<std::pair<T,Node<T> > > trie;
     for(auto n : m_abr) {
-        trie.push_back(n.second);
+        trie.push_back(n);
     }
-    sort(trie.begin(), trie.end(), bib);
-auto po = trie.begin();
-std::cout << po->number() << std::endl;
-//    std::cout << "Test " << bob(m_abr.begin(), m_abr.begin()) << std::endl;
-/*
-    sorted.push_front(m_abr.begin()->second);
-    for(auto j = ++(m_abr.begin()) ; j != m_abr.end() ; ++j) {
-        typename std::forward_list<Node<T> >::iterator it = std::begin(sorted);
-        typename std::forward_list<Node<T> >::iterator pit = it;
-        while(it!=std::end(sorted) &&
-              (*it).number() <
-              j->second.number()) {
-            pit = it;
-            it++;
-        }
-        sorted.emplace_after(pit, j->second);
-    }
-    for(auto it = sorted.begin(); it != sorted.end() ; ++it) {
-        if((*it).getValue().size() > 0)
-            std::cout << (*it).getValue() << "\t#" << (*it).number() << std::endl;
-    }
-*//*
-    return result;*/
+    std::sort(trie.begin(), trie.end(), bob);
+
+    for(auto po : trie)
+        std::cout << po.second.getValue() << "\t#" << po.second.number() << std::endl;
+
+    return result;
 }
+
+template <typename T>
+void BinarySearchTree<T>::deletePlurals() {
+    for(auto pairWord : m_abr) {
+            Node<T> * word = &(pairWord.second);
+            if(word->getValue().c_str()[word->getValue().size()-1] == 's' || word->getValue().c_str()[word->getValue().size()-1] == 'x') {
+                std::string singulier = word->getValue().substr(0,word->getValue().length()-1);
+                auto iteratorOnSingular = m_abr.find(singulier);
+                if(iteratorOnSingular != m_abr.end()) {
+                    iteratorOnSingular->second.setNumber(iteratorOnSingular->second.number()+word->number());
+                    m_abr.erase(word->getValue());
+                }
+            }
+
+    }
+}
+
 

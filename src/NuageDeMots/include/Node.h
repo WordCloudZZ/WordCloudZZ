@@ -11,7 +11,6 @@ class Node : public Countable {
     public:
         Node(T);
         virtual ~Node();
-        Node & operator=(Node &);
 
         T getValue();
         void setValue(const T &);

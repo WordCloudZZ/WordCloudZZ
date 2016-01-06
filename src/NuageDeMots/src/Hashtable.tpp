@@ -1,6 +1,6 @@
 // Constructor with parameters
 template <typename T>
-Hashtable<T>::Hashtable(unsigned int table_size = 256) : size_(table_size) {
+Hashtable<T>::Hashtable(unsigned int table_size = 1024) : size_(table_size) {
     table_ = new std::vector<HashElement<T> >[size_];
 }
 
@@ -154,7 +154,6 @@ template <typename T>
 bool Hashtable<T>::increase(HashElement<T> * he, long val) {
     bool success = false;
     if(he!=NULL) {
-            std::cout << val << " " << (he->number()) << std::endl;
         he->setNumber(val+(he->number()));
         success = true;
     }
@@ -179,7 +178,6 @@ void Hashtable<T>::deletePlurals() {
             HashElement<T> word = table_[i][j];
             if(word.getValue().c_str()[word.getValue().size()-1] == 's' || word.getValue().c_str()[word.getValue().size()-1] == 'x') {
                 std::string singulier = word.getValue().substr(0,word.getValue().length()-1);
-                std::cout << singulier << " " << word.getValue() << std::endl;
                 if(increase(singulier, word.number())) {
                     erase(word.getValue());
                 }

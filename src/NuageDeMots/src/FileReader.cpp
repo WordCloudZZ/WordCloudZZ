@@ -1,7 +1,7 @@
 #include "FileReader.h"
 
 // Constructor using default file
-FileReader::FileReader(std::string p_fileignore, std::string p_fileconf) {
+FileReader::FileReader(std::string p_fileignore, std::string p_fileconf) : m_wordCount(0) {
     std::string buffer;
 
     // Loading separators from given file in a string
@@ -50,7 +50,6 @@ void FileReader::read(std::string p_filename) {
                         this->process(buffer.substr(start, -1));
                     }
         } //while
-        //m_studiedWords.sort();
     } //if
 }
 
@@ -59,6 +58,7 @@ void FileReader::process(std::string p_stringToProcess) {
     if(!m_ignoredWords.contains(p_stringToProcess)) {
         m_studiedWords.add(p_stringToProcess);
     }
+    m_wordCount++;
 }
 
 bool FileReader::contains(std::string p_toFind) const {
@@ -68,6 +68,7 @@ bool FileReader::contains(std::string p_toFind) const {
 void FileReader::printStudyTable() {
     m_studiedWords.deletePlurals();
     m_studiedWords.sort();
+    std::cout << "Nombre de mots : " << m_wordCount << std::endl;
 }
 
 bool FileReader::isSeparator(const char & p_char) {
