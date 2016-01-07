@@ -47,21 +47,17 @@
 			<Add option="-pg -lgmon" />
 		</Linker>
 		<Unit filename="include/BinarySearchTree.h" />
-		<Unit filename="include/Container.h" />
 		<Unit filename="include/Countable.h" />
 		<Unit filename="include/FileReader.h" />
 		<Unit filename="include/HashElement.h" />
 		<Unit filename="include/Hashtable.h" />
-		<Unit filename="include/Mersenne.h" />
 		<Unit filename="include/Node.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="src/BinarySearchTree.tpp" />
-		<Unit filename="src/Container.tpp" />
 		<Unit filename="src/Countable.cpp" />
 		<Unit filename="src/FileReader.tpp" />
 		<Unit filename="src/HashElement.tpp" />
 		<Unit filename="src/Hashtable.tpp" />
-		<Unit filename="src/Mersenne.cpp" />
 		<Unit filename="src/Node.tpp" />
 		<Extensions>
 			<code_completion />
