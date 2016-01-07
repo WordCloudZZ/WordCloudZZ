@@ -1,7 +1,6 @@
-#include "FileReader.h"
-
 // Constructor using default file
-FileReader::FileReader(std::string p_fileignore, std::string p_fileconf) : m_wordCount(0) {
+template<template<typename = std::string> class C>
+FileReader<C>::FileReader(std::string p_fileignore, std::string p_fileconf) : m_wordCount(0) {
     std::string buffer;
 
     // Loading separators from given file in a string
@@ -22,13 +21,15 @@ FileReader::FileReader(std::string p_fileignore, std::string p_fileconf) : m_wor
 
 }
 
-FileReader::~FileReader() {
+template<template<typename = std::string> class C>
+FileReader<C>::~FileReader() {
     if(m_file.is_open()) {
         m_file.close();
     }
 }
 
-void FileReader::read(std::string p_filename) {
+template<template<typename = std::string> class C>
+void FileReader<C>::read(std::string p_filename) {
     std::string buffer;
     if(m_file.is_open()) {
         m_file.close();
@@ -53,7 +54,8 @@ void FileReader::read(std::string p_filename) {
     } //if
 }
 
-void FileReader::process(std::string p_stringToProcess) {
+template<template<typename = std::string> class C>
+void FileReader<C>::process(std::string p_stringToProcess) {
     std::transform(p_stringToProcess.begin(), p_stringToProcess.end(), p_stringToProcess.begin(), tolower);
     if(!m_ignoredWords.contains(p_stringToProcess)) {
         m_studiedWords.add(p_stringToProcess);
@@ -61,17 +63,20 @@ void FileReader::process(std::string p_stringToProcess) {
     m_wordCount++;
 }
 
-bool FileReader::contains(std::string p_toFind) const {
+template<template<typename = std::string> class C>
+bool FileReader<C>::contains(std::string p_toFind) const {
     return m_studiedWords.contains(p_toFind);
 }
 
-void FileReader::printStudyTable() {
+template<template<typename = std::string> class C>
+void FileReader<C>::printStudyTable() {
     m_studiedWords.deletePlurals();
     m_studiedWords.sort();
     std::cout << "Nombre de mots : " << m_wordCount << std::endl;
 }
 
-bool FileReader::isSeparator(const char & p_char) {
+template<template<typename = std::string> class C>
+bool FileReader<C>::isSeparator(const char & p_char) {
     unsigned int i = 0;
     while(i < m_separator.size() && p_char!=m_separator[i++]);
     return m_separator[i-1]==p_char;

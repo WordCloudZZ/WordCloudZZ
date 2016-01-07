@@ -4,6 +4,7 @@
 
 #include "FileReader.h"
 #include "BinarySearchTree.h"
+#include "Hashtable.h"
 
 using namespace std;
 
@@ -19,29 +20,36 @@ bool is_readable(const string &file) {
 }
 
 int main(int argc, char** argv) {
-    std::string     buff1           = "",
-                    buff2           = "",
-                    buff3           = "",
-                    buff[3]         = {"hill.bk","ignore.conf","filereader.conf"};
-    unsigned        choice          = 0,
-                    /** Choix du mode de l'interface : 0-ligne de commande;1-menu console;2-interface graphique */
-                    output_choice   = 0,
-                    argStringNumber = 0;
-    FileReader    * analyseur       = NULL;
-
+    std::string                         buff1           = "",
+                                        buff2           = "",
+                                        buff3           = "",
+                                        buff[3]         = {"hill.bk","ignore.conf","filereader.conf"};
+    unsigned                            choice          = 0,
+                /** Choix du mode de l'interface : 0-ligne de commande;1-menu console;2-interface graphique */
+                                        output_choice   = 0,
+                                        argStringNumber = 0;
+    IFileReader                       * analyseur       = NULL;
+    bool                                useABRE         = true;
     setlocale(LC_ALL, "");
 
     // traitement des arguments
     for(int i = 1 ; i < argc ; ++i) {
         if(argv[i][0]=='-' && strlen(argv[i])==2) {
-            if(argv[i][1]=='X') { // ligne de commande
-                output_choice = 0;
-            } else if(argv[i][1]=='v') { // menu console
-                output_choice = 1;
-            } else if(argv[i][1]=='x') { // interface graphique
-                output_choice = 2;
-            } else {
-                output_choice = -1;
+            string arg = argv[i];
+            for(char c : arg) {
+                if(c=='X') { // ligne de commande
+                    output_choice = 0;
+                } else if(c=='v') { // menu console
+                    output_choice = 1;
+                } else if(c=='x') { // interface graphique
+                    output_choice = 2;
+                } else if(c=='h') { // interface graphique
+                    useABRE = false;
+                } else if(c=='a') { // interface graphique
+                    useABRE = true;
+                } else {
+                    output_choice = -1;
+                }
             }
         } else {
             buff[argStringNumber++] = argv[i];
@@ -49,7 +57,10 @@ int main(int argc, char** argv) {
     }
 
     if(output_choice==0) {      // console simple
-        analyseur = new FileReader(buff[1], buff[2]);       // initialisation (ignore,separateurs)
+        if(useABRE)
+            analyseur = new FileReader<BinarySearchTree>(buff[1], buff[2]);
+        else
+            analyseur = new FileReader<Hashtable>(buff[1], buff[2]);   // initialisation (ignore,separateurs)
         analyseur->read(buff[0]);                          // lecture du fichier
         analyseur->printStudyTable();                   // affichage des resultats
         delete analyseur;                               // liberation de la memoire
@@ -78,19 +89,31 @@ int main(int argc, char** argv) {
                 if((buff1.size() != 0 && buff2.size() != 0) && (is_readable(buff1) && is_readable(buff2))) {
                     // On a tout eu et les fichiers existent
                     cout << "Utilisation de 2 fichiers de configuration personnels" << endl;
-                    analyseur = new FileReader(buff1, buff2);
+                    if(useABRE)
+                        analyseur = new FileReader<BinarySearchTree>(buff1, buff2);
+                    else
+                        analyseur = new FileReader<Hashtable>(buff1, buff2);
                 } else if ((buff1.size() == 0 && buff2.size() != 0) && (is_readable(buff2))) {
                     // Pas de fichier de mots et l'autre fichier existe
-                    cout << "Utilisation de sepatateurs personnels" << endl;
-                    analyseur = new FileReader("ignore.conf", buff2);
+                    cout << "Utilisation de séparateurs personnels" << endl;
+                    if(useABRE)
+                        analyseur = new FileReader<BinarySearchTree>("ignore.conf", buff2);
+                    else
+                        analyseur = new FileReader<Hashtable>("ignore.conf", buff2);
                 } else if ((buff2.size() == 0 && buff1.size() != 0) && (is_readable(buff1))) {
                     // Pas de separateurs
-                    cout << "Utilisation de la liste personnelle de mots a ignorer" << endl;
-                    analyseur = new FileReader(buff1, "filereader.conf");
+                    cout << "Utilisation de la liste personnelle de mots à ignorer" << endl;
+                    if(useABRE)
+                        analyseur = new FileReader<BinarySearchTree>(buff1, "filereader.conf");
+                    else
+                        analyseur = new FileReader<Hashtable>(buff1, "filereader.conf");
                 } else {
                     // On a rien
-                    cout << "** Utilisation des fichiers de configuration par defaut" << endl;
-                    analyseur = new FileReader();
+                    cout << "** Utilisation des fichiers de configuration par défaut" << endl;
+                    if(useABRE)
+                        analyseur = new FileReader<BinarySearchTree>();
+                    else
+                        analyseur = new FileReader<BinarySearchTree>();
                 }
 
                 if(buff3.size() == 0 || !is_readable(buff3)) {

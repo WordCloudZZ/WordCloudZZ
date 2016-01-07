@@ -21,16 +21,16 @@ class Hashtable {
         unsigned long int addElement(HashElement<T>*);
         HashElement<T> * search(const T &) const;
         bool increase(HashElement<T> *, long);
+        bool increase(const T &, long);
+        bool erase(const T & value);
 
     public:
         Hashtable(unsigned int);
         virtual ~Hashtable();
 
         bool add(const T &);
-        bool erase(const T & value);
         unsigned int size() const;
         bool contains(const T &) const;
-        bool increase(const T &, long);
         void printAll() const;
 
         std::string toString() const;
