@@ -13,5 +13,6 @@ int main(int argc, char* argv[]) {
     MainWindow w; // Fenetre principale
     w.show(); // Affiche la fenetre
 
+
     return a.exec();
 }
