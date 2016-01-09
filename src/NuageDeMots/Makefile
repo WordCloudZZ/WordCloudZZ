@@ -8,7 +8,7 @@ CCFLAGS = -Wall -Wextra -ansi -pedantic -g -O2 -std=c++11 -Iinclude/ -Isrc/
 LDFLAGS = -lm
 
 # liste des fichiers objets 
-OBJ = main.o WordsGenerator.o Mersenne.o FileReader.o Countable.o
+OBJ = main.o Countable.o
 BUILD_PATH = ../../bin/
 EXE = WordsCloud
 

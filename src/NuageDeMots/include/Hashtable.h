@@ -25,7 +25,7 @@ class Hashtable {
         bool erase(const T & value);
 
     public:
-        Hashtable(unsigned int);
+        Hashtable(unsigned int = 1024);
         virtual ~Hashtable();
 
         bool add(const T &);

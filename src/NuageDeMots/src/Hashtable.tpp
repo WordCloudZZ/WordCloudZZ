@@ -1,6 +1,6 @@
 // Constructor with parameters
 template <typename T>
-Hashtable<T>::Hashtable(unsigned int table_size = 1024) : size_(table_size) {
+Hashtable<T>::Hashtable(unsigned int table_size) : size_(table_size) {
     table_ = new std::vector<HashElement<T> >[size_];
 }
 
