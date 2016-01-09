@@ -5,10 +5,10 @@ CC = g++
 CCFLAGS = -Wall -Wextra -ansi -pedantic -g -O2 -std=c++11 -Iinclude/ -Isrc/
 
 # options de l'edition des liens
-LDFLAGS = -lm
+LDFLAGS = -lm -lz
 
 # liste des fichiers objets 
-OBJ = main.o Countable.o
+OBJ = main.o Countable.o PDFReader.o
 BUILD_PATH = ../../bin/
 EXE = WordsCloud
 

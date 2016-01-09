@@ -4,3 +4,5 @@ main.o: main.cpp include/FileReader.h include/Hashtable.h \
  src/BinarySearchTree.tpp src/FileReader.tpp include/BinarySearchTree.h \
  include/Hashtable.h
 Countable.o: src/Countable.cpp include/Countable.h
+PDFReader.o: src/PDFReader.cpp include/PDFReader.h src/pdf.cpp
+pdf.o: src/pdf.cpp

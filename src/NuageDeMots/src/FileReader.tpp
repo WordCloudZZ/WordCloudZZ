@@ -70,9 +70,12 @@ bool FileReader<C>::contains(std::string p_toFind) const {
 
 template<template<typename = std::string> class C>
 void FileReader<C>::printStudyTable() {
+    PDFReader p("hill.pdf");
+/*
     m_studiedWords.deletePlurals();
     m_studiedWords.sort();
     std::cout << "Nombre de mots : " << m_wordCount << std::endl;
+    */
 }
 
 template<template<typename = std::string> class C>

@@ -6,6 +6,7 @@
 #include <string>
 #include <algorithm>
 
+#include "PDFReader.h"
 #include "Hashtable.h"
 #include "BinarySearchTree.h"
 
