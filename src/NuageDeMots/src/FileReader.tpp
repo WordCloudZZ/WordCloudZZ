@@ -1,6 +1,6 @@
 // Constructor using default file
 template<template<typename = std::string> class C>
-FileReader<C>::FileReader(std::string p_fileignore, std::string p_fileconf) : m_wordCount(0) {
+FileReader<C>::FileReader(std::string p_fileignore, std::string p_fileconf) : m_wordCount(0), m_open(false), m_isPdf(false) {
     std::string buffer;
 
     // Loading separators from given file in a string
@@ -29,14 +29,40 @@ FileReader<C>::~FileReader() {
 }
 
 template<template<typename = std::string> class C>
+std::streambuf * FileReader<C>::open(std::string p_filename) {
+    std::istream * retour;
+    m_open = false;
+    m_isPdf = false;
+    
+    if(p_filename.substr(p_filename.length()-4) == ".pdf") {
+        PDFReader p(p_filename);
+        for(auto str : p.getLines()) m_stream << str << std::endl;
+        retour = &m_stream;
+        m_open = true;
+        m_isPdf = true;
+    } else {
+        if(m_file.is_open()) {
+            m_file.close();
+        }
+        m_file.open(p_filename.c_str(), std::ifstream::in);
+        if(m_file.is_open()) {
+            m_open = true;
+            retour = &m_file;
+        } else {
+            std::cerr << "FileReader error: cannot open this file " << p_filename << std::endl;
+        }
+    }
+    
+    return retour->rdbuf();
+}
+
+template<template<typename = std::string> class C>
 void FileReader<C>::read(std::string p_filename) {
     std::string buffer;
-    if(m_file.is_open()) {
-        m_file.close();
-    }
-    m_file.open(p_filename.c_str(), std::ifstream::in);
-    if(m_file.is_open()) {
-        while(getline(m_file, buffer)) {
+    std::istream flux(this->open(p_filename));
+    
+    if(m_open) {
+        while(getline(flux, buffer)) {
             unsigned int start=0, cour=0;
             while(cour < buffer.size()) {
                 if(isSeparator(buffer[cour]) || '\n'==buffer[cour]) {
@@ -51,7 +77,9 @@ void FileReader<C>::read(std::string p_filename) {
                         this->process(buffer.substr(start, -1));
                     }
         } //while
-    } //if
+    } else {
+        std::cerr << "FileReader error: cannot read the file " << p_filename << std::endl;
+    }
 }
 
 template<template<typename = std::string> class C>
@@ -70,12 +98,9 @@ bool FileReader<C>::contains(std::string p_toFind) const {
 
 template<template<typename = std::string> class C>
 void FileReader<C>::printStudyTable() {
-    PDFReader p("hill.pdf");
-/*
     m_studiedWords.deletePlurals();
     m_studiedWords.sort();
     std::cout << "Nombre de mots : " << m_wordCount << std::endl;
-    */
 }
 
 template<template<typename = std::string> class C>

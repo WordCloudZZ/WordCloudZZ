@@ -25,17 +25,21 @@ class IFileReader {
 template<template<typename = std::string> class C>
 class FileReader : public IFileReader {
     protected:
-        std::ifstream                   m_file; // Any file used
-        std::string                     m_separator; // Contains the list of separators
-        unsigned long long              m_wordCount;    // nombre de mots dans le document
-        C<std::string>        m_ignoredWords; // Storing words we have to ignore
-        C<std::string>        m_studiedWords; // Storing words we have to study
+        std::ifstream               m_file; // Any file used
+        std::stringstream           m_stream;
+        std::string                 m_separator; // Contains the list of separators
+        unsigned long long          m_wordCount;    // nombre de mots dans le document
+        C<std::string>              m_ignoredWords; // Storing words we have to ignore
+        C<std::string>              m_studiedWords; // Storing words we have to study
+        bool                        m_open,
+                                    m_isPdf;
 
     public:
         FileReader(std::string = "ignore.conf", std::string = "filereader.conf");
         virtual ~FileReader();
 
         void read(std::string);
+        std::streambuf * open(std::string);
         bool contains(std::string) const;
         void process(std::string);
 
