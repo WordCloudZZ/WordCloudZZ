@@ -24,9 +24,12 @@ void MainWindow::setDefaultFiles(const std::string & f, const std::string & i, c
     buff0 = buff[0];
     buff1 = buff[1];
     buff2 = buff[2];
+
+    std::cout << "Par defaut\n" << "Principal : " << buff0 << "\nIgnore : " << buff1 << "\nSeparator : " << buff2 << std::endl;
 }
 
 void MainWindow::on_actionQuitter_triggered() {
+    delete ui;
     close();
 }
 
@@ -79,6 +82,7 @@ void MainWindow::on_extract_clicked() {
     fr = new FileReader<Hashtable>(buff1, buff2);
     fr->read(buff0);
     fr->sortTable();
+
     ui->textZone->setText(QString::fromStdString(fr->stringStudyTable())); // Il faut caster en QString
 
     std::cout << "On a extrait" << std::endl;

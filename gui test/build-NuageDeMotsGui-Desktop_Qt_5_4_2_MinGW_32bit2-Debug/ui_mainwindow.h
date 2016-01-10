@@ -47,8 +47,8 @@ public:
     QPushButton *defaultSeparator;
     QPushButton *browseSeparator;
     QLabel *label_3;
-    QPushButton *browsePrincipal;
     QLabel *label;
+    QPushButton *browsePrincipal;
     QWidget *widget;
     QGridLayout *gridLayout_2;
     QPushButton *extract;
@@ -63,8 +63,8 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
-        MainWindow->resize(677, 294);
-        MainWindow->setMinimumSize(QSize(320, 240));
+        MainWindow->resize(641, 240);
+        MainWindow->setMinimumSize(QSize(641, 240));
         MainWindow->setBaseSize(QSize(320, 240));
         MainWindow->setMouseTracking(false);
         actionOuvrir = new QAction(MainWindow);
@@ -138,15 +138,15 @@ public:
 
         gridLayout->addWidget(label_3, 4, 0, 1, 2);
 
-        browsePrincipal = new QPushButton(layoutWidget);
-        browsePrincipal->setObjectName(QStringLiteral("browsePrincipal"));
-
-        gridLayout->addWidget(browsePrincipal, 0, 2, 1, 1);
-
         label = new QLabel(layoutWidget);
         label->setObjectName(QStringLiteral("label"));
 
         gridLayout->addWidget(label, 0, 0, 1, 2);
+
+        browsePrincipal = new QPushButton(layoutWidget);
+        browsePrincipal->setObjectName(QStringLiteral("browsePrincipal"));
+
+        gridLayout->addWidget(browsePrincipal, 0, 2, 1, 1);
 
         widget = new QWidget(centralWidget);
         widget->setObjectName(QStringLiteral("widget"));
@@ -177,7 +177,7 @@ public:
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 677, 20));
+        menuBar->setGeometry(QRect(0, 0, 641, 20));
         menuFichier = new QMenu(menuBar);
         menuFichier->setObjectName(QStringLiteral("menuFichier"));
         menu = new QMenu(menuBar);
@@ -213,8 +213,8 @@ public:
         defaultSeparator->setText(QApplication::translate("MainWindow", "Par d\303\251faut", 0));
         browseSeparator->setText(QApplication::translate("MainWindow", "Parcourir ...", 0));
         label_3->setText(QApplication::translate("MainWindow", "S\303\251parateurs", 0));
-        browsePrincipal->setText(QApplication::translate("MainWindow", "Parcourir ...", 0));
         label->setText(QApplication::translate("MainWindow", "Fichier principal", 0));
+        browsePrincipal->setText(QApplication::translate("MainWindow", "Parcourir ...", 0));
         extract->setText(QApplication::translate("MainWindow", "Extraction", 0));
         menuFichier->setTitle(QApplication::translate("MainWindow", "Fichier", 0));
         menu->setTitle(QApplication::translate("MainWindow", "?", 0));
