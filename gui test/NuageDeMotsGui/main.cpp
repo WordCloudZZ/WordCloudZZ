@@ -158,14 +158,15 @@ int main(int argc, char** argv) {
             }
         }
     } else if(output_choice==2) {   // graphique
-        std::string filePath = "";
 
         QApplication a(argc, argv); // Objet de l'app
         MainWindow w; // Fenetre principale
+        w.setDefaultFiles(buff[0], buff[1], buff[2]);
+
         w.show(); // Affiche la fenetre
 
 
-        return a.exec();
+        return a.exec(); // execute l'app
     } else {    // erreur
         cout << "Argument inconnu" << endl;
     }

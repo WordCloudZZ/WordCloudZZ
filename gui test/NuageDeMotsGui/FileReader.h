@@ -5,6 +5,7 @@
 #include <fstream>
 #include <string>
 #include <algorithm>
+#include <vector>
 
 #include "Hashtable.h"
 #include "BinarySearchTree.h"
@@ -19,6 +20,8 @@ class IFileReader {
         virtual bool contains(std::string) const = 0;
         virtual void process(std::string) = 0;
         virtual void printStudyTable() = 0;
+        virtual std::string stringStudyTable() = 0;
+        virtual void sortTable() = 0;
 };
 
 template<template<typename = std::string> class C>
@@ -38,7 +41,9 @@ class FileReader : public IFileReader {
         bool contains(std::string) const;
         void process(std::string);
 
+        void sortTable();
         void printStudyTable();
+        std::string stringStudyTable();
 
     private:
         bool isSeparator(const char &);

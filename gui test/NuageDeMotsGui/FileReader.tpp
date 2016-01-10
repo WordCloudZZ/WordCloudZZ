@@ -72,7 +72,20 @@ template<template<typename = std::string> class C>
 void FileReader<C>::printStudyTable() {
     m_studiedWords.deletePlurals();
     m_studiedWords.sort();
+    std::cout << m_studiedWords.toString() << std::endl;
     std::cout << "Nombre de mots : " << m_wordCount << std::endl;
+}
+
+template<template<typename = std::string> class C>
+std::string FileReader<C>::stringStudyTable() {
+    std::string out = this->m_studiedWords.toString();
+
+    return out;
+}
+
+template<template<typename = std::string> class C>
+void FileReader<C>::sortTable() {
+    this->m_studiedWords.sort();
 }
 
 template<template<typename = std::string> class C>

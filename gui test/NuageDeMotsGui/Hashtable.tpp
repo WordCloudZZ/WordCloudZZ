@@ -114,7 +114,12 @@ template <typename T>
 std::string Hashtable<T>::toString() const {
     std::string out;
     out += "-- Table --\n";
-    out += "Taille max : " + this->size(); // TODO fix the printing of the size ...
+
+    for(auto it = std::begin(sorted_); it!=std::end(sorted_) ; ++it) {
+        if((*it).getValue().size() > 0)
+            out += ((*it).getValue()) + "\t#" + std::to_string((*it).number()) + "\n";
+    }
+
     return out;
 }
 

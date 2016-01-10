@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>553</width>
-    <height>259</height>
+    <width>677</width>
+    <height>294</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -29,43 +29,11 @@
    <string>Nuage de Mots</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <widget class="QProgressBar" name="progressBar">
-    <property name="geometry">
-     <rect>
-      <x>380</x>
-      <y>80</y>
-      <width>131</width>
-      <height>21</height>
-     </rect>
-    </property>
-    <property name="value">
-     <number>24</number>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="pushButton">
-    <property name="geometry">
-     <rect>
-      <x>420</x>
-      <y>20</y>
-      <width>80</width>
-      <height>21</height>
-     </rect>
-    </property>
-    <property name="maximumSize">
-     <size>
-      <width>80</width>
-      <height>16777215</height>
-     </size>
-    </property>
-    <property name="text">
-     <string>Extraction</string>
-    </property>
-   </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>10</y>
+      <y>0</y>
       <width>339</width>
       <height>188</height>
      </rect>
@@ -159,13 +127,52 @@
      </item>
     </layout>
    </widget>
+   <widget class="QWidget" name="">
+    <property name="geometry">
+     <rect>
+      <x>360</x>
+      <y>0</y>
+      <width>271</width>
+      <height>191</height>
+     </rect>
+    </property>
+    <layout class="QGridLayout" name="gridLayout_2">
+     <item row="0" column="0">
+      <widget class="QPushButton" name="extract">
+       <property name="maximumSize">
+        <size>
+         <width>80</width>
+         <height>16777215</height>
+        </size>
+       </property>
+       <property name="text">
+        <string>Extraction</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="QProgressBar" name="progressBar">
+       <property name="value">
+        <number>0</number>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0" colspan="2">
+      <widget class="QTextEdit" name="textZone">
+       <property name="readOnly">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>553</width>
+     <width>677</width>
      <height>20</height>
     </rect>
    </property>
