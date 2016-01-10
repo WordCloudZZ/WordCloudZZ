@@ -1,5 +1,5 @@
 #include "PDFReader.h"
-#include "pdf.cpp"
+#include "pdf.h"
 
 using namespace std;
 
@@ -42,13 +42,13 @@ bool PDFReader::isOpen() const {
 
 vector<string> PDFReader::getLines() const {
     vector<string> result;
-    
+
     if(isOpen())
         result = m_lines;
     else {
         cerr << "PDFReader error: no pdf file opened" << endl;
     }
-        
+
     return result;
 }
 
@@ -60,7 +60,7 @@ bool PDFReader::process() {
 		fseekres = fseek(m_pdf,0, SEEK_SET);
 
 		//Read ethe ntire file into memory (!):
-		char* buffer = new char [filelen]; bzero(buffer, filelen);//ZeroMemory(buffer, filelen);
+		char* buffer = new char [filelen]; benzero(buffer, filelen);//ZeroMemory(buffer, filelen);
 		size_t actualread = fread(buffer, filelen, 1 ,m_pdf);  //must return 1
 
 		bool morestreams = true;
@@ -84,10 +84,10 @@ bool PDFReader::process() {
 
 				//Assume output will fit into 10 times input buffer:
 				size_t outsize = (streamend - streamstart)*10;
-				char* output = new char [outsize]; bzero(output, outsize);//ZeroMemory(output, outsize);
+				char* output = new char [outsize]; benzero(output, outsize);//ZeroMemory(output, outsize);
 
 				//Now use zlib to inflate:
-				z_stream zstrm; bzero(&zstrm, sizeof(zstrm));//ZeroMemory(&zstrm, sizeof(zstrm));
+				z_stream zstrm; benzero(&zstrm, sizeof(zstrm));//ZeroMemory(&zstrm, sizeof(zstrm));
 
 				zstrm.avail_in = streamend - streamstart + 1;
 				zstrm.avail_out = outsize;
@@ -96,7 +96,7 @@ bool PDFReader::process() {
 
 				int rsti = inflateInit(&zstrm);
 				if (rsti == Z_OK) {
-					int rst2 = inflate (&zstrm, Z_FINISH);
+					int rst2 = inflate(&zstrm, Z_FINISH);
 					if (rst2 >= 0) {
 						//Ok, got something, extract the text:
 						size_t totout = zstrm.total_out;
@@ -114,7 +114,7 @@ bool PDFReader::process() {
 	} else {
 	    cerr << "PDFReader error : processing impossible: file not opened" << endl;
     }
-    
+
 	return isOpen();
 }
 
@@ -124,10 +124,10 @@ void PDFReader::subProcess(char* output, size_t len) {
 
 	//Is the next character literal (e.g. \\ to get a \ character or \( to get ( ):
 	bool nextliteral = false;
-	
+
 	//() Bracket nesting level. Text appears inside ()
 	int rbdepth = 0;
-	
+
 	// ligne en lecture
 	string str;
 
@@ -135,7 +135,7 @@ void PDFReader::subProcess(char* output, size_t len) {
 	char oc[oldchar];
 	int j=0;
 	for (j=0; j<oldchar; j++) oc[j]=' ';
-    
+
 	for(size_t i=0; i<len; i++) {
 		char c = output[i];
 		if(intextobject) {
@@ -196,6 +196,6 @@ void PDFReader::subProcess(char* output, size_t len) {
 			}
 		}
 	}
-	
+
 	m_lines.push_back(str);
 }

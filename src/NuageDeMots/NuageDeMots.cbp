@@ -42,9 +42,13 @@
 			<Add option="-Wall" />
 			<Add option="-pg" />
 			<Add option="-fexceptions" />
+			<Add option="-lz" />
+			<Add directory="../../libraries/zlib" />
 		</Compiler>
 		<Linker>
 			<Add option="-pg -lgmon" />
+			<Add library="..\..\libraries\zlib\libz.a" />
+			<Add directory="../../libraries/zlib" />
 		</Linker>
 		<Unit filename="include/BinarySearchTree.h" />
 		<Unit filename="include/Countable.h" />
@@ -52,6 +56,8 @@
 		<Unit filename="include/HashElement.h" />
 		<Unit filename="include/Hashtable.h" />
 		<Unit filename="include/Node.h" />
+		<Unit filename="include/PDFReader.h" />
+		<Unit filename="include/pdf.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="src/BinarySearchTree.tpp" />
 		<Unit filename="src/Countable.cpp" />
@@ -59,6 +65,7 @@
 		<Unit filename="src/HashElement.tpp" />
 		<Unit filename="src/Hashtable.tpp" />
 		<Unit filename="src/Node.tpp" />
+		<Unit filename="src/PDFReader.cpp" />
 		<Extensions>
 			<code_completion />
 			<envvars />
