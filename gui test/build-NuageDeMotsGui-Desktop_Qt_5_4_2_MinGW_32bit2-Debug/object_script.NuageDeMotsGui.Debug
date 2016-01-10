@@ -1,0 +1,12 @@
+INPUT(
+./debug\main.o
+./debug\mainwindow.o
+./debug\BinarySearchTree.o
+./debug\Countable.o
+./debug\FileReader.o
+./debug\HashElement.o
+./debug\Hashtable.o
+./debug\Node.o
+./debug\WordsGenerator.o
+./debug\moc_mainwindow.o
+);
