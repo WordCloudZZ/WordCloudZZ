@@ -180,7 +180,21 @@ void PDFReader::subProcess(char* output, size_t len) {
 					nextliteral = true;
 				} else {
 					nextliteral = false;
-					if( ((c>=' ') && (c<='~')) || ((c>=128) && (c<255)) ) {
+					if( ((c>=' ') && (c<='~')) || ((c>=128) && (c<255)) ||
+                        c=='à' ||
+                        c=='ç' ||
+                        c=='é' ||
+                        c=='è' ||
+                        c=='ê' ||
+                        c=='î' ||
+                        c=='ï' ||
+                        c=='ô' ||
+                        c=='ö' ||
+                        c=='ù' ||
+                        c=='û' ||
+                        c=='\'' ||
+                        c=='’' ||
+                        c=='ü') {
 						str.push_back(c);
 					}
 				}
