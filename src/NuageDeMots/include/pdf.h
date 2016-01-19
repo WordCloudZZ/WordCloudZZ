@@ -195,7 +195,7 @@ void ProcessOutput(FILE* file, char* output, size_t len) {
 				else
 				{
 					nextliteral = false;
-					if ( ((c>=' ') && (c<='~')) || ((c>=128) && (c<255)) )
+					if ( ((c>=' ') && (c<='~')) || ((c>=128) && (c<255)) || c=='é' || c=='è')
 					{
 						fputc(c, file);
 					}

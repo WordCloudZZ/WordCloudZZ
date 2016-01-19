@@ -33,7 +33,7 @@ std::streambuf * FileReader<C>::open(std::string p_filename) {
     std::istream * retour;
     m_open = false;
     m_isPdf = false;
-    
+
     if(p_filename.substr(p_filename.length()-4) == ".pdf") {
         PDFReader p(p_filename);
         for(auto str : p.getLines()) m_stream << str << std::endl;
@@ -52,7 +52,7 @@ std::streambuf * FileReader<C>::open(std::string p_filename) {
             std::cerr << "FileReader error: cannot open this file " << p_filename << std::endl;
         }
     }
-    
+
     return retour->rdbuf();
 }
 
@@ -60,9 +60,10 @@ template<template<typename = std::string> class C>
 void FileReader<C>::read(std::string p_filename) {
     std::string buffer;
     std::istream flux(this->open(p_filename));
-    
+    std::ofstream out("out.xxx");
     if(m_open) {
         while(getline(flux, buffer)) {
+            out << buffer << std::endl;
             unsigned int start=0, cour=0;
             while(cour < buffer.size()) {
                 if(isSeparator(buffer[cour]) || '\n'==buffer[cour]) {
