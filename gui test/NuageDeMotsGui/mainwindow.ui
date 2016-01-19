@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>641</width>
-    <height>240</height>
+    <width>848</width>
+    <height>398</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -120,6 +120,9 @@
      </item>
      <item row="0" column="2">
       <widget class="QPushButton" name="browsePrincipal">
+       <property name="enabled">
+        <bool>true</bool>
+       </property>
        <property name="text">
         <string>Parcourir ...</string>
        </property>
@@ -127,13 +130,13 @@
      </item>
     </layout>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>360</x>
       <y>0</y>
-      <width>271</width>
-      <height>191</height>
+      <width>421</width>
+      <height>331</height>
      </rect>
     </property>
     <layout class="QGridLayout" name="gridLayout_2">
@@ -172,7 +175,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>641</width>
+     <width>848</width>
      <height>20</height>
     </rect>
    </property>

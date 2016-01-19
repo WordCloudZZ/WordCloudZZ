@@ -49,7 +49,7 @@ public:
     QLabel *label_3;
     QLabel *label;
     QPushButton *browsePrincipal;
-    QWidget *widget;
+    QWidget *layoutWidget1;
     QGridLayout *gridLayout_2;
     QPushButton *extract;
     QProgressBar *progressBar;
@@ -63,7 +63,7 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
-        MainWindow->resize(641, 240);
+        MainWindow->resize(848, 398);
         MainWindow->setMinimumSize(QSize(641, 240));
         MainWindow->setBaseSize(QSize(320, 240));
         MainWindow->setMouseTracking(false);
@@ -148,27 +148,27 @@ public:
 
         gridLayout->addWidget(browsePrincipal, 0, 2, 1, 1);
 
-        widget = new QWidget(centralWidget);
-        widget->setObjectName(QStringLiteral("widget"));
-        widget->setGeometry(QRect(360, 0, 271, 191));
-        gridLayout_2 = new QGridLayout(widget);
+        layoutWidget1 = new QWidget(centralWidget);
+        layoutWidget1->setObjectName(QStringLiteral("layoutWidget1"));
+        layoutWidget1->setGeometry(QRect(360, 0, 421, 331));
+        gridLayout_2 = new QGridLayout(layoutWidget1);
         gridLayout_2->setSpacing(6);
         gridLayout_2->setContentsMargins(11, 11, 11, 11);
         gridLayout_2->setObjectName(QStringLiteral("gridLayout_2"));
         gridLayout_2->setContentsMargins(0, 0, 0, 0);
-        extract = new QPushButton(widget);
+        extract = new QPushButton(layoutWidget1);
         extract->setObjectName(QStringLiteral("extract"));
         extract->setMaximumSize(QSize(80, 16777215));
 
         gridLayout_2->addWidget(extract, 0, 0, 1, 1);
 
-        progressBar = new QProgressBar(widget);
+        progressBar = new QProgressBar(layoutWidget1);
         progressBar->setObjectName(QStringLiteral("progressBar"));
         progressBar->setValue(0);
 
         gridLayout_2->addWidget(progressBar, 0, 1, 1, 1);
 
-        textZone = new QTextEdit(widget);
+        textZone = new QTextEdit(layoutWidget1);
         textZone->setObjectName(QStringLiteral("textZone"));
         textZone->setReadOnly(true);
 
@@ -177,7 +177,7 @@ public:
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 641, 20));
+        menuBar->setGeometry(QRect(0, 0, 848, 20));
         menuFichier = new QMenu(menuBar);
         menuFichier->setObjectName(QStringLiteral("menuFichier"));
         menu = new QMenu(menuBar);

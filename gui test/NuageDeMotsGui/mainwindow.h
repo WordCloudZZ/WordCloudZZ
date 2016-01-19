@@ -24,6 +24,10 @@ private :
     std::string buff1;
     std::string buff2;
 
+    void lock_buttons();
+
+    void unlock_buttons();
+
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();

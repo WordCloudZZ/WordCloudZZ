@@ -23,6 +23,7 @@
 #include <QtWidgets/QProgressBar>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QStatusBar>
+#include <QtWidgets/QTextEdit>
 #include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
@@ -35,9 +36,7 @@ public:
     QAction *actionAide;
     QAction *actionA_propos;
     QWidget *centralWidget;
-    QProgressBar *progressBar;
-    QPushButton *pushButton;
-    QWidget *widget;
+    QWidget *layoutWidget;
     QGridLayout *gridLayout;
     QLineEdit *displayIgnore;
     QLineEdit *displayPrincipal;
@@ -48,8 +47,13 @@ public:
     QPushButton *defaultSeparator;
     QPushButton *browseSeparator;
     QLabel *label_3;
-    QPushButton *browsePrincipal;
     QLabel *label;
+    QPushButton *browsePrincipal;
+    QWidget *layoutWidget1;
+    QGridLayout *gridLayout_2;
+    QPushButton *extract;
+    QProgressBar *progressBar;
+    QTextEdit *textZone;
     QMenuBar *menuBar;
     QMenu *menuFichier;
     QMenu *menu;
@@ -59,8 +63,8 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
-        MainWindow->resize(553, 259);
-        MainWindow->setMinimumSize(QSize(320, 240));
+        MainWindow->resize(848, 398);
+        MainWindow->setMinimumSize(QSize(641, 240));
         MainWindow->setBaseSize(QSize(320, 240));
         MainWindow->setMouseTracking(false);
         actionOuvrir = new QAction(MainWindow);
@@ -73,61 +77,53 @@ public:
         actionA_propos->setObjectName(QStringLiteral("actionA_propos"));
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
-        progressBar = new QProgressBar(centralWidget);
-        progressBar->setObjectName(QStringLiteral("progressBar"));
-        progressBar->setGeometry(QRect(380, 80, 131, 21));
-        progressBar->setValue(24);
-        pushButton = new QPushButton(centralWidget);
-        pushButton->setObjectName(QStringLiteral("pushButton"));
-        pushButton->setGeometry(QRect(420, 20, 80, 21));
-        pushButton->setMaximumSize(QSize(80, 16777215));
-        widget = new QWidget(centralWidget);
-        widget->setObjectName(QStringLiteral("widget"));
-        widget->setGeometry(QRect(10, 10, 339, 188));
-        gridLayout = new QGridLayout(widget);
+        layoutWidget = new QWidget(centralWidget);
+        layoutWidget->setObjectName(QStringLiteral("layoutWidget"));
+        layoutWidget->setGeometry(QRect(10, 0, 339, 188));
+        gridLayout = new QGridLayout(layoutWidget);
         gridLayout->setSpacing(6);
         gridLayout->setContentsMargins(11, 11, 11, 11);
         gridLayout->setObjectName(QStringLiteral("gridLayout"));
         gridLayout->setContentsMargins(0, 0, 0, 0);
-        displayIgnore = new QLineEdit(widget);
+        displayIgnore = new QLineEdit(layoutWidget);
         displayIgnore->setObjectName(QStringLiteral("displayIgnore"));
         displayIgnore->setReadOnly(true);
 
         gridLayout->addWidget(displayIgnore, 3, 0, 1, 4);
 
-        displayPrincipal = new QLineEdit(widget);
+        displayPrincipal = new QLineEdit(layoutWidget);
         displayPrincipal->setObjectName(QStringLiteral("displayPrincipal"));
         displayPrincipal->setReadOnly(true);
 
         gridLayout->addWidget(displayPrincipal, 1, 0, 1, 4);
 
-        label_2 = new QLabel(widget);
+        label_2 = new QLabel(layoutWidget);
         label_2->setObjectName(QStringLiteral("label_2"));
 
         gridLayout->addWidget(label_2, 2, 0, 1, 2);
 
-        defaultIgnore = new QPushButton(widget);
+        defaultIgnore = new QPushButton(layoutWidget);
         defaultIgnore->setObjectName(QStringLiteral("defaultIgnore"));
 
         gridLayout->addWidget(defaultIgnore, 2, 3, 1, 1);
 
-        browseIgnore = new QPushButton(widget);
+        browseIgnore = new QPushButton(layoutWidget);
         browseIgnore->setObjectName(QStringLiteral("browseIgnore"));
 
         gridLayout->addWidget(browseIgnore, 2, 2, 1, 1);
 
-        displaySeparator = new QLineEdit(widget);
+        displaySeparator = new QLineEdit(layoutWidget);
         displaySeparator->setObjectName(QStringLiteral("displaySeparator"));
         displaySeparator->setReadOnly(true);
 
         gridLayout->addWidget(displaySeparator, 6, 0, 1, 4);
 
-        defaultSeparator = new QPushButton(widget);
+        defaultSeparator = new QPushButton(layoutWidget);
         defaultSeparator->setObjectName(QStringLiteral("defaultSeparator"));
 
         gridLayout->addWidget(defaultSeparator, 4, 3, 1, 1);
 
-        browseSeparator = new QPushButton(widget);
+        browseSeparator = new QPushButton(layoutWidget);
         browseSeparator->setObjectName(QStringLiteral("browseSeparator"));
         QSizePolicy sizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
         sizePolicy.setHorizontalStretch(0);
@@ -137,25 +133,52 @@ public:
 
         gridLayout->addWidget(browseSeparator, 4, 2, 1, 1);
 
-        label_3 = new QLabel(widget);
+        label_3 = new QLabel(layoutWidget);
         label_3->setObjectName(QStringLiteral("label_3"));
 
         gridLayout->addWidget(label_3, 4, 0, 1, 2);
 
-        browsePrincipal = new QPushButton(widget);
-        browsePrincipal->setObjectName(QStringLiteral("browsePrincipal"));
-
-        gridLayout->addWidget(browsePrincipal, 0, 2, 1, 1);
-
-        label = new QLabel(widget);
+        label = new QLabel(layoutWidget);
         label->setObjectName(QStringLiteral("label"));
 
         gridLayout->addWidget(label, 0, 0, 1, 2);
 
+        browsePrincipal = new QPushButton(layoutWidget);
+        browsePrincipal->setObjectName(QStringLiteral("browsePrincipal"));
+        browsePrincipal->setEnabled(true);
+
+        gridLayout->addWidget(browsePrincipal, 0, 2, 1, 1);
+
+        layoutWidget1 = new QWidget(centralWidget);
+        layoutWidget1->setObjectName(QStringLiteral("layoutWidget1"));
+        layoutWidget1->setGeometry(QRect(360, 0, 421, 331));
+        gridLayout_2 = new QGridLayout(layoutWidget1);
+        gridLayout_2->setSpacing(6);
+        gridLayout_2->setContentsMargins(11, 11, 11, 11);
+        gridLayout_2->setObjectName(QStringLiteral("gridLayout_2"));
+        gridLayout_2->setContentsMargins(0, 0, 0, 0);
+        extract = new QPushButton(layoutWidget1);
+        extract->setObjectName(QStringLiteral("extract"));
+        extract->setMaximumSize(QSize(80, 16777215));
+
+        gridLayout_2->addWidget(extract, 0, 0, 1, 1);
+
+        progressBar = new QProgressBar(layoutWidget1);
+        progressBar->setObjectName(QStringLiteral("progressBar"));
+        progressBar->setValue(0);
+
+        gridLayout_2->addWidget(progressBar, 0, 1, 1, 1);
+
+        textZone = new QTextEdit(layoutWidget1);
+        textZone->setObjectName(QStringLiteral("textZone"));
+        textZone->setReadOnly(true);
+
+        gridLayout_2->addWidget(textZone, 1, 0, 1, 2);
+
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 553, 20));
+        menuBar->setGeometry(QRect(0, 0, 848, 20));
         menuFichier = new QMenu(menuBar);
         menuFichier->setObjectName(QStringLiteral("menuFichier"));
         menu = new QMenu(menuBar);
@@ -184,7 +207,6 @@ public:
         actionQuitter->setText(QApplication::translate("MainWindow", "Quitter", 0));
         actionAide->setText(QApplication::translate("MainWindow", "Aide", 0));
         actionA_propos->setText(QApplication::translate("MainWindow", "A propos", 0));
-        pushButton->setText(QApplication::translate("MainWindow", "Extraction", 0));
         displayPrincipal->setText(QString());
         label_2->setText(QApplication::translate("MainWindow", "Mots \303\240 ignorer", 0));
         defaultIgnore->setText(QApplication::translate("MainWindow", "Par d\303\251faut", 0));
@@ -192,8 +214,9 @@ public:
         defaultSeparator->setText(QApplication::translate("MainWindow", "Par d\303\251faut", 0));
         browseSeparator->setText(QApplication::translate("MainWindow", "Parcourir ...", 0));
         label_3->setText(QApplication::translate("MainWindow", "S\303\251parateurs", 0));
-        browsePrincipal->setText(QApplication::translate("MainWindow", "Parcourir ...", 0));
         label->setText(QApplication::translate("MainWindow", "Fichier principal", 0));
+        browsePrincipal->setText(QApplication::translate("MainWindow", "Parcourir ...", 0));
+        extract->setText(QApplication::translate("MainWindow", "Extraction", 0));
         menuFichier->setTitle(QApplication::translate("MainWindow", "Fichier", 0));
         menu->setTitle(QApplication::translate("MainWindow", "?", 0));
     } // retranslateUi

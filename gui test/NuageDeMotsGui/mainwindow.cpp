@@ -8,6 +8,10 @@ MainWindow::MainWindow(QWidget *parent) :
     buff0 = "";
     buff1 = "";
     buff2 = "";
+
+    ui->displayIgnore->setText("Fichier par défaut");
+    ui->displaySeparator->setText("Fichier par défaut");
+    ui->displayPrincipal->setText("Fichier exemple");
 }
 
 MainWindow::~MainWindow() {
@@ -40,7 +44,7 @@ void MainWindow::on_browsePrincipal_clicked() {
     if(fichier.length() != 0) {
         buff0 = fichier.toStdString();
         ui->displayPrincipal->setText(fichier);
-        std::cout << "Fichier : " << buff0 << std::endl;
+        std::cout << "Modification -> Fichier : " << buff0 << std::endl;
     }
 }
 
@@ -51,7 +55,7 @@ void MainWindow::on_browseIgnore_clicked() {
     if(fichier.length() != 0) {
         buff1 = fichier.toStdString();
         ui->displayIgnore->setText(fichier);
-        std::cout << "Ignore : " << buff1 << std::endl;
+        std::cout << "Modification -> Ignore : " << buff1 << std::endl;
     }
 }
 
@@ -61,24 +65,37 @@ void MainWindow::on_browseSeparator_clicked() {
     if(fichier.length() != 0) {
         buff2 = fichier.toStdString();
         ui->displaySeparator->setText(fichier);
-        std::cout << "Separateur : " << buff2 << std::endl;
+        std::cout << "Modification -> Separateur : " << buff2 << std::endl;
     }
 }
 
 void MainWindow::on_defaultIgnore_clicked() {
     // Remet le fichier a ignorer par defaut
-    buff1 = buff[1];
-    std::cout << "Ignore : " << buff1 << std::endl;
+    if(0 != buff1.compare(buff[1])) {
+        buff1 = buff[1];
+        std::cout << "Par defaut -> Ignore : " << buff1 << std::endl;
+
+        ui->displayIgnore->setText("Fichier par défaut");
+    }
 }
 
 void MainWindow::on_defaultSeparator_clicked() {
     // Remet le fichier separateur par defaut
-    buff2 = buff[2];
-    std::cout << "Separateur : " << buff2 << std::endl;
+    if(0 != buff2.compare(buff[2])) {
+        buff2 = buff[2];
+        std::cout << "Par defaut -> Separateur : " << buff2 << std::endl;
+
+        ui->displaySeparator->setText("Fichier par défaut");
+    }
 }
 
 void MainWindow::on_extract_clicked() {
     // Lancer l'extraction et faire afficher dans textZone
+    lock_buttons(); // Bloque les boutons
+    ui->centralWidget->setCursor(Qt::BusyCursor);
+
+    Sleep(10000);
+
     fr = new FileReader<Hashtable>(buff1, buff2);
     fr->read(buff0);
     fr->sortTable();
@@ -88,4 +105,31 @@ void MainWindow::on_extract_clicked() {
     std::cout << "On a extrait" << std::endl;
 
     delete fr;
+
+    unlock_buttons(); // Debloque les boutons
+    ui->centralWidget->setCursor(Qt::ArrowCursor);
+}
+
+void MainWindow::lock_buttons() {
+    ui->browseIgnore->setEnabled(false);
+    ui->browsePrincipal->setEnabled(false);
+    ui->browseSeparator->setEnabled(false);
+    ui->defaultIgnore->setEnabled(false);
+    ui->defaultSeparator->setEnabled(false);
+
+    ui->extract->setEnabled(false);
+
+    std::cout << "Boutons bloques" << std::endl;
+}
+
+void MainWindow::unlock_buttons() {
+    ui->browseIgnore->setEnabled(true);
+    ui->browsePrincipal->setEnabled(true);
+    ui->browseSeparator->setEnabled(true);
+    ui->defaultIgnore->setEnabled(true);
+    ui->defaultSeparator->setEnabled(true);
+
+    ui->extract->setEnabled(true);
+
+    std::cout << "Boutons debloques" << std::endl;
 }
