@@ -7,9 +7,9 @@ using namespace std;
 
 int main(int argc, char** argv) {
     setlocale(LC_ALL, "");
-    WordsGenerator 			wg;
     unsigned 				iter_number 	= 10;
-    string 					sentence 		= "bleu";
+    string 					sentence 		= "bleu",
+                            seed            = "Le hasard ne fait pas de phrase.";
 
     if(argc > 1) {
     	sentence = argv[1];
@@ -17,9 +17,12 @@ int main(int argc, char** argv) {
     if(argc > 2) {
     	iter_number = atoi(argv[2]);
     }
+    if(argc > 3) {
+    	seed = argv[3];
+    }
+    WordsGenerator 			wg(seed);
 
-    for(unsigned i = 0 ; i < iter_number ; ++i)
-        wg.expectWord(sentence.c_str());
+    wg.studySentence(sentence, iter_number);
 
     return 0;
 }
