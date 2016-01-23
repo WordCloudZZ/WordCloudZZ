@@ -6,6 +6,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    this->setWindowTitle("Générateur de phrases aléatoires");
 }
 
 MainWindow::~MainWindow()
