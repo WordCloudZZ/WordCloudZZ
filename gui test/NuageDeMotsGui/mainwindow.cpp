@@ -28,9 +28,11 @@ MainWindow::~MainWindow() {
     if(fr != NULL) {
          delete fr;
     }
-//    if(buff != NULL) {
-//        delete buff;
-//    }
+/* TODO : warning bizarre quand ej fais ca ...
+    if(buff != NULL) {
+        delete [] buff;
+    }
+*/
 }
 
 /**
@@ -133,21 +135,36 @@ void MainWindow::on_defaultSeparator_clicked() {
 void MainWindow::on_extract_clicked() {
     lock_buttons(); /// Locks controls in the ui to avoid unpredicted behaviours
     ui->centralWidget->setCursor(Qt::BusyCursor); /// Display a loading cursor to the user
-
-    // test du lock
-    Sleep(10000);
+    ui->textZone->clear(); /// Clear the zone before rewriting
 
     /// Creating the filereader and getting the stats on the text
     fr = new FileReader<Hashtable>(buff1, buff2);
-    fr->read(buff0);
-    fr->sortTable();
+    if(fr != NULL) {
+        std::cout << "Analyse du texte" << std::endl;
+        fr->read(buff0);
+        std::cout << "Tri des mots" << std::endl;
+        fr->sortTable();
 
-    /// Prints the result in the large text area
-    ui->textZone->setText(QString::fromStdString(fr->stringStudyTable())); // Il faut caster en QString
+        /// Prints the result in the large text area
+        std::forward_list<std::string> list;
+        list = fr->stringList();
 
-    std::cout << "On a extrait" << std::endl;
+        std::cout << "Affichage des resultats" << std::endl;
+        ui->textZone->append(QString::fromUtf8("Résultat"));
+        for(auto it = std::begin(list); it != std::end(list); it++) {
+            ui->textZone->append(QString::fromStdString(*it));
+            Sleep(1000);
+        }
 
-    delete fr; /// Freeing memory
+        //ui->textZone->setText(QString::fromStdString(fr->stringStudyTable())); // Il faut caster en QString
+
+        std::cout << "Fin de l'extraction" << std::endl;
+
+        delete fr; /// Freeing memory
+        fr = NULL;
+    } else {
+        std::cout << "Erreur avec la creation du FileReader" << std::endl;
+    }
 
     unlock_buttons(); /// Unlockign controls
     ui->centralWidget->setCursor(Qt::ArrowCursor); /// Reseting cursor to default

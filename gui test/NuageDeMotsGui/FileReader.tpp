@@ -1,19 +1,19 @@
-// Constructor using default file
+/// Constructor using default file
 template<template<typename = std::string> class C>
 FileReader<C>::FileReader(std::string p_fileignore, std::string p_fileconf) : m_wordCount(0) {
     std::string buffer;
 
-    // Loading separators from given file in a string
+    /// Loading separators from given file in a string
     m_file.open(p_fileconf, std::ifstream::in);
     if(m_file.is_open()) {
         getline(m_file, m_separator);
         m_file.close();
     }
 
-    // Loading words to ignore from given file
+    /// Loading words to ignore from given file
     m_file.open(p_fileignore, std::ifstream::in);
     if(m_file.is_open()) {
-        // Reading each line from the file
+        /// Reading each line from the file
         while(getline(m_file, buffer)) {
             m_ignoredWords.add(buffer);
         } //while
@@ -95,3 +95,7 @@ bool FileReader<C>::isSeparator(const char & p_char) {
     return m_separator[i-1]==p_char;
 }
 
+template<template<typename = std::string> class C>
+std::forward_list<std::string> FileReader<C>::stringList() const {
+    return m_studiedWords.stringList();
+}

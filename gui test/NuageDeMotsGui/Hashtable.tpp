@@ -87,7 +87,7 @@ template <typename T>
 unsigned long int Hashtable<T>::addElement(HashElement<T> * to_add) {
     unsigned long int hash_code = hashCode(to_add->getValue()); // Get hash code
     unsigned int i = 0;
-    table_[hash_code] = to_add; // TODO : collisions
+    table_[hash_code] = to_add;
 
     while(table_[hash_code][i])
 
@@ -123,6 +123,23 @@ std::string Hashtable<T>::toString() const {
     return out;
 }
 
+/**
+ * @brief Give a sorted list of the words and its count
+ */
+template <typename T>
+std::forward_list<std::string> Hashtable<T>::stringList() const {
+    std::forward_list<std::string> list;
+    std::string buff;
+
+    /// For each words in the sorted list, creates its string
+    for(auto it = std::begin(sorted_); it!=std::end(sorted_) ; it++) {
+        buff = ((*it).getValue()) + "\t#" + std::to_string((*it).number()); // "word" #<n>
+        list.push_front(buff);
+    }
+
+    return list;
+}
+
 template <typename T>
 std::string Hashtable<T>::sort() {
     std::string result;
@@ -138,11 +155,12 @@ std::string Hashtable<T>::sort() {
             sorted_.emplace_after(pit, table_[i][j]);
         }
     }
+/*
     for(auto it = std::begin(sorted_); it!=std::end(sorted_) ; ++it) {
         if((*it).getValue().size() > 0)
             std::cout << (*it).getValue() << "\t#" << (*it).number() << std::endl;
     }
-
+*/
     return result;
 }
 
