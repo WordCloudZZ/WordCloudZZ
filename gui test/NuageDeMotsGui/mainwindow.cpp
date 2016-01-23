@@ -137,6 +137,9 @@ void MainWindow::on_extract_clicked() {
     ui->centralWidget->setCursor(Qt::BusyCursor); /// Display a loading cursor to the user
     ui->textZone->clear(); /// Clear the zone before rewriting
 
+    unsigned int maxPrint = 10; /// Change this value to get only the number you want
+    unsigned int nb = 0; /// The actual number printed
+
     /// Creating the filereader and getting the stats on the text
     fr = new FileReader<Hashtable>(buff1, buff2);
     if(fr != NULL) {
@@ -151,7 +154,7 @@ void MainWindow::on_extract_clicked() {
 
         std::cout << "Affichage des resultats" << std::endl;
         ui->textZone->append(QString::fromUtf8("Résultat"));
-        for(auto it = std::begin(list); it != std::end(list); it++) {
+        for(std::vector<std::string>::reverse_iterator it = list.rbegin(); it != list.rend() && nb < maxPrint; it++, nb++) {
             ui->textZone->append(QString::fromStdString(*it));
             qApp->processEvents(); // Propage le changement et raffraichit l'affichage
         }
