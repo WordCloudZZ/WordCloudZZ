@@ -22,7 +22,7 @@ class IFileReader {
         virtual void printStudyTable() = 0;
         virtual std::string stringStudyTable() = 0;
         virtual void sortTable() = 0;
-        virtual std::forward_list<std::string> stringList() const = 0;
+        virtual std::vector<std::string> stringList() const = 0;
 };
 
 template<template<typename = std::string> class C>
@@ -45,7 +45,7 @@ class FileReader : public IFileReader {
         void sortTable();
         void printStudyTable();
         std::string stringStudyTable();
-        std::forward_list<std::string> stringList() const; /// Returns a sorted list with the string rep of a line
+        std::vector<std::string> stringList() const; /// Returns a sorted list with the string rep of a line
 
     private:
         bool isSeparator(const char &);

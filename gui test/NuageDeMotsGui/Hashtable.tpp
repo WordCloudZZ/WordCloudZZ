@@ -127,14 +127,15 @@ std::string Hashtable<T>::toString() const {
  * @brief Give a sorted list of the words and its count
  */
 template <typename T>
-std::forward_list<std::string> Hashtable<T>::stringList() const {
-    std::forward_list<std::string> list;
+std::vector<std::string> Hashtable<T>::stringList() const {
+    std::vector<std::string> list;
+    list.reserve(std::distance(std::begin(sorted_), std::end(sorted_))); // Reserve la taille pour aller plus vite
     std::string buff;
 
     /// For each words in the sorted list, creates its string
     for(auto it = std::begin(sorted_); it!=std::end(sorted_) ; it++) {
         buff = ((*it).getValue()) + "\t#" + std::to_string((*it).number()); // "word" #<n>
-        list.push_front(buff);
+        list.push_back(buff);
     }
 
     return list;

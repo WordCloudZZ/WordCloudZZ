@@ -146,17 +146,15 @@ void MainWindow::on_extract_clicked() {
         fr->sortTable();
 
         /// Prints the result in the large text area
-        std::forward_list<std::string> list;
+        std::vector<std::string> list;
         list = fr->stringList();
 
         std::cout << "Affichage des resultats" << std::endl;
         ui->textZone->append(QString::fromUtf8("Résultat"));
         for(auto it = std::begin(list); it != std::end(list); it++) {
             ui->textZone->append(QString::fromStdString(*it));
-            Sleep(1000);
+            qApp->processEvents(); // Propage le changement et raffraichit l'affichage
         }
-
-        //ui->textZone->setText(QString::fromStdString(fr->stringStudyTable())); // Il faut caster en QString
 
         std::cout << "Fin de l'extraction" << std::endl;
 

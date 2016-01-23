@@ -103,9 +103,9 @@ void BinarySearchTree<T>::deletePlurals() {
 }
 
 template <typename T>
-std::forward_list<std::string> BinarySearchTree<T>::stringList() const {
-    std::forward_list<std::string> list;
-    list.push_front("Not implemented for this type");
+std::vector<std::string> BinarySearchTree<T>::stringList() const {
+    std::vector<std::string> list;
+    list.push_back("Not implemented for this type");
     // TODO : implements
 
     return list;

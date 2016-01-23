@@ -96,6 +96,6 @@ bool FileReader<C>::isSeparator(const char & p_char) {
 }
 
 template<template<typename = std::string> class C>
-std::forward_list<std::string> FileReader<C>::stringList() const {
+std::vector<std::string> FileReader<C>::stringList() const {
     return m_studiedWords.stringList();
 }
