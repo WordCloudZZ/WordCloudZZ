@@ -46,8 +46,12 @@
 		<Linker>
 			<Add option="-pg -lgmon" />
 		</Linker>
+		<Unit filename="include/Stats.h" />
+		<Unit filename="include/Student.h" />
 		<Unit filename="include/WordsGenerator.h" />
 		<Unit filename="main.cpp" />
+		<Unit filename="src/Stats.cpp" />
+		<Unit filename="src/Student.cpp" />
 		<Unit filename="src/WordsGenerator.cpp" />
 		<Extensions>
 			<code_completion />

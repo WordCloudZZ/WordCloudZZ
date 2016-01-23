@@ -41,7 +41,7 @@ long long WordsGenerator::rand(long long int a, long long int b) {
     return (m_random()/(double)m_random.max())*(b-a+1)+a;
 }
 
-unsigned long long WordsGenerator::expectWord(std::string p_str) {
+unsigned long long WordsGenerator::expectWord(std::string p_str, std::ostream& out) {
     unsigned                courrant    = 0;
     unsigned long long      tirages     = 0;
     char                    lettre      = '\0';
@@ -60,42 +60,44 @@ unsigned long long WordsGenerator::expectWord(std::string p_str) {
         tirages++;
     }
 
-    std::cout << std::endl << "Number of drawings: " << tirages << std::endl;
+    out << std::endl << "Number of drawings: " << tirages << std::endl;
 
     return tirages;
 }
 
-Stats WordsGenerator::studySentence(std::string p_str, unsigned p_iter) {
+Stats WordsGenerator::studySentence(std::string p_str, unsigned p_iter, std::ostream& out) {
     Stats results;
     clock_t start, end;
-    std::vector<double> tirages(p_iter);
-    std::cout << "////////////////////////////////////////////////////////////////" << std::endl << std::endl;
-    std::cout << "\tSTARTING OF STUDY OF:" << std::endl;
-    std::cout << "\t\t" << p_str << std::endl << std::endl;
-    std::cout << "////////////////////////////////////////////////////////////////" << std::endl;
-    std::cout << "----------------------------------------------------------------" << std::endl;
+    std::vector<double> tirages;
+    out << "////////////////////////////////////////////////////////////////" << std::endl << std::endl;
+    out << "\tSTARTING OF STUDY OF:" << std::endl;
+    out << "\t\t" << p_str << std::endl << std::endl;
+    out << "////////////////////////////////////////////////////////////////" << std::endl;
+    out << "----------------------------------------------------------------" << std::endl;
 
     start = clock();    // temps de debut
 
     for(unsigned i = 0 ; i < p_iter ; ++i) {        // calcul des echantillons
-        std::cout << "Round " << i+1 << std::endl;
+        out << "Round " << i+1 << std::endl;
         tirages.push_back(this->expectWord(p_str.c_str()));
-        std::cout << "----------------------------------------------------------------" << std::endl;
+        out << "----------------------------------------------------------------" << std::endl;
     }
 
     end = clock();      // temps de fin
 
     results.setAverage(tirages);
-    results.setVariance(tirages, results.average);
-    results.time= (end-start)/1000.0;
+    results.setVariance(tirages, results.average());
+    results.setRadius(results.variance(),tirages.size());
+    results.setTime((end-start)/1000.0);
 
-    std::cout << "////////////////////////////////////////////////////////////////" << std::endl;
-    std::cout << "\tRESULTS:" << std::endl;
-    std::cout << "\t +\tAverage:\t" << (unsigned long long)results.average << std::endl;
-    std::cout << "\t +\tVariance:\t" << (unsigned long long)results.variance << std::endl;
-    std::cout << "\t +\tConfidence int:\t[ " << (unsigned long long)(results.average-results.radius) << " ; " << (unsigned long long)(results.average+results.radius) << " ]" << std::endl;
-    std::cout << "\t +\tExecution time:\t" << results.time << " s" << std::endl;
-    std::cout << "////////////////////////////////////////////////////////////////" << std::endl;
+    out << "////////////////////////////////////////////////////////////////" << std::endl;
+    out << "\tRESULTS:" << std::endl;
+    out << "\t +\tAverage:\t" << (unsigned long long)results.average() << std::endl;
+    out << "\t +\tVariance:\t" << (unsigned long long)results.variance() << std::endl;
+    out << "\t +\tConfidence int:\t[ " << (unsigned long long)(results.average()-results.radius()) << " ; " << (unsigned long long)(results.average()+results.radius()) << " ]" << std::endl;
+    out << "\t +\tExecution time:\t" << results.time() << " s" << std::endl;
+    out << "\t +\tUnit exe. time:\t" << results.time()/(double)tirages.size() << " s" << std::endl;
+    out << "////////////////////////////////////////////////////////////////" << std::endl;
 
     return results;
 }
