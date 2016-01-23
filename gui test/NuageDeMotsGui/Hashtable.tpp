@@ -127,8 +127,8 @@ template <typename T>
 std::string Hashtable<T>::sort() {
     std::string result;
     sorted_.push_front(HashElement<T>());
-    for(int i = 0 ; i < size_ ; ++i) {
-        for(int j = 0 ; j < table_[i].size() ; ++j) {
+    for(unsigned int i = 0 ; i < size_ ; ++i) {
+        for(unsigned int j = 0 ; j < table_[i].size() ; ++j) {
             typename std::forward_list<HashElement<T> >::iterator it = std::begin(sorted_);
             typename std::forward_list<HashElement<T> >::iterator pit = it;
             while(it!=sorted_.end() && (*it).number() < table_[i][j].number()) {
@@ -183,8 +183,8 @@ bool Hashtable<T>::increase(const T & key, long val) {
 
 template <typename T>
 void Hashtable<T>::deletePlurals() {
-    for(int i = 0 ; i < size_ ; ++i) {
-        for(int j = 0 ; j < table_[i].size() ; ++j) {
+    for(unsigned int i = 0 ; i < size_ ; ++i) {
+        for(unsigned int j = 0 ; j < table_[i].size() ; ++j) {
             HashElement<T> word = table_[i][j];
             if(word.getValue().c_str()[word.getValue().size()-1] == 's' || word.getValue().c_str()[word.getValue().size()-1] == 'x') {
                 std::string singulier = word.getValue().substr(0,word.getValue().length()-1);

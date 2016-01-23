@@ -145,6 +145,7 @@ public:
 
         browsePrincipal = new QPushButton(layoutWidget);
         browsePrincipal->setObjectName(QStringLiteral("browsePrincipal"));
+        browsePrincipal->setEnabled(true);
 
         gridLayout->addWidget(browsePrincipal, 0, 2, 1, 1);
 
