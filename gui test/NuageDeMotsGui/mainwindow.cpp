@@ -17,6 +17,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->displayIgnore->setText("Fichier par défaut");
     ui->displaySeparator->setText("Fichier par défaut");
     ui->displayPrincipal->setText("Fichier exemple");
+    ui->nbSelect->setValue(10);
 }
 
 
@@ -133,18 +134,22 @@ void MainWindow::on_defaultSeparator_clicked() {
  * @brief Extraction process
  */
 void MainWindow::on_extract_clicked() {
-    lock_buttons(); /// Locks controls in the ui to avoid unpredicted behaviours
+    lock_controls(); /// Locks controls in the ui to avoid unpredicted behaviours
+
     ui->centralWidget->setCursor(Qt::BusyCursor); /// Display a loading cursor to the user
     ui->textZone->clear(); /// Clear the zone before rewriting
 
-    unsigned int maxPrint = 10; /// Change this value to get only the number you want
-    unsigned int nb = 0; /// The actual number printed
+    unsigned int maxPrint = ui->nbSelect->value(); /// Get the desired printed number
+    unsigned int nb = 0; /// The actual number printed in the loop
 
     /// Creating the filereader and getting the stats on the text
     fr = new FileReader<Hashtable>(buff1, buff2);
     if(fr != NULL) {
+        // TODO : mettre les analyses dans un thread, et recup le vector a printer,
+        // mais pas sur que ca regle certains soucis
         std::cout << "Analyse du texte" << std::endl;
         fr->read(buff0);
+
         std::cout << "Tri des mots" << std::endl;
         fr->sortTable();
 
@@ -153,9 +158,8 @@ void MainWindow::on_extract_clicked() {
         list = fr->stringList();
 
         std::cout << "Affichage des resultats" << std::endl;
-        ui->textZone->append(QString::fromUtf8("Résultat"));
         for(std::vector<std::string>::reverse_iterator it = list.rbegin(); it != list.rend() && nb < maxPrint; it++, nb++) {
-            ui->textZone->append(QString::fromStdString(*it));
+            ui->textZone->append(QString::fromStdString(*it).toUtf8());
             qApp->processEvents(); // Propage le changement et raffraichit l'affichage
         }
 
@@ -167,36 +171,38 @@ void MainWindow::on_extract_clicked() {
         std::cout << "Erreur avec la creation du FileReader" << std::endl;
     }
 
-    unlock_buttons(); /// Unlockign controls
+    unlock_controls(); /// Unlockign controls
     ui->centralWidget->setCursor(Qt::ArrowCursor); /// Reseting cursor to default
 }
 
 /**
  * @brief Lock all controls in the ui
  */
-void MainWindow::lock_buttons() {
+void MainWindow::lock_controls() {
     ui->browseIgnore->setEnabled(false);
     ui->browsePrincipal->setEnabled(false);
     ui->browseSeparator->setEnabled(false);
     ui->defaultIgnore->setEnabled(false);
     ui->defaultSeparator->setEnabled(false);
+    ui->nbSelect->setEnabled(false);
 
     ui->extract->setEnabled(false);
 
-    std::cout << "Boutons bloques" << std::endl;
+    std::cout << "Controles bloques" << std::endl;
 }
 
 /**
  * @brief Unlock all controls in the ui
  */
-void MainWindow::unlock_buttons() {
+void MainWindow::unlock_controls() {
     ui->browseIgnore->setEnabled(true);
     ui->browsePrincipal->setEnabled(true);
     ui->browseSeparator->setEnabled(true);
     ui->defaultIgnore->setEnabled(true);
     ui->defaultSeparator->setEnabled(true);
+    ui->nbSelect->setEnabled(true);
 
     ui->extract->setEnabled(true);
 
-    std::cout << "Boutons debloques" << std::endl;
+    std::cout << "Controles debloques" << std::endl;
 }

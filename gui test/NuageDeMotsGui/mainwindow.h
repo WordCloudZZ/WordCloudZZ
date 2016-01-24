@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QtGui>
 #include <QFileDialog>
+#include <QString>
 
 #include <iostream>
 #include <string>
@@ -24,9 +25,9 @@ private :
     std::string buff1;
     std::string buff2;
 
-    void lock_buttons();
+    void lock_controls();
 
-    void unlock_buttons();
+    void unlock_controls();
 
 public:
     explicit MainWindow(QWidget *parent = 0);
