@@ -10,7 +10,7 @@ WordsGenerator::WordsGenerator(std::string p_seed, const char p_filename[]) :
         getline(file, m_alphabet);
         file.close();
     } else {
-    	std::cout << "Error: can't open this file." << std::endl;
+        std::cerr << "Error: can't open this file." << std::endl;
     }
 }
 
@@ -79,7 +79,7 @@ Stats WordsGenerator::studySentence(std::string p_str, unsigned p_iter, std::ost
 
     for(unsigned i = 0 ; i < p_iter ; ++i) {        // calcul des echantillons
         out << "Round " << i+1 << std::endl;
-        tirages.push_back(this->expectWord(p_str.c_str()));
+        tirages.push_back(this->expectWord(p_str.c_str(), out));
         out << "----------------------------------------------------------------" << std::endl;
     }
 

@@ -1,6 +1,6 @@
 #include "Stats.h"
 
-Stats::Stats() : m_average(0), m_variance(0), m_radius(0), m_time(0) {
+Stats::Stats() : m_average(0), m_variance(0), m_radius(0), m_time(0), m_number(0) {
 
 }
 
@@ -20,6 +20,7 @@ void Stats::setAverage(const std::vector<double> & p_tab) {
     }
     esperance = esperance / (double)(p_tab.size());
     m_average = esperance;
+    m_number = p_tab.size();
 }
 
 void Stats::setVariance(const std::vector<double> & p_tab, double p_esperance) {
@@ -34,26 +35,37 @@ void Stats::setVariance(const std::vector<double> & p_tab, double p_esperance) {
     }
     lvariance = lvariance / (double)p_tab.size();
     m_variance = lvariance;
+    m_number = p_tab.size();
 }
 
 void Stats::setRadius(double p_variance, unsigned long long p_experiences) {
     /* -------------------------------------------------------------------- */
     /* setRadius  Estime le rayon de l'intervale de confiance               */
     /*                                                                      */
-    /* En entree: p_tab : none                                              */
+    /* En entree: p_variance : double ; p_experiences unsigned long long    */
     /* -------------------------------------------------------------------- */
     Student st;
     double lradius = st.getQuantile(p_experiences)*sqrt(p_variance/p_experiences);
     if(p_variance != m_variance)
         std::cerr << "Stats : attention variance locale != variance en parametre." << std::endl;
     m_radius = lradius;
+    m_number = p_experiences;
 }
 
 void Stats::setTime(double p_time) {
     /* -------------------------------------------------------------------- */
-    /* setRadius  Estime le rayon de l'intervale de confiance               */
+    /* setTime  Estime le temps d'execution                                 */
     /*                                                                      */
-    /* En entree: p_tab : none                                              */
+    /* En entree: p_time : double                                           */
     /* -------------------------------------------------------------------- */
     m_time = p_time;
+}
+
+void Stats::setNumber(unsigned long long p_number) {
+    /* -------------------------------------------------------------------- */
+    /* setNumber  Met a jour le nombre d'echantillon                        */
+    /*                                                                      */
+    /* En entree: p_number : unsigned long long                             */
+    /* -------------------------------------------------------------------- */
+    m_number = p_number;
 }

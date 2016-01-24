@@ -15,14 +15,17 @@ CONFIG += c++11
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp \
     ../RandomSentences/src/Stats.cpp \
     ../RandomSentences/src/Student.cpp \
-    ../RandomSentences/src/WordsGenerator.cpp
+    ../RandomSentences/src/WordsGenerator.cpp \
+    ComputingThread.cpp \
+    MainWindow.cpp
 
-HEADERS  += mainwindow.h \
+HEADERS  += \
     ../RandomSentences/include/Stats.h \
     ../RandomSentences/include/Student.h \
-    ../RandomSentences/include/WordsGenerator.h
+    ../RandomSentences/include/WordsGenerator.h \
+    ComputingThread.h \
+    MainWindow.h
 
 FORMS    += mainwindow.ui

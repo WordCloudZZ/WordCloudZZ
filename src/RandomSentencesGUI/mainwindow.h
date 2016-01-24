@@ -2,6 +2,10 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <string>
+#include <sstream>
+#include "WordsGenerator.h"
+#include "ComputingThread.h"
 
 namespace Ui {
 class MainWindow;
@@ -13,10 +17,30 @@ class MainWindow : public QMainWindow
 
 public:
     explicit MainWindow(QWidget *parent = 0);
-    ~MainWindow();
+    virtual ~MainWindow();
+
+private slots:
+    void on_lineEdit_textChanged(const QString &arg1);
+
+    void on_spinBox_valueChanged(int arg1);
+
+    void on_lineEdit_2_textChanged(const QString &arg1);
+
+    void on_pushButton_clicked();
+
+    void changeStats(Stats stats);
+
+    void computingTerminated();
+
+    void on_pushButton_3_clicked();
 
 private:
-    Ui::MainWindow *ui;
+    Ui::MainWindow    * ui;
+    WordsGenerator    * wg;
+    std::string         phrase,
+                        graine;
+    int                 iterations;
+    ComputingThread   * mThread;
 };
 
 #endif // MAINWINDOW_H
