@@ -22,6 +22,7 @@
 #include <QtWidgets/QProgressBar>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QSpinBox>
+#include <QtWidgets/QToolButton>
 #include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
@@ -39,6 +40,7 @@ public:
     QLineEdit *lineEdit_2;
     QLineEdit *lineEdit_3;
     QLabel *label_4;
+    QToolButton *toolButton;
     QGroupBox *groupBox_2;
     QLabel *label_5;
     QLabel *labelUnitTime;
@@ -100,12 +102,15 @@ public:
 "color: black;"));
         lineEdit_3 = new QLineEdit(groupBox);
         lineEdit_3->setObjectName(QStringLiteral("lineEdit_3"));
-        lineEdit_3->setGeometry(QRect(140, 160, 471, 21));
+        lineEdit_3->setGeometry(QRect(140, 160, 431, 21));
         lineEdit_3->setStyleSheet(QLatin1String("background: white;\n"
 "color: black;"));
         label_4 = new QLabel(groupBox);
         label_4->setObjectName(QStringLiteral("label_4"));
         label_4->setGeometry(QRect(10, 160, 121, 21));
+        toolButton = new QToolButton(groupBox);
+        toolButton->setObjectName(QStringLiteral("toolButton"));
+        toolButton->setGeometry(QRect(580, 160, 31, 21));
         groupBox_2 = new QGroupBox(centralWidget);
         groupBox_2->setObjectName(QStringLiteral("groupBox_2"));
         groupBox_2->setGeometry(QRect(10, 270, 421, 191));
@@ -191,6 +196,7 @@ public:
         label_2->setText(QApplication::translate("MainWindow", "Nombre d'it\303\251rations", 0));
         label_3->setText(QApplication::translate("MainWindow", "Graine du g\303\251n\303\251rateur", 0));
         label_4->setText(QApplication::translate("MainWindow", "Alphabet de g\303\251n\303\251ration", 0));
+        toolButton->setText(QApplication::translate("MainWindow", "...", 0));
         groupBox_2->setTitle(QApplication::translate("MainWindow", "R\303\251sultats", 0));
         label_5->setText(QApplication::translate("MainWindow", "Nombre moyen de tirages", 0));
         labelUnitTime->setText(QApplication::translate("MainWindow", "0", 0));

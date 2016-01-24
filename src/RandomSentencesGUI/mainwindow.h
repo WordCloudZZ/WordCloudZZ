@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <QMessageBox>
+#include <QFileDialog>
 #include <string>
 #include <sstream>
 #include "WordsGenerator.h"
@@ -38,6 +39,8 @@ private slots:
     void on_pushButton_4_clicked();
 
     void computingProgressed(double percent);
+
+    void on_toolButton_clicked();
 
 private:
     Ui::MainWindow    * ui;

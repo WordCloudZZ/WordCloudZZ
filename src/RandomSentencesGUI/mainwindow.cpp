@@ -23,13 +23,11 @@ MainWindow::~MainWindow()
         delete mThread;
 }
 
-void MainWindow::on_lineEdit_textChanged(const QString &arg1)
-{
-    phrase = arg1.toStdString();
+void MainWindow::on_lineEdit_textChanged(const QString &arg1) {
+    phrase = arg1.toLatin1().toStdString();
 }
 
-void MainWindow::on_spinBox_valueChanged(int arg1)
-{
+void MainWindow::on_spinBox_valueChanged(int arg1) {
     iterations = arg1;
 }
 
@@ -59,7 +57,7 @@ void MainWindow::on_pushButton_clicked()
         iterations = iterations < 1 ? 1 : iterations;
 
         /// on cree le traitement
-        wg = new WordsGenerator(graine);
+        wg = new WordsGenerator(graine, ui->lineEdit_3->text().toStdString().c_str());
         mThread = new ComputingThread(wg, phrase, iterations);
         QObject::connect(mThread, SIGNAL(computingEnded(Stats)), this, SLOT(changeStats(Stats)));
         QObject::connect(mThread, SIGNAL(computingProgressed(double)), this, SLOT(computingProgressed(double)));
@@ -129,4 +127,12 @@ void MainWindow::on_pushButton_4_clicked() {    // Aide
 
 void MainWindow::computingProgressed(double percent) {
     ui->progressBar->setValue(percent*100);
+}
+
+void MainWindow::on_toolButton_clicked() {
+    /// Open file selection window
+    QString fichier = QFileDialog::getOpenFileName(this, "Choix du fichier principal", QString(), "Formats supportés (*.txt *.html *.az);;Autre (*)");
+    if(fichier.length() != 0) { /// Test if a file is selected
+        ui->lineEdit_3->setText(fichier);
+    }
 }

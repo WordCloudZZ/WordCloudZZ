@@ -30,7 +30,7 @@ class ComputingThread : public QThread {
         void computingProgressed_s(double percent);
 
     public:
-        ComputingThread(WordsGenerator *, std::string pphrase, unsigned long long piterations);
+        ComputingThread(WordsGenerator *, std::string, unsigned long long);
         virtual ~ComputingThread();
 
         void run();

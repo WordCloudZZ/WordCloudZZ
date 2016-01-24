@@ -432,6 +432,10 @@ release/moc_MainWindow.cpp: P:/Programs/Qt/5.4/mingw491_32/include/QtWidgets/QMa
 		P:/Programs/Qt/5.4/mingw491_32/include/QtWidgets/QMessageBox \
 		P:/Programs/Qt/5.4/mingw491_32/include/QtWidgets/qmessagebox.h \
 		P:/Programs/Qt/5.4/mingw491_32/include/QtWidgets/qdialog.h \
+		P:/Programs/Qt/5.4/mingw491_32/include/QtWidgets/QFileDialog \
+		P:/Programs/Qt/5.4/mingw491_32/include/QtWidgets/qfiledialog.h \
+		P:/Programs/Qt/5.4/mingw491_32/include/QtCore/qdir.h \
+		P:/Programs/Qt/5.4/mingw491_32/include/QtCore/qfileinfo.h \
 		../RandomSentences/include/WordsGenerator.h \
 		../RandomSentences/include/Stats.h \
 		../RandomSentences/include/Student.h \
@@ -452,8 +456,6 @@ release/moc_MainWindow.cpp: P:/Programs/Qt/5.4/mingw491_32/include/QtWidgets/QMa
 		P:/Programs/Qt/5.4/mingw491_32/include/QtCore/qlibraryinfo.h \
 		P:/Programs/Qt/5.4/mingw491_32/include/QtCore/qdatetime.h \
 		P:/Programs/Qt/5.4/mingw491_32/include/QtCore/qbuffer.h \
-		P:/Programs/Qt/5.4/mingw491_32/include/QtCore/qdir.h \
-		P:/Programs/Qt/5.4/mingw491_32/include/QtCore/qfileinfo.h \
 		P:/Programs/Qt/5.4/mingw491_32/include/QtCore/qdiriterator.h \
 		P:/Programs/Qt/5.4/mingw491_32/include/QtCore/qfileselector.h \
 		P:/Programs/Qt/5.4/mingw491_32/include/QtCore/QStringList \
@@ -866,6 +868,10 @@ release/main.o: ../RandomSentencesGUI/main.cpp ../RandomSentencesGUI/MainWindow.
 		P:/Programs/Qt/5.4/mingw491_32/include/QtWidgets/QMessageBox \
 		P:/Programs/Qt/5.4/mingw491_32/include/QtWidgets/qmessagebox.h \
 		P:/Programs/Qt/5.4/mingw491_32/include/QtWidgets/qdialog.h \
+		P:/Programs/Qt/5.4/mingw491_32/include/QtWidgets/QFileDialog \
+		P:/Programs/Qt/5.4/mingw491_32/include/QtWidgets/qfiledialog.h \
+		P:/Programs/Qt/5.4/mingw491_32/include/QtCore/qdir.h \
+		P:/Programs/Qt/5.4/mingw491_32/include/QtCore/qfileinfo.h \
 		../RandomSentences/include/WordsGenerator.h \
 		../RandomSentences/include/Stats.h \
 		../RandomSentences/include/Student.h \
@@ -886,8 +892,6 @@ release/main.o: ../RandomSentencesGUI/main.cpp ../RandomSentencesGUI/MainWindow.
 		P:/Programs/Qt/5.4/mingw491_32/include/QtCore/qlibraryinfo.h \
 		P:/Programs/Qt/5.4/mingw491_32/include/QtCore/qdatetime.h \
 		P:/Programs/Qt/5.4/mingw491_32/include/QtCore/qbuffer.h \
-		P:/Programs/Qt/5.4/mingw491_32/include/QtCore/qdir.h \
-		P:/Programs/Qt/5.4/mingw491_32/include/QtCore/qfileinfo.h \
 		P:/Programs/Qt/5.4/mingw491_32/include/QtCore/qdiriterator.h \
 		P:/Programs/Qt/5.4/mingw491_32/include/QtCore/qfileselector.h \
 		P:/Programs/Qt/5.4/mingw491_32/include/QtCore/QStringList \
@@ -984,7 +988,8 @@ release/main.o: ../RandomSentencesGUI/main.cpp ../RandomSentencesGUI/MainWindow.
 		P:/Programs/Qt/5.4/mingw491_32/include/QtWidgets/qapplication.h \
 		P:/Programs/Qt/5.4/mingw491_32/include/QtWidgets/qdesktopwidget.h \
 		P:/Programs/Qt/5.4/mingw491_32/include/QtGui/qguiapplication.h \
-		P:/Programs/Qt/5.4/mingw491_32/include/QtGui/qinputmethod.h
+		P:/Programs/Qt/5.4/mingw491_32/include/QtGui/qinputmethod.h \
+		P:/Programs/Qt/5.4/mingw491_32/include/QtCore/QTextCodec
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\main.o ..\RandomSentencesGUI\main.cpp
 
 release/Stats.o: ../RandomSentences/src/Stats.cpp ../RandomSentences/include/Stats.h \
@@ -1300,6 +1305,10 @@ release/MainWindow.o: ../RandomSentencesGUI/MainWindow.cpp ../RandomSentencesGUI
 		P:/Programs/Qt/5.4/mingw491_32/include/QtWidgets/QMessageBox \
 		P:/Programs/Qt/5.4/mingw491_32/include/QtWidgets/qmessagebox.h \
 		P:/Programs/Qt/5.4/mingw491_32/include/QtWidgets/qdialog.h \
+		P:/Programs/Qt/5.4/mingw491_32/include/QtWidgets/QFileDialog \
+		P:/Programs/Qt/5.4/mingw491_32/include/QtWidgets/qfiledialog.h \
+		P:/Programs/Qt/5.4/mingw491_32/include/QtCore/qdir.h \
+		P:/Programs/Qt/5.4/mingw491_32/include/QtCore/qfileinfo.h \
 		../RandomSentences/include/WordsGenerator.h \
 		../RandomSentences/include/Stats.h \
 		../RandomSentences/include/Student.h \
@@ -1320,8 +1329,6 @@ release/MainWindow.o: ../RandomSentencesGUI/MainWindow.cpp ../RandomSentencesGUI
 		P:/Programs/Qt/5.4/mingw491_32/include/QtCore/qlibraryinfo.h \
 		P:/Programs/Qt/5.4/mingw491_32/include/QtCore/qdatetime.h \
 		P:/Programs/Qt/5.4/mingw491_32/include/QtCore/qbuffer.h \
-		P:/Programs/Qt/5.4/mingw491_32/include/QtCore/qdir.h \
-		P:/Programs/Qt/5.4/mingw491_32/include/QtCore/qfileinfo.h \
 		P:/Programs/Qt/5.4/mingw491_32/include/QtCore/qdiriterator.h \
 		P:/Programs/Qt/5.4/mingw491_32/include/QtCore/qfileselector.h \
 		P:/Programs/Qt/5.4/mingw491_32/include/QtCore/QStringList \
@@ -1458,6 +1465,8 @@ release/MainWindow.o: ../RandomSentencesGUI/MainWindow.cpp ../RandomSentencesGUI
 		P:/Programs/Qt/5.4/mingw491_32/include/QtWidgets/qabstractbutton.h \
 		P:/Programs/Qt/5.4/mingw491_32/include/QtWidgets/QSpinBox \
 		P:/Programs/Qt/5.4/mingw491_32/include/QtWidgets/qspinbox.h \
+		P:/Programs/Qt/5.4/mingw491_32/include/QtWidgets/QToolButton \
+		P:/Programs/Qt/5.4/mingw491_32/include/QtWidgets/qtoolbutton.h \
 		P:/Programs/Qt/5.4/mingw491_32/include/QtWidgets/QWidget
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\MainWindow.o ..\RandomSentencesGUI\MainWindow.cpp
 
