@@ -43,7 +43,7 @@ int main(int argc, char** argv) {
     std::string                         buff1           = "",
                                         buff2           = "",
                                         buff3           = "",
-                                        buff[3]         = {"hill.bk","ignore.conf","filereader.conf"};
+                                        buff[3]         = {"./hill.bk","./ignore.conf","./filereader.conf"};
     unsigned                            choice          = 0,
                 /** Choix du mode de l'interface : 0-ligne de commande;1-menu console;2-interface graphique */
                                         output_choice   = 2, //!

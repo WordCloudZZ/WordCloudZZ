@@ -159,7 +159,7 @@ void MainWindow::on_extract_clicked() {
 
         std::cout << "Affichage des resultats" << std::endl;
         for(std::vector<std::string>::reverse_iterator it = list.rbegin(); it != list.rend() && nb < maxPrint; it++, nb++) {
-            ui->textZone->append(QString::fromStdString(*it).toUtf8());
+            ui->textZone->append(QString::fromStdString(*it));
             qApp->processEvents(); // Propage le changement et raffraichit l'affichage
         }
 
