@@ -50,7 +50,7 @@ int main(int argc, char** argv) {
                                         argStringNumber = 0;
     IFileReader                       * analyseur       = NULL;
     bool                                useABRE         = true;
-    setlocale(LC_ALL, "");
+    setlocale(LC_CTYPE, "fr_FR");
 
     // traitement des arguments
     for(int i = 1 ; i < argc ; ++i) {

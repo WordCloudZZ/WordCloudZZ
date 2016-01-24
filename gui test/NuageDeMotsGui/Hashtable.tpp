@@ -117,7 +117,7 @@ std::string Hashtable<T>::toString() const {
 
     for(auto it = std::begin(sorted_); it!=std::end(sorted_) ; ++it) {
         if((*it).getValue().size() > 0)
-            out += ((*it).getValue()) + "\t#" + std::to_string((*it).number()) + "\n";
+            out += ((*it).getValue()) + "\t#" + std::string(""+(*it).number()) + "\n";
     }
 
     return out;
@@ -134,7 +134,7 @@ std::vector<std::string> Hashtable<T>::stringList() const {
 
     /// For each words in the sorted list, creates its string
     for(auto it = std::begin(sorted_); it!=std::end(sorted_) ; it++) {
-        buff = ((*it).getValue()) + "\t#" + std::to_string((*it).number()); // "word" #<n>
+        buff = ((*it).getValue()) + "\t#" + std::string(""+(*it).number()); // "word" #<n>
         list.push_back(buff);
     }
 
