@@ -12,6 +12,7 @@ MainWindow::MainWindow(QWidget *parent) :
     QObject::connect(ui->pushButton_6, SIGNAL(clicked()), qApp, SLOT(quit()));
     wg = NULL;
     mThread = NULL;
+    setWindowIcon(QIcon(QCoreApplication::applicationDirPath() + "/dice.png"));
 }
 
 MainWindow::~MainWindow()
@@ -39,6 +40,15 @@ void MainWindow::on_lineEdit_2_textChanged(const QString &arg1)
 void MainWindow::on_pushButton_clicked()
 {
     if(ui->pushButton->text()=="Générer") {
+        std::string alpha;
+        if(this->ui->lineEdit_3->text().isEmpty() || !QFile::exists(this->ui->lineEdit_3->text())) {
+            alpha = "alphabet.az";
+        } else {
+            alpha = ui->lineEdit_3->text().toStdString();
+        }
+        if(!QFile::exists(this->ui->lineEdit_3->text())) {
+            QMessageBox::warning(this, "Fichier inexistant", "Le fichier renseigné n'existe pas, le fichier par défaut va donc être utilisé.");
+        }
 
         /// on bloque les boutons
         this->ui->pushButton->setText("Annuler");
@@ -57,7 +67,7 @@ void MainWindow::on_pushButton_clicked()
         iterations = iterations < 1 ? 1 : iterations;
 
         /// on cree le traitement
-        wg = new WordsGenerator(graine, ui->lineEdit_3->text().toStdString().c_str());
+        wg = new WordsGenerator(graine, alpha.c_str());
         mThread = new ComputingThread(wg, phrase, iterations);
         QObject::connect(mThread, SIGNAL(computingEnded(Stats)), this, SLOT(changeStats(Stats)));
         QObject::connect(mThread, SIGNAL(computingProgressed(double)), this, SLOT(computingProgressed(double)));

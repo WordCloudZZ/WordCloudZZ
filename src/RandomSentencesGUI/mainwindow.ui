@@ -25,6 +25,9 @@
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
+  <property name="windowIcon">
+   <iconset theme="dice.png"/>
+  </property>
   <property name="styleSheet">
    <string notr="true"/>
   </property>

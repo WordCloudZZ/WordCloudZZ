@@ -5,6 +5,7 @@
 int main(int argc, char *argv[]) {
     setlocale(LC_CTYPE, "fr_FR");
     QApplication a(argc, argv);
+    a.setApplicationName("Générateur de phrases aléatoires");
     MainWindow w;
     w.show();
 
