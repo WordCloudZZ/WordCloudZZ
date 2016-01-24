@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QMessageBox>
 #include <string>
 #include <sstream>
 #include "WordsGenerator.h"
@@ -33,6 +34,10 @@ private slots:
     void computingTerminated();
 
     void on_pushButton_3_clicked();
+
+    void on_pushButton_4_clicked();
+
+    void computingProgressed(double percent);
 
 private:
     Ui::MainWindow    * ui;
