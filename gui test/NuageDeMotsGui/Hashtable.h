@@ -35,6 +35,7 @@ class Hashtable {
         void printAll() const;
 
         std::string toString() const;
+        std::vector<std::string> stringList() const;
         std::string sort();
         void deletePlurals();
 };

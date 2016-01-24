@@ -87,7 +87,7 @@ template <typename T>
 unsigned long int Hashtable<T>::addElement(HashElement<T> * to_add) {
     unsigned long int hash_code = hashCode(to_add->getValue()); // Get hash code
     unsigned int i = 0;
-    table_[hash_code] = to_add; // TODO : collisions
+    table_[hash_code] = to_add;
 
     while(table_[hash_code][i])
 
@@ -123,12 +123,30 @@ std::string Hashtable<T>::toString() const {
     return out;
 }
 
+/**
+ * @brief Give a sorted list of the words and its count
+ */
+template <typename T>
+std::vector<std::string> Hashtable<T>::stringList() const {
+    std::vector<std::string> list;
+    list.reserve(std::distance(std::begin(sorted_), std::end(sorted_))); // Reserve la taille pour aller plus vite
+    std::string buff;
+
+    /// For each words in the sorted list, creates its string
+    for(auto it = std::begin(sorted_); it!=std::end(sorted_) ; it++) {
+        buff = ((*it).getValue()) + "\t#" + std::to_string((*it).number()); // "word" #<n>
+        list.push_back(buff);
+    }
+
+    return list;
+}
+
 template <typename T>
 std::string Hashtable<T>::sort() {
     std::string result;
     sorted_.push_front(HashElement<T>());
-    for(int i = 0 ; i < size_ ; ++i) {
-        for(int j = 0 ; j < table_[i].size() ; ++j) {
+    for(unsigned int i = 0 ; i < size_ ; ++i) {
+        for(unsigned int j = 0 ; j < table_[i].size() ; ++j) {
             typename std::forward_list<HashElement<T> >::iterator it = std::begin(sorted_);
             typename std::forward_list<HashElement<T> >::iterator pit = it;
             while(it!=sorted_.end() && (*it).number() < table_[i][j].number()) {
@@ -138,11 +156,12 @@ std::string Hashtable<T>::sort() {
             sorted_.emplace_after(pit, table_[i][j]);
         }
     }
+/*
     for(auto it = std::begin(sorted_); it!=std::end(sorted_) ; ++it) {
         if((*it).getValue().size() > 0)
             std::cout << (*it).getValue() << "\t#" << (*it).number() << std::endl;
     }
-
+*/
     return result;
 }
 
@@ -183,8 +202,8 @@ bool Hashtable<T>::increase(const T & key, long val) {
 
 template <typename T>
 void Hashtable<T>::deletePlurals() {
-    for(int i = 0 ; i < size_ ; ++i) {
-        for(int j = 0 ; j < table_[i].size() ; ++j) {
+    for(unsigned int i = 0 ; i < size_ ; ++i) {
+        for(unsigned int j = 0 ; j < table_[i].size() ; ++j) {
             HashElement<T> word = table_[i][j];
             if(word.getValue().c_str()[word.getValue().size()-1] == 's' || word.getValue().c_str()[word.getValue().size()-1] == 'x') {
                 std::string singulier = word.getValue().substr(0,word.getValue().length()-1);

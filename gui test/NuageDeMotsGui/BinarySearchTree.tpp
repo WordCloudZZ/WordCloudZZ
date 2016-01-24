@@ -102,4 +102,11 @@ void BinarySearchTree<T>::deletePlurals() {
     }
 }
 
+template <typename T>
+std::vector<std::string> BinarySearchTree<T>::stringList() const {
+    std::vector<std::string> list;
+    list.push_back("Not implemented for this type");
+    // TODO : implements
 
+    return list;
+}

@@ -22,16 +22,17 @@ class IFileReader {
         virtual void printStudyTable() = 0;
         virtual std::string stringStudyTable() = 0;
         virtual void sortTable() = 0;
+        virtual std::vector<std::string> stringList() const = 0;
 };
 
 template<template<typename = std::string> class C>
 class FileReader : public IFileReader {
     protected:
-        std::ifstream                   m_file; // Any file used
-        std::string                     m_separator; // Contains the list of separators
-        unsigned long long              m_wordCount;    // nombre de mots dans le document
-        C<std::string>        m_ignoredWords; // Storing words we have to ignore
-        C<std::string>        m_studiedWords; // Storing words we have to study
+        std::ifstream                   m_file; /// Any file used
+        std::string                     m_separator; /// Contains the list of separators
+        unsigned long long              m_wordCount;    /// Document word number
+        C<std::string>        m_ignoredWords; /// Storing words we have to ignore
+        C<std::string>        m_studiedWords; /// Storing words we have to study
 
     public:
         FileReader(std::string = "ignore.conf", std::string = "filereader.conf");
@@ -44,6 +45,7 @@ class FileReader : public IFileReader {
         void sortTable();
         void printStudyTable();
         std::string stringStudyTable();
+        std::vector<std::string> stringList() const; /// Returns a sorted list with the string rep of a line
 
     private:
         bool isSeparator(const char &);
