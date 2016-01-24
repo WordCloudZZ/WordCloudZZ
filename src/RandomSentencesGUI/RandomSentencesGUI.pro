@@ -13,7 +13,6 @@ TEMPLATE = app
 INCLUDEPATH += ../RandomSentences/include/
 CONFIG += c++11
 
-
 SOURCES += main.cpp\
     ../RandomSentences/src/Stats.cpp \
     ../RandomSentences/src/Student.cpp \
@@ -31,3 +30,5 @@ HEADERS  += \
     LoadThread.h
 
 FORMS    += mainwindow.ui
+
+DISTFILES +=
