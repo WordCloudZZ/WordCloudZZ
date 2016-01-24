@@ -1,9 +1,8 @@
 #include "ComputingThread.h"
 
-ComputingThread::ComputingThread(WordsGenerator * pwg, std::string pphrase, unsigned long long piterations) {
-    wg = pwg;
-    phrase = pphrase;
-    iterations = piterations;
+ComputingThread::ComputingThread(WordsGenerator * pwg, std::string pphrase, unsigned long long piterations) :
+    wg(pwg), phrase(pphrase), iterations(piterations), buf(), flux(), mProgressThread(&flux,iterations) {
+    QObject::connect(&mProgressThread, SIGNAL(computingProgressed(double)), this, SLOT(computingProgressed_s(double)));
 }
 
 ComputingThread::~ComputingThread() {
@@ -11,11 +10,16 @@ ComputingThread::~ComputingThread() {
 }
 
 void ComputingThread::run() {
-    Stats stats = wg->studySentence(phrase, iterations);
-
+    mProgressThread.start(QThread::LowPriority);
+    Stats stats = wg->studySentence(phrase, iterations, flux);
+    mProgressThread.wait();
     emit computingEnded(stats);
+}
 
-    /// on libere les ressources
-    delete wg;
-    wg = NULL;
+void ComputingThread::computingProgressed_s(double percent) {
+    emit computingProgressed(percent);
+}
+
+QThread & ComputingThread::getProgThread() {
+    return mProgressThread;
 }

@@ -1,6 +1,6 @@
 #include "Stats.h"
 
-Stats::Stats() : m_average(0), m_variance(0), m_radius(0), m_time(0), m_number(0) {
+Stats::Stats() : m_average(0), m_variance(0), m_radius(0), m_time(0), m_number(1) {
 
 }
 

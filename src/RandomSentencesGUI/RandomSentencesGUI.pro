@@ -19,13 +19,15 @@ SOURCES += main.cpp\
     ../RandomSentences/src/Student.cpp \
     ../RandomSentences/src/WordsGenerator.cpp \
     ComputingThread.cpp \
-    MainWindow.cpp
+    MainWindow.cpp \
+    LoadThread.cpp
 
 HEADERS  += \
     ../RandomSentences/include/Stats.h \
     ../RandomSentences/include/Student.h \
     ../RandomSentences/include/WordsGenerator.h \
     ComputingThread.h \
-    MainWindow.h
+    MainWindow.h \
+    LoadThread.h
 
 FORMS    += mainwindow.ui

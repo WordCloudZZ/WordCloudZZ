@@ -78,7 +78,7 @@ Stats WordsGenerator::studySentence(std::string p_str, unsigned p_iter, std::ost
     start = clock();    // temps de debut
 
     for(unsigned i = 0 ; i < p_iter ; ++i) {        // calcul des echantillons
-        out << "Round " << i+1 << std::endl;
+        out << "Round " << i+1 << ":" << std::endl;
         tirages.push_back(this->expectWord(p_str.c_str(), out));
         out << "----------------------------------------------------------------" << std::endl;
     }
