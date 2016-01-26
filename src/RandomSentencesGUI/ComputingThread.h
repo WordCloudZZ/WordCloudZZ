@@ -20,6 +20,7 @@ class ComputingThread : public QThread {
         unsigned long long      iterations;
         std::stringbuf          buf;
         std::ostringstream      flux;
+        std::ostringstream    * sortie;
         LoadThread              mProgressThread;
 
     signals:
@@ -30,7 +31,7 @@ class ComputingThread : public QThread {
         void computingProgressed_s(double percent);
 
     public:
-        ComputingThread(WordsGenerator *, std::string, unsigned long long);
+        ComputingThread(WordsGenerator *, std::string, unsigned long long, std::ostringstream&);
         virtual ~ComputingThread();
 
         void run();

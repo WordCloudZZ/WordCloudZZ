@@ -42,6 +42,8 @@ private slots:
 
     void on_toolButton_clicked();
 
+    void on_pushButton_5_clicked();
+
 private:
     Ui::MainWindow    * ui;
     WordsGenerator    * wg;
@@ -49,6 +51,7 @@ private:
                         graine;
     int                 iterations;
     ComputingThread   * mThread;
+    std::ostringstream  sortie;
 };
 
 #endif // MAINWINDOW_H

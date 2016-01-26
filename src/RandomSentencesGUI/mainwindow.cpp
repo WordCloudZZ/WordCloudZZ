@@ -56,6 +56,7 @@ void MainWindow::on_pushButton_clicked()
         this->ui->pushButton_4->setDisabled(true);
         this->ui->pushButton_5->setDisabled(true);
         this->ui->pushButton_6->setDisabled(true);
+        this->ui->toolButton->setDisabled(true);
         ui->lineEdit->setDisabled(true);
         ui->lineEdit_2->setDisabled(true);
         ui->lineEdit_3->setDisabled(true);
@@ -68,7 +69,8 @@ void MainWindow::on_pushButton_clicked()
 
         /// on cree le traitement
         wg = new WordsGenerator(graine, alpha.c_str());
-        mThread = new ComputingThread(wg, phrase, iterations);
+        sortie << "";
+        mThread = new ComputingThread(wg, phrase, iterations, sortie);
         QObject::connect(mThread, SIGNAL(computingEnded(Stats)), this, SLOT(changeStats(Stats)));
         QObject::connect(mThread, SIGNAL(computingProgressed(double)), this, SLOT(computingProgressed(double)));
         mThread->start(QThread::TimeCriticalPriority);
@@ -94,13 +96,14 @@ void MainWindow::changeStats(Stats stats) {
     ui->labelVariance->setText(QString::number((unsigned long long)stats.variance()));
     ui->labelTime->setText(QString::number(stats.time()));
     ui->labelUnitTime->setText(QString::number(stats.time()/stats.number()));
-    ui->labelConfidence->setText("[ "+QString::number((unsigned long long)(stats.average()-rayon))+" ; "+QString::number((unsigned long long)(stats.average()+rayon))+" ]");
+    ui->labelConfidence->setText("[ "+QString::number((unsigned long long)((stats.average()-rayon)<0?0:stats.average()-rayon))+" ; "+QString::number((unsigned long long)(stats.average()+rayon))+" ]");
 
     this->ui->pushButton->setText("Générer");
     this->ui->pushButton_3->setDisabled(false);
     this->ui->pushButton_4->setDisabled(false);
     this->ui->pushButton_5->setDisabled(false);
     this->ui->pushButton_6->setDisabled(false);
+    this->ui->toolButton->setDisabled(false);
     ui->lineEdit->setDisabled(false);
     ui->lineEdit_2->setDisabled(false);
     ui->lineEdit_3->setDisabled(false);
@@ -144,5 +147,15 @@ void MainWindow::on_toolButton_clicked() {
     QString fichier = QFileDialog::getOpenFileName(this, "Choix du fichier principal", QString(), "Formats supportés (*.txt *.html *.az);;Autre (*)");
     if(fichier.length() != 0) { /// Test if a file is selected
         ui->lineEdit_3->setText(fichier);
+    }
+}
+
+void MainWindow::on_pushButton_5_clicked()
+{
+    QString filename = QFileDialog::getSaveFileName(this, "Enregistrez vos résultats", QString(), "Formats supportés (*.txt *.html);;Autre (*)");
+    QFile f(filename);
+    if(f.open(QFile::WriteOnly)) {
+        f.write(sortie.str().c_str());
+        f.close();
     }
 }
