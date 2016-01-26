@@ -32,11 +32,6 @@ void MainWindow::on_spinBox_valueChanged(int arg1) {
     iterations = arg1;
 }
 
-void MainWindow::on_lineEdit_2_textChanged(const QString &arg1)
-{
-    graine = arg1.toStdString();
-}
-
 void MainWindow::on_pushButton_clicked()
 {
     if(ui->pushButton->text()=="Générer") {
@@ -58,7 +53,6 @@ void MainWindow::on_pushButton_clicked()
         this->ui->pushButton_6->setDisabled(true);
         this->ui->toolButton->setDisabled(true);
         ui->lineEdit->setDisabled(true);
-        ui->lineEdit_2->setDisabled(true);
         ui->lineEdit_3->setDisabled(true);
         ui->spinBox->setDisabled(true);
         ui->progressBar->setValue(0);
@@ -92,7 +86,7 @@ void MainWindow::on_pushButton_clicked()
 
 void MainWindow::changeStats(Stats stats) {
     unsigned long long rayon = stats.radius();
-    ui->labelAverage->setText(QString::number((unsigned long long)stats.average()));
+    ui->labelAverage->setText(QString::number(100/stats.average())+"%");
     ui->labelVariance->setText(QString::number((unsigned long long)stats.variance()));
     ui->labelTime->setText(QString::number(stats.time()));
     ui->labelUnitTime->setText(QString::number(stats.time()/stats.number()));
@@ -105,7 +99,6 @@ void MainWindow::changeStats(Stats stats) {
     this->ui->pushButton_6->setDisabled(false);
     this->ui->toolButton->setDisabled(false);
     ui->lineEdit->setDisabled(false);
-    ui->lineEdit_2->setDisabled(false);
     ui->lineEdit_3->setDisabled(false);
     ui->spinBox->setDisabled(false);
 }
@@ -120,14 +113,13 @@ void MainWindow::computingTerminated() {
 }
 
 void MainWindow::on_pushButton_3_clicked() {
-    ui->labelAverage->setText("0");
+    ui->labelAverage->setText("0%");
     ui->labelVariance->setText("0");
     ui->labelTime->setText("0");
     ui->labelUnitTime->setText("0");
     ui->labelConfidence->setText("[ 0 ; 0 ]");
 
     ui->lineEdit->setText("");
-    ui->lineEdit_2->setText("");
     ui->lineEdit_3->setText("");
     ui->spinBox->setValue(10);
     ui->progressBar->setValue(0);
@@ -147,6 +139,12 @@ void MainWindow::on_toolButton_clicked() {
     QString fichier = QFileDialog::getOpenFileName(this, "Choix du fichier principal", QString(), "Formats supportés (*.txt *.html *.az);;Autre (*)");
     if(fichier.length() != 0) { /// Test if a file is selected
         ui->lineEdit_3->setText(fichier);
+        QFile f(fichier);
+        if(f.open(QFile::ReadOnly)) {
+            QTextStream flux(&f);
+            ui->alphabet->setText(flux.readLine());
+            f.close();
+        }
     }
 }
 

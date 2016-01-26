@@ -36,11 +36,10 @@ public:
     QSpinBox *spinBox;
     QLabel *label;
     QLabel *label_2;
-    QLabel *label_3;
-    QLineEdit *lineEdit_2;
     QLineEdit *lineEdit_3;
     QLabel *label_4;
     QToolButton *toolButton;
+    QLineEdit *alphabet;
     QGroupBox *groupBox_2;
     QLabel *label_5;
     QLabel *labelUnitTime;
@@ -67,7 +66,13 @@ public:
         MainWindow->resize(640, 480);
         MainWindow->setMinimumSize(QSize(640, 480));
         MainWindow->setMaximumSize(QSize(640, 480));
-        QIcon icon(QIcon::fromTheme(QStringLiteral("dice.png")));
+        QIcon icon;
+        QString iconThemeName = QStringLiteral("dice.png");
+        if (QIcon::hasThemeIcon(iconThemeName)) {
+            icon = QIcon::fromTheme(iconThemeName);
+        } else {
+            icon.addFile(QStringLiteral("."), QSize(), QIcon::Normal, QIcon::Off);
+        }
         MainWindow->setWindowIcon(icon);
         MainWindow->setStyleSheet(QStringLiteral(""));
         MainWindow->setAnimated(true);
@@ -94,31 +99,29 @@ public:
         label_2 = new QLabel(groupBox);
         label_2->setObjectName(QStringLiteral("label_2"));
         label_2->setGeometry(QRect(10, 80, 121, 21));
-        label_3 = new QLabel(groupBox);
-        label_3->setObjectName(QStringLiteral("label_3"));
-        label_3->setGeometry(QRect(10, 120, 121, 21));
-        lineEdit_2 = new QLineEdit(groupBox);
-        lineEdit_2->setObjectName(QStringLiteral("lineEdit_2"));
-        lineEdit_2->setGeometry(QRect(140, 120, 471, 21));
-        lineEdit_2->setStyleSheet(QLatin1String("background: white;\n"
-"color: black;"));
         lineEdit_3 = new QLineEdit(groupBox);
         lineEdit_3->setObjectName(QStringLiteral("lineEdit_3"));
-        lineEdit_3->setGeometry(QRect(140, 160, 431, 21));
+        lineEdit_3->setGeometry(QRect(140, 120, 431, 21));
         lineEdit_3->setStyleSheet(QLatin1String("background: white;\n"
 "color: black;"));
         label_4 = new QLabel(groupBox);
         label_4->setObjectName(QStringLiteral("label_4"));
-        label_4->setGeometry(QRect(10, 160, 121, 21));
+        label_4->setGeometry(QRect(10, 120, 121, 21));
         toolButton = new QToolButton(groupBox);
         toolButton->setObjectName(QStringLiteral("toolButton"));
-        toolButton->setGeometry(QRect(580, 160, 31, 21));
+        toolButton->setGeometry(QRect(580, 120, 31, 21));
+        alphabet = new QLineEdit(groupBox);
+        alphabet->setObjectName(QStringLiteral("alphabet"));
+        alphabet->setGeometry(QRect(10, 160, 601, 21));
+        alphabet->setStyleSheet(QLatin1String("background: white;\n"
+"color: black;"));
+        alphabet->setReadOnly(true);
         groupBox_2 = new QGroupBox(centralWidget);
         groupBox_2->setObjectName(QStringLiteral("groupBox_2"));
         groupBox_2->setGeometry(QRect(10, 270, 421, 191));
         label_5 = new QLabel(groupBox_2);
         label_5->setObjectName(QStringLiteral("label_5"));
-        label_5->setGeometry(QRect(20, 30, 131, 21));
+        label_5->setGeometry(QRect(20, 30, 181, 21));
         labelUnitTime = new QLabel(groupBox_2);
         labelUnitTime->setObjectName(QStringLiteral("labelUnitTime"));
         labelUnitTime->setGeometry(QRect(240, 160, 161, 21));
@@ -196,11 +199,10 @@ public:
         spinBox->setPrefix(QString());
         label->setText(QApplication::translate("MainWindow", "Phrase \303\240 g\303\251n\303\251rer", 0));
         label_2->setText(QApplication::translate("MainWindow", "Nombre d'it\303\251rations", 0));
-        label_3->setText(QApplication::translate("MainWindow", "Graine du g\303\251n\303\251rateur", 0));
         label_4->setText(QApplication::translate("MainWindow", "Alphabet de g\303\251n\303\251ration", 0));
         toolButton->setText(QApplication::translate("MainWindow", "...", 0));
         groupBox_2->setTitle(QApplication::translate("MainWindow", "R\303\251sultats", 0));
-        label_5->setText(QApplication::translate("MainWindow", "Nombre moyen de tirages", 0));
+        label_5->setText(QApplication::translate("MainWindow", "Fr\303\251quence d'apparition de la phrase", 0));
         labelUnitTime->setText(QApplication::translate("MainWindow", "0", 0));
         label_7->setText(QApplication::translate("MainWindow", "Variance des tirages", 0));
         label_8->setText(QApplication::translate("MainWindow", "Intervale de confiance", 0));
@@ -209,7 +211,7 @@ public:
         labelTime->setText(QApplication::translate("MainWindow", "0", 0));
         labelConfidence->setText(QApplication::translate("MainWindow", "[ 0 ; 0 ]", 0));
         labelVariance->setText(QApplication::translate("MainWindow", "0", 0));
-        labelAverage->setText(QApplication::translate("MainWindow", "0", 0));
+        labelAverage->setText(QApplication::translate("MainWindow", "0 %", 0));
         pushButton->setText(QApplication::translate("MainWindow", "G\303\251n\303\251rer", 0));
         pushButton_3->setText(QApplication::translate("MainWindow", "Remettre \303\240 z\303\251ro", 0));
         pushButton_4->setText(QApplication::translate("MainWindow", "Aide", 0));

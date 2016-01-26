@@ -26,8 +26,6 @@ private slots:
 
     void on_spinBox_valueChanged(int arg1);
 
-    void on_lineEdit_2_textChanged(const QString &arg1);
-
     void on_pushButton_clicked();
 
     void changeStats(Stats stats);
