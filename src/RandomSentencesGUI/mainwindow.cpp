@@ -12,6 +12,7 @@ MainWindow::MainWindow(QWidget *parent) :
     QObject::connect(ui->pushButton_6, SIGNAL(clicked()), qApp, SLOT(quit()));
     wg = NULL;
     mThread = NULL;
+    graine = "Le hasard ne fait pas de phrase.";
     setWindowIcon(QIcon(QCoreApplication::applicationDirPath() + "/dice.png"));
 }
 
@@ -58,6 +59,9 @@ void MainWindow::on_pushButton_clicked()
         ui->progressBar->setValue(0);
         update();
 
+        /// raz results
+        resetResults();
+
         /// on verifie les entrees
         iterations = iterations < 1 ? 1 : iterations;
 
@@ -101,6 +105,7 @@ void MainWindow::changeStats(Stats stats) {
     ui->lineEdit->setDisabled(false);
     ui->lineEdit_3->setDisabled(false);
     ui->spinBox->setDisabled(false);
+    ui->progressBar->setValue(100);
 }
 
 void MainWindow::computingTerminated() {
@@ -113,16 +118,20 @@ void MainWindow::computingTerminated() {
 }
 
 void MainWindow::on_pushButton_3_clicked() {
-    ui->labelAverage->setText("0%");
-    ui->labelVariance->setText("0");
-    ui->labelTime->setText("0");
-    ui->labelUnitTime->setText("0");
-    ui->labelConfidence->setText("[ 0 ; 0 ]");
+    resetResults();
 
     ui->lineEdit->setText("");
     ui->lineEdit_3->setText("");
     ui->spinBox->setValue(10);
     ui->progressBar->setValue(0);
+}
+
+void MainWindow::resetResults() {
+    ui->labelAverage->setText("0%");
+    ui->labelVariance->setText("0");
+    ui->labelTime->setText("0");
+    ui->labelUnitTime->setText("0");
+    ui->labelConfidence->setText("[ 0 ; 0 ]");
 }
 
 void MainWindow::on_pushButton_4_clicked() {    // Aide

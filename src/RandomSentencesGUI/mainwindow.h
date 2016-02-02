@@ -50,6 +50,8 @@ private:
     int                 iterations;
     ComputingThread   * mThread;
     std::ostringstream  sortie;
+
+    void resetResults();
 };
 
 #endif // MAINWINDOW_H

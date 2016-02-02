@@ -17,7 +17,7 @@ class WordsGenerator {
 
     public:
         /** Default constructor */
-        WordsGenerator(std::string = "Le hasard ne fait des phrases.", const char [] = "alphabet.az");
+        WordsGenerator(std::string = "Le hasard ne fait des phrases.", const char [] = "alpha.az");
         /** Copy constructor */
         WordsGenerator(const WordsGenerator &);
         /** Default destructor */

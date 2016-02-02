@@ -8,7 +8,7 @@ using namespace std;
 int main(int argc, char** argv) {
     setlocale(LC_ALL, "");
     unsigned 				iter_number 	= 10;
-    string 					sentence 		= "Bleu",
+    string 					sentence 		= "random",
                             seed            = "Le hasard ne fait pas de phrase.",
                             arg;
 
