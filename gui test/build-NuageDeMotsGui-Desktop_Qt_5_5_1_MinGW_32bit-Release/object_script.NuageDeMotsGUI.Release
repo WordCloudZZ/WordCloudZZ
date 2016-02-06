@@ -1,0 +1,13 @@
+INPUT(
+./release\main.o
+./release\mainwindow.o
+./release\ThreadExtract.o
+./release\BinarySearchTree.o
+./release\Countable.o
+./release\FileReader.o
+./release\HashElement.o
+./release\Hashtable.o
+./release\Node.o
+./release\PDFReader.o
+./release\moc_mainwindow.o
+);

@@ -30,7 +30,7 @@ FileReader<C>::~FileReader() {
 
 template<template<typename = std::string> class C>
 std::streambuf * FileReader<C>::open(std::string p_filename) {
-    std::istream * retour;
+    std::istream * retour = NULL;
     m_open = false;
     m_isPdf = false;
 
@@ -86,7 +86,7 @@ void FileReader<C>::read(std::string p_filename) {
 template<template<typename = std::string> class C>
 void FileReader<C>::process(std::string p_stringToProcess) {
     std::transform(p_stringToProcess.begin(), p_stringToProcess.end(), p_stringToProcess.begin(), tolower);
-    if(!m_ignoredWords.contains(p_stringToProcess)) {
+    if(p_stringToProcess.length() > 2 && !m_ignoredWords.contains(p_stringToProcess)) {
         m_studiedWords.add(p_stringToProcess);
     }
     m_wordCount++;

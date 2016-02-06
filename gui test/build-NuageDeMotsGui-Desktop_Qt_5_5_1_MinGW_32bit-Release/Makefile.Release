@@ -1142,7 +1142,53 @@ release/mainwindow.o: ../NuageDeMotsGui/mainwindow.cpp ../NuageDeMotsGui/mainwin
 		../NuageDeMotsGui/Node.tpp \
 		../NuageDeMotsGui/BinarySearchTree.tpp \
 		../NuageDeMotsGui/FileReader.tpp \
-		ui_mainwindow.h
+		ui_mainwindow.h \
+		P:/Programs/Qt/5.5/mingw492_32/include/QtCore/QVariant \
+		P:/Programs/Qt/5.5/mingw492_32/include/QtWidgets/QAction \
+		P:/Programs/Qt/5.5/mingw492_32/include/QtWidgets/qaction.h \
+		P:/Programs/Qt/5.5/mingw492_32/include/QtWidgets/qactiongroup.h \
+		P:/Programs/Qt/5.5/mingw492_32/include/QtWidgets/QApplication \
+		P:/Programs/Qt/5.5/mingw492_32/include/QtWidgets/qapplication.h \
+		P:/Programs/Qt/5.5/mingw492_32/include/QtWidgets/qdesktopwidget.h \
+		P:/Programs/Qt/5.5/mingw492_32/include/QtWidgets/QButtonGroup \
+		P:/Programs/Qt/5.5/mingw492_32/include/QtWidgets/qbuttongroup.h \
+		P:/Programs/Qt/5.5/mingw492_32/include/QtWidgets/QGridLayout \
+		P:/Programs/Qt/5.5/mingw492_32/include/QtWidgets/qgridlayout.h \
+		P:/Programs/Qt/5.5/mingw492_32/include/QtWidgets/qlayout.h \
+		P:/Programs/Qt/5.5/mingw492_32/include/QtWidgets/qlayoutitem.h \
+		P:/Programs/Qt/5.5/mingw492_32/include/QtWidgets/qboxlayout.h \
+		P:/Programs/Qt/5.5/mingw492_32/include/QtWidgets/QHeaderView \
+		P:/Programs/Qt/5.5/mingw492_32/include/QtWidgets/qheaderview.h \
+		P:/Programs/Qt/5.5/mingw492_32/include/QtWidgets/qabstractitemview.h \
+		P:/Programs/Qt/5.5/mingw492_32/include/QtWidgets/qabstractscrollarea.h \
+		P:/Programs/Qt/5.5/mingw492_32/include/QtWidgets/qframe.h \
+		P:/Programs/Qt/5.5/mingw492_32/include/QtWidgets/qabstractitemdelegate.h \
+		P:/Programs/Qt/5.5/mingw492_32/include/QtWidgets/qstyleoption.h \
+		P:/Programs/Qt/5.5/mingw492_32/include/QtWidgets/qabstractspinbox.h \
+		P:/Programs/Qt/5.5/mingw492_32/include/QtWidgets/qslider.h \
+		P:/Programs/Qt/5.5/mingw492_32/include/QtWidgets/qabstractslider.h \
+		P:/Programs/Qt/5.5/mingw492_32/include/QtWidgets/qstyle.h \
+		P:/Programs/Qt/5.5/mingw492_32/include/QtWidgets/qtabbar.h \
+		P:/Programs/Qt/5.5/mingw492_32/include/QtWidgets/qrubberband.h \
+		P:/Programs/Qt/5.5/mingw492_32/include/QtWidgets/QLabel \
+		P:/Programs/Qt/5.5/mingw492_32/include/QtWidgets/qlabel.h \
+		P:/Programs/Qt/5.5/mingw492_32/include/QtWidgets/QLineEdit \
+		P:/Programs/Qt/5.5/mingw492_32/include/QtWidgets/qlineedit.h \
+		P:/Programs/Qt/5.5/mingw492_32/include/QtWidgets/QMenu \
+		P:/Programs/Qt/5.5/mingw492_32/include/QtWidgets/qmenu.h \
+		P:/Programs/Qt/5.5/mingw492_32/include/QtWidgets/QMenuBar \
+		P:/Programs/Qt/5.5/mingw492_32/include/QtWidgets/qmenubar.h \
+		P:/Programs/Qt/5.5/mingw492_32/include/QtWidgets/QPushButton \
+		P:/Programs/Qt/5.5/mingw492_32/include/QtWidgets/qpushbutton.h \
+		P:/Programs/Qt/5.5/mingw492_32/include/QtWidgets/qabstractbutton.h \
+		P:/Programs/Qt/5.5/mingw492_32/include/QtWidgets/QSpacerItem \
+		P:/Programs/Qt/5.5/mingw492_32/include/QtWidgets/QSpinBox \
+		P:/Programs/Qt/5.5/mingw492_32/include/QtWidgets/qspinbox.h \
+		P:/Programs/Qt/5.5/mingw492_32/include/QtWidgets/QStatusBar \
+		P:/Programs/Qt/5.5/mingw492_32/include/QtWidgets/qstatusbar.h \
+		P:/Programs/Qt/5.5/mingw492_32/include/QtWidgets/QTextEdit \
+		P:/Programs/Qt/5.5/mingw492_32/include/QtWidgets/qtextedit.h \
+		P:/Programs/Qt/5.5/mingw492_32/include/QtWidgets/QWidget
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\mainwindow.o ..\NuageDeMotsGui\mainwindow.cpp
 
 release/Countable.o: ../NuageDeMotsGui/Countable.cpp ../NuageDeMotsGui/Countable.h

@@ -193,7 +193,6 @@ void PDFReader::subProcess(char* output, size_t len) {
                         c=='ù' ||
                         c=='û' ||
                         c=='\'' ||
-                        c=='’' ||
                         c=='ü') {
 						str.push_back(c);
 					}
