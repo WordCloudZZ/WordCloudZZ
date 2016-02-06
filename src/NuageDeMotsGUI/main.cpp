@@ -115,21 +115,21 @@ int main(int argc, char** argv) {
                         analyseur = new FileReader<Hashtable>(buff1, buff2);
                 } else if ((buff1.size() == 0 && buff2.size() != 0) && (is_readable(buff2))) {
                     // Pas de fichier de mots et l'autre fichier existe
-                    cout << "Utilisation de s�parateurs personnels" << endl;
+                    cout << "Utilisation de séparateurs personnels" << endl;
                     if(useABRE)
                         analyseur = new FileReader<BinarySearchTree>("ignore.conf", buff2);
                     else
                         analyseur = new FileReader<Hashtable>("ignore.conf", buff2);
                 } else if ((buff2.size() == 0 && buff1.size() != 0) && (is_readable(buff1))) {
                     // Pas de separateurs
-                    cout << "Utilisation de la liste personnelle de mots � ignorer" << endl;
+                    cout << "Utilisation de la liste personnelle de mots à ignorer" << endl;
                     if(useABRE)
                         analyseur = new FileReader<BinarySearchTree>(buff1, "filereader.conf");
                     else
                         analyseur = new FileReader<Hashtable>(buff1, "filereader.conf");
                 } else {
                     // On a rien
-                    cout << "** Utilisation des fichiers de configuration par d�faut" << endl;
+                    cout << "** Utilisation des fichiers de configuration par défaut" << endl;
                     if(useABRE)
                         analyseur = new FileReader<BinarySearchTree>();
                     else
@@ -142,7 +142,7 @@ int main(int argc, char** argv) {
                     buff3="hill.bk";
                 }
 
-                cout << "\nL'analyse va d�buter et les resultats seront immediatement affiches" << endl;
+                cout << "\nL'analyse va débuter et les resultats seront immediatement affiches" << endl;
                 system("pause"); // Attente de confirmation
 
                 analyseur->read(buff3.c_str());

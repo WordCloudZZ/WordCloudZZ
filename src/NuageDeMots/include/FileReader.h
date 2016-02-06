@@ -19,7 +19,7 @@ class IFileReader {
         virtual void read(std::string) = 0;
         virtual bool contains(std::string) const = 0;
         virtual void process(std::string) = 0;
-        virtual void printStudyTable() = 0;
+        virtual std::vector<std::string> printStudyTable() = 0;
 };
 
 template<template<typename = std::string> class C>
@@ -43,7 +43,7 @@ class FileReader : public IFileReader {
         bool contains(std::string) const;
         void process(std::string);
 
-        void printStudyTable();
+        std::vector<std::string> printStudyTable();
 
     private:
         bool isSeparator(const char &);

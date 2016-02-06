@@ -63,7 +63,7 @@ std::string BinarySearchTree<T>::toString() const {
 }
 
 template <typename T>
-std::string BinarySearchTree<T>::sort() {
+std::vector<std::string> BinarySearchTree<T>::sort() {
 
     class CompPair {
         public:
@@ -72,7 +72,7 @@ std::string BinarySearchTree<T>::sort() {
         }
     } bob;
 
-    std::string result;
+    std::vector<std::string> result;
     std::forward_list<std::pair<T,Node<T> > > sorted;
     std::vector<std::pair<T,Node<T> > > trie;
     for(auto n : m_abr) {
@@ -80,8 +80,13 @@ std::string BinarySearchTree<T>::sort() {
     }
     std::sort(trie.begin(), trie.end(), bob);
 
-    for(auto po : trie)
+    for(auto po : trie)  {
+        std::stringstream ss;
+        ss << po.second.number();
+        std::string numb = ss.str();
+        result.push_back(po.second.getValue() + "/" + numb + "\n");
         std::cout << po.second.getValue() << "\t#" << po.second.number() << std::endl;
+    }
 
     return result;
 }
@@ -89,16 +94,15 @@ std::string BinarySearchTree<T>::sort() {
 template <typename T>
 void BinarySearchTree<T>::deletePlurals() {
     for(auto pairWord : m_abr) {
-            Node<T> * word = &(pairWord.second);
-            if(word->getValue().c_str()[word->getValue().size()-1] == 's' || word->getValue().c_str()[word->getValue().size()-1] == 'x') {
-                std::string singulier = word->getValue().substr(0,word->getValue().length()-1);
-                auto iteratorOnSingular = m_abr.find(singulier);
-                if(iteratorOnSingular != m_abr.end()) {
-                    iteratorOnSingular->second.setNumber(iteratorOnSingular->second.number()+word->number());
-                    m_abr.erase(word->getValue());
-                }
+        Node<T> * word = &(pairWord.second);
+        if(word->getValue().c_str()[word->getValue().size()-1] == 's' || word->getValue().c_str()[word->getValue().size()-1] == 'x') {
+            std::string singulier = word->getValue().substr(0,word->getValue().length()-1);
+            auto iteratorOnSingular = m_abr.find(singulier);
+            if(iteratorOnSingular != m_abr.end()) {
+                iteratorOnSingular->second.setNumber(iteratorOnSingular->second.number()+word->number());
+                m_abr.erase(word->getValue());
             }
-
+        }
     }
 }
 

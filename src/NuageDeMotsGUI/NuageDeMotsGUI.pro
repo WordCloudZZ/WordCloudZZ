@@ -21,7 +21,6 @@ SOURCES += main.cpp\
     ../NuageDeMots/src/FileReader.tpp \
     ../NuageDeMots/src/HashElement.tpp \
     ../NuageDeMots/src/Hashtable.tpp \
-    ../NuageDeMots/src/Node.tpp \
     ../NuageDeMots/src/PDFReader.cpp
 
 
@@ -39,3 +38,10 @@ HEADERS  += mainwindow.h \
 FORMS    += mainwindow.ui
 
 DISTFILES +=
+
+win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../../libraries/zlib/ -lz
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../../libraries/zlib/ -lz
+else:unix: LIBS += -L$$PWD/../../libraries/zlib/ -lz
+
+INCLUDEPATH += $$PWD/../../libraries/zlib
+DEPENDPATH += $$PWD/../../libraries/zlib

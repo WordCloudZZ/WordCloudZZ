@@ -5,6 +5,7 @@
 #include "FileReader.h"
 #include "BinarySearchTree.h"
 #include "Hashtable.h"
+#include "Python.h"
 
 using namespace std;
 
@@ -62,7 +63,10 @@ int main(int argc, char** argv) {
         else
             analyseur = new FileReader<Hashtable>(buff[1], buff[2]);   // initialisation (ignore,separateurs)
         analyseur->read(buff[0]);                          // lecture du fichier
-        analyseur->printStudyTable();                   // affichage des resultats
+        std::vector<std::string> b = analyseur->printStudyTable();                   // affichage des resultats
+        for(std::string s : b){
+            cout << s << endl;
+        }
         delete analyseur;                               // liberation de la memoire
     } else if(output_choice==1) {   // menu console
         while(choice != 9) {

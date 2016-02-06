@@ -98,10 +98,11 @@ bool FileReader<C>::contains(std::string p_toFind) const {
 }
 
 template<template<typename = std::string> class C>
-void FileReader<C>::printStudyTable() {
+std::vector<std::string> FileReader<C>::printStudyTable() {
     m_studiedWords.deletePlurals();
-    m_studiedWords.sort();
+    std::vector<std::string> retour = m_studiedWords.sort();
     std::cout << "Nombre de mots : " << m_wordCount << std::endl;
+    return retour;
 }
 
 template<template<typename = std::string> class C>

@@ -180,7 +180,7 @@ void PDFReader::subProcess(char* output, size_t len) {
 					nextliteral = true;
 				} else {
 					nextliteral = false;
-					if( ((c>=' ') && (c<='~')) || ((c>=128) && (c<255)) ||
+                    if( ((c>=' ') && (c<='~')) || ((c>=128)) ||
                         c=='à' ||
                         c=='ç' ||
                         c=='é' ||
@@ -192,6 +192,8 @@ void PDFReader::subProcess(char* output, size_t len) {
                         c=='ö' ||
                         c=='ù' ||
                         c=='û' ||
+                        c=='`' ||
+                        c=='’' ||
                         c=='\'' ||
                         c=='ü') {
 						str.push_back(c);

@@ -14,10 +14,10 @@ CXX           = g++
 DEFINES       = -DUNICODE -DQT_QML_DEBUG -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_NEEDS_QMAIN
 CFLAGS        = -pipe -fno-keep-inline-dllexport -O2 -Wall -Wextra $(DEFINES)
 CXXFLAGS      = -pipe -fno-keep-inline-dllexport -O2 -std=c++0x -frtti -Wall -Wextra -fexceptions -mthreads $(DEFINES)
-INCPATH       = -I..\..\src\NuageDeMotsGUI -I. -I..\..\src\NuageDeMots\include -I..\..\src\NuageDeMots\src -IP:\Programs\Qt\5.5\mingw492_32\include -IP:\Programs\Qt\5.5\mingw492_32\include\QtWidgets -IP:\Programs\Qt\5.5\mingw492_32\include\QtGui -IP:\Programs\Qt\5.5\mingw492_32\include\QtANGLE -IP:\Programs\Qt\5.5\mingw492_32\include\QtCore -Irelease -I. -IP:\Programs\Qt\5.5\mingw492_32\mkspecs\win32-g++ 
+INCPATH       = -I..\..\src\NuageDeMotsGUI -I. -I..\..\src\NuageDeMots\include -I..\..\src\NuageDeMots\src -I..\..\libraries\zlib -IP:\Programs\Qt\5.5\mingw492_32\include -IP:\Programs\Qt\5.5\mingw492_32\include\QtWidgets -IP:\Programs\Qt\5.5\mingw492_32\include\QtGui -IP:\Programs\Qt\5.5\mingw492_32\include\QtANGLE -IP:\Programs\Qt\5.5\mingw492_32\include\QtCore -Irelease -I. -IP:\Programs\Qt\5.5\mingw492_32\mkspecs\win32-g++ 
 LINKER      =        g++
 LFLAGS        =        -Wl,-s -Wl,-subsystem,windows -mthreads
-LIBS        =        -lmingw32 -LP:/Programs/Qt/5.5/mingw492_32/lib -lqtmain -lshell32 -lQt5Widgets -lQt5Gui -lQt5Core 
+LIBS        =        -lmingw32 -LP:/Programs/Qt/5.5/mingw492_32/lib -lqtmain -lshell32 -LO:/OneDrive/GitHub/Projet-ZZ2/src/NuageDeMotsGUI/../../libraries/zlib/ -lz -lQt5Widgets -lQt5Gui -lQt5Core 
 QMAKE         = P:\Programs\Qt\5.5\mingw492_32\bin\qmake.exe
 IDC           = idc
 IDL           = midl
@@ -46,12 +46,10 @@ OBJECTS_DIR   = release
 SOURCES       = ..\..\src\NuageDeMotsGUI\main.cpp \
 		..\..\src\NuageDeMotsGUI\mainwindow.cpp \
 		..\..\src\NuageDeMots\src\Countable.cpp \
-		..\..\src\NuageDeMots\src\Node.tpp \
 		..\..\src\NuageDeMots\src\PDFReader.cpp release\moc_mainwindow.cpp
 OBJECTS       = release/main.o \
 		release/mainwindow.o \
 		release/Countable.o \
-		release/Node.o \
 		release/PDFReader.o \
 		release/moc_mainwindow.o
 
@@ -66,7 +64,6 @@ DIST          =  ..\..\src\NuageDeMotsGUI\mainwindow.h \
 		..\..\src\NuageDeMots\include\PDFReader.h ..\..\src\NuageDeMotsGUI\main.cpp \
 		..\..\src\NuageDeMotsGUI\mainwindow.cpp \
 		..\..\src\NuageDeMots\src\Countable.cpp \
-		..\..\src\NuageDeMots\src\Node.tpp \
 		..\..\src\NuageDeMots\src\PDFReader.cpp
 QMAKE_TARGET  = NuageDeMotsGUI
 DESTDIR        = release\ #avoid trailing-slash linebreak
@@ -106,7 +103,7 @@ dist:
 	$(ZIP) NuageDeMotsGUI.zip $(SOURCES) $(DIST) ..\..\src\NuageDeMotsGUI\NuageDeMotsGUI.pro P:\Programs\Qt\5.5\mingw492_32\mkspecs\features\spec_pre.prf P:\Programs\Qt\5.5\mingw492_32\mkspecs\qdevice.pri P:\Programs\Qt\5.5\mingw492_32\mkspecs\features\device_config.prf P:\Programs\Qt\5.5\mingw492_32\mkspecs\qconfig.pri P:\Programs\Qt\5.5\mingw492_32\mkspecs\modules\qt_lib_3dcollision.pri P:\Programs\Qt\5.5\mingw492_32\mkspecs\modules\qt_lib_3dcollision_private.pri P:\Programs\Qt\5.5\mingw492_32\mkspecs\modules\qt_lib_3dcore.pri P:\Programs\Qt\5.5\mingw492_32\mkspecs\modules\qt_lib_3dcore_private.pri P:\Programs\Qt\5.5\mingw492_32\mkspecs\modules\qt_lib_3dinput.pri P:\Programs\Qt\5.5\mingw492_32\mkspecs\modules\qt_lib_3dinput_private.pri P:\Programs\Qt\5.5\mingw492_32\mkspecs\modules\qt_lib_3dlogic.pri P:\Programs\Qt\5.5\mingw492_32\mkspecs\modules\qt_lib_3dlogic_private.pri P:\Programs\Qt\5.5\mingw492_32\mkspecs\modules\qt_lib_3dquick.pri P:\Programs\Qt\5.5\mingw492_32\mkspecs\modules\qt_lib_3dquick_private.pri P:\Programs\Qt\5.5\mingw492_32\mkspecs\modules\qt_lib_3dquickrenderer.pri P:\Programs\Qt\5.5\mingw492_32\mkspecs\modules\qt_lib_3dquickrenderer_private.pri P:\Programs\Qt\5.5\mingw492_32\mkspecs\modules\qt_lib_3drenderer.pri P:\Programs\Qt\5.5\mingw492_32\mkspecs\modules\qt_lib_3drenderer_private.pri P:\Programs\Qt\5.5\mingw492_32\mkspecs\modules\qt_lib_axbase.pri P:\Programs\Qt\5.5\mingw492_32\mkspecs\modules\qt_lib_axbase_private.pri P:\Programs\Qt\5.5\mingw492_32\mkspecs\modules\qt_lib_axcontainer.pri P:\Programs\Qt\5.5\mingw492_32\mkspecs\modules\qt_lib_axcontainer_private.pri P:\Programs\Qt\5.5\mingw492_32\mkspecs\modules\qt_lib_axserver.pri P:\Programs\Qt\5.5\mingw492_32\mkspecs\modules\qt_lib_axserver_private.pri P:\Programs\Qt\5.5\mingw492_32\mkspecs\modules\qt_lib_bluetooth.pri P:\Programs\Qt\5.5\mingw492_32\mkspecs\modules\qt_lib_bluetooth_private.pri P:\Programs\Qt\5.5\mingw492_32\mkspecs\modules\qt_lib_bootstrap_private.pri P:\Programs\Qt\5.5\mingw492_32\mkspecs\modules\qt_lib_clucene_private.pri P:\Programs\Qt\5.5\mingw492_32\mkspecs\modules\qt_lib_concurrent.pri P:\Programs\Qt\5.5\mingw492_32\mkspecs\modules\qt_lib_concurrent_private.pri P:\Programs\Qt\5.5\mingw492_32\mkspecs\modules\qt_lib_core.pri P:\Programs\Qt\5.5\mingw492_32\mkspecs\modules\qt_lib_core_private.pri P:\Programs\Qt\5.5\mingw492_32\mkspecs\modules\qt_lib_dbus.pri P:\Programs\Qt\5.5\mingw492_32\mkspecs\modules\qt_lib_dbus_private.pri P:\Programs\Qt\5.5\mingw492_32\mkspecs\modules\qt_lib_declarative.pri P:\Programs\Qt\5.5\mingw492_32\mkspecs\modules\qt_lib_declarative_private.pri P:\Programs\Qt\5.5\mingw492_32\mkspecs\modules\qt_lib_designer.pri P:\Programs\Qt\5.5\mingw492_32\mkspecs\modules\qt_lib_designer_private.pri P:\Programs\Qt\5.5\mingw492_32\mkspecs\modules\qt_lib_designercomponents_private.pri P:\Programs\Qt\5.5\mingw492_32\mkspecs\modules\qt_lib_enginio.pri P:\Programs\Qt\5.5\mingw492_32\mkspecs\modules\qt_lib_enginio_private.pri P:\Programs\Qt\5.5\mingw492_32\mkspecs\modules\qt_lib_gui.pri P:\Programs\Qt\5.5\mingw492_32\mkspecs\modules\qt_lib_gui_private.pri P:\Programs\Qt\5.5\mingw492_32\mkspecs\modules\qt_lib_help.pri P:\Programs\Qt\5.5\mingw492_32\mkspecs\modules\qt_lib_help_private.pri P:\Programs\Qt\5.5\mingw492_32\mkspecs\modules\qt_lib_location.pri P:\Programs\Qt\5.5\mingw492_32\mkspecs\modules\qt_lib_location_private.pri P:\Programs\Qt\5.5\mingw492_32\mkspecs\modules\qt_lib_multimedia.pri P:\Programs\Qt\5.5\mingw492_32\mkspecs\modules\qt_lib_multimedia_private.pri P:\Programs\Qt\5.5\mingw492_32\mkspecs\modules\qt_lib_multimediawidgets.pri P:\Programs\Qt\5.5\mingw492_32\mkspecs\modules\qt_lib_multimediawidgets_private.pri P:\Programs\Qt\5.5\mingw492_32\mkspecs\modules\qt_lib_network.pri P:\Programs\Qt\5.5\mingw492_32\mkspecs\modules\qt_lib_network_private.pri P:\Programs\Qt\5.5\mingw492_32\mkspecs\modules\qt_lib_nfc.pri P:\Programs\Qt\5.5\mingw492_32\mkspecs\modules\qt_lib_nfc_private.pri P:\Programs\Qt\5.5\mingw492_32\mkspecs\modules\qt_lib_opengl.pri P:\Programs\Qt\5.5\mingw492_32\mkspecs\modules\qt_lib_opengl_private.pri P:\Programs\Qt\5.5\mingw492_32\mkspecs\modules\qt_lib_openglextensions.pri P:\Programs\Qt\5.5\mingw492_32\mkspecs\modules\qt_lib_openglextensions_private.pri P:\Programs\Qt\5.5\mingw492_32\mkspecs\modules\qt_lib_platformsupport_private.pri P:\Programs\Qt\5.5\mingw492_32\mkspecs\modules\qt_lib_positioning.pri P:\Programs\Qt\5.5\mingw492_32\mkspecs\modules\qt_lib_positioning_private.pri P:\Programs\Qt\5.5\mingw492_32\mkspecs\modules\qt_lib_printsupport.pri P:\Programs\Qt\5.5\mingw492_32\mkspecs\modules\qt_lib_printsupport_private.pri P:\Programs\Qt\5.5\mingw492_32\mkspecs\modules\qt_lib_qml.pri P:\Programs\Qt\5.5\mingw492_32\mkspecs\modules\qt_lib_qml_private.pri P:\Programs\Qt\5.5\mingw492_32\mkspecs\modules\qt_lib_qmldevtools_private.pri P:\Programs\Qt\5.5\mingw492_32\mkspecs\modules\qt_lib_qmltest.pri P:\Programs\Qt\5.5\mingw492_32\mkspecs\modules\qt_lib_qmltest_private.pri P:\Programs\Qt\5.5\mingw492_32\mkspecs\modules\qt_lib_qtmultimediaquicktools_private.pri P:\Programs\Qt\5.5\mingw492_32\mkspecs\modules\qt_lib_quick.pri P:\Programs\Qt\5.5\mingw492_32\mkspecs\modules\qt_lib_quick_private.pri P:\Programs\Qt\5.5\mingw492_32\mkspecs\modules\qt_lib_quickparticles_private.pri P:\Programs\Qt\5.5\mingw492_32\mkspecs\modules\qt_lib_quickwidgets.pri P:\Programs\Qt\5.5\mingw492_32\mkspecs\modules\qt_lib_quickwidgets_private.pri P:\Programs\Qt\5.5\mingw492_32\mkspecs\modules\qt_lib_script.pri P:\Programs\Qt\5.5\mingw492_32\mkspecs\modules\qt_lib_script_private.pri P:\Programs\Qt\5.5\mingw492_32\mkspecs\modules\qt_lib_scripttools.pri P:\Programs\Qt\5.5\mingw492_32\mkspecs\modules\qt_lib_scripttools_private.pri P:\Programs\Qt\5.5\mingw492_32\mkspecs\modules\qt_lib_sensors.pri P:\Programs\Qt\5.5\mingw492_32\mkspecs\modules\qt_lib_sensors_private.pri P:\Programs\Qt\5.5\mingw492_32\mkspecs\modules\qt_lib_serialport.pri P:\Programs\Qt\5.5\mingw492_32\mkspecs\modules\qt_lib_serialport_private.pri P:\Programs\Qt\5.5\mingw492_32\mkspecs\modules\qt_lib_sql.pri P:\Programs\Qt\5.5\mingw492_32\mkspecs\modules\qt_lib_sql_private.pri P:\Programs\Qt\5.5\mingw492_32\mkspecs\modules\qt_lib_svg.pri P:\Programs\Qt\5.5\mingw492_32\mkspecs\modules\qt_lib_svg_private.pri P:\Programs\Qt\5.5\mingw492_32\mkspecs\modules\qt_lib_testlib.pri P:\Programs\Qt\5.5\mingw492_32\mkspecs\modules\qt_lib_testlib_private.pri P:\Programs\Qt\5.5\mingw492_32\mkspecs\modules\qt_lib_uiplugin.pri P:\Programs\Qt\5.5\mingw492_32\mkspecs\modules\qt_lib_uitools.pri P:\Programs\Qt\5.5\mingw492_32\mkspecs\modules\qt_lib_uitools_private.pri P:\Programs\Qt\5.5\mingw492_32\mkspecs\modules\qt_lib_webchannel.pri P:\Programs\Qt\5.5\mingw492_32\mkspecs\modules\qt_lib_webchannel_private.pri P:\Programs\Qt\5.5\mingw492_32\mkspecs\modules\qt_lib_webkit.pri P:\Programs\Qt\5.5\mingw492_32\mkspecs\modules\qt_lib_webkit_private.pri P:\Programs\Qt\5.5\mingw492_32\mkspecs\modules\qt_lib_webkitwidgets.pri P:\Programs\Qt\5.5\mingw492_32\mkspecs\modules\qt_lib_webkitwidgets_private.pri P:\Programs\Qt\5.5\mingw492_32\mkspecs\modules\qt_lib_websockets.pri P:\Programs\Qt\5.5\mingw492_32\mkspecs\modules\qt_lib_websockets_private.pri P:\Programs\Qt\5.5\mingw492_32\mkspecs\modules\qt_lib_widgets.pri P:\Programs\Qt\5.5\mingw492_32\mkspecs\modules\qt_lib_widgets_private.pri P:\Programs\Qt\5.5\mingw492_32\mkspecs\modules\qt_lib_winextras.pri P:\Programs\Qt\5.5\mingw492_32\mkspecs\modules\qt_lib_winextras_private.pri P:\Programs\Qt\5.5\mingw492_32\mkspecs\modules\qt_lib_xml.pri P:\Programs\Qt\5.5\mingw492_32\mkspecs\modules\qt_lib_xml_private.pri P:\Programs\Qt\5.5\mingw492_32\mkspecs\modules\qt_lib_xmlpatterns.pri P:\Programs\Qt\5.5\mingw492_32\mkspecs\modules\qt_lib_xmlpatterns_private.pri P:\Programs\Qt\5.5\mingw492_32\mkspecs\features\qt_functions.prf P:\Programs\Qt\5.5\mingw492_32\mkspecs\features\qt_config.prf P:\Programs\Qt\5.5\mingw492_32\mkspecs\features\win32\qt_config.prf P:\Programs\Qt\5.5\mingw492_32\mkspecs\win32-g++\qmake.conf P:\Programs\Qt\5.5\mingw492_32\mkspecs\features\spec_post.prf P:\Programs\Qt\5.5\mingw492_32\mkspecs\features\exclusive_builds.prf P:\Programs\Qt\5.5\mingw492_32\mkspecs\features\default_pre.prf P:\Programs\Qt\5.5\mingw492_32\mkspecs\features\win32\default_pre.prf P:\Programs\Qt\5.5\mingw492_32\mkspecs\features\resolve_config.prf P:\Programs\Qt\5.5\mingw492_32\mkspecs\features\exclusive_builds_post.prf P:\Programs\Qt\5.5\mingw492_32\mkspecs\features\default_post.prf P:\Programs\Qt\5.5\mingw492_32\mkspecs\features\build_pass.prf P:\Programs\Qt\5.5\mingw492_32\mkspecs\features\c++11.prf P:\Programs\Qt\5.5\mingw492_32\mkspecs\features\qml_debug.prf P:\Programs\Qt\5.5\mingw492_32\mkspecs\features\win32\rtti.prf P:\Programs\Qt\5.5\mingw492_32\mkspecs\features\precompile_header.prf P:\Programs\Qt\5.5\mingw492_32\mkspecs\features\warn_on.prf P:\Programs\Qt\5.5\mingw492_32\mkspecs\features\qt.prf P:\Programs\Qt\5.5\mingw492_32\mkspecs\features\resources.prf P:\Programs\Qt\5.5\mingw492_32\mkspecs\features\moc.prf P:\Programs\Qt\5.5\mingw492_32\mkspecs\features\win32\opengl.prf P:\Programs\Qt\5.5\mingw492_32\mkspecs\features\uic.prf P:\Programs\Qt\5.5\mingw492_32\mkspecs\features\win32\windows.prf P:\Programs\Qt\5.5\mingw492_32\mkspecs\features\testcase_targets.prf P:\Programs\Qt\5.5\mingw492_32\mkspecs\features\exceptions.prf P:\Programs\Qt\5.5\mingw492_32\mkspecs\features\yacc.prf P:\Programs\Qt\5.5\mingw492_32\mkspecs\features\lex.prf ..\..\src\NuageDeMotsGUI\NuageDeMotsGUI.pro P:/Programs/Qt/5.5/mingw492_32/lib/qtmain.prl P:/Programs/Qt/5.5/mingw492_32/lib/Qt5Widgets.prl P:/Programs/Qt/5.5/mingw492_32/lib/Qt5Gui.prl P:/Programs/Qt/5.5/mingw492_32/lib/Qt5Core.prl  NO_PCH_SOURCES RESOURCES HEADERS SOURCES OBJECTIVE_SOURCES FORMS YACCSOURCES YACCSOURCES LEXSOURCES 
 
 clean: compiler_clean 
-	-$(DEL_FILE) release\main.o release\mainwindow.o release\Countable.o release\Node.o release\PDFReader.o release\moc_mainwindow.o
+	-$(DEL_FILE) release\main.o release\mainwindow.o release\Countable.o release\PDFReader.o release\moc_mainwindow.o
 
 distclean: clean 
 	-$(DEL_FILE) $(DESTDIR_TARGET)
@@ -456,7 +453,7 @@ release/moc_mainwindow.cpp: P:/Programs/Qt/5.5/mingw492_32/include/QtWidgets/QMa
 		../../src/NuageDeMots/src/BinarySearchTree.tpp \
 		../../src/NuageDeMots/src/FileReader.tpp \
 		../../src/NuageDeMotsGUI/mainwindow.h
-	P:\Programs\Qt\5.5\mingw492_32\bin\moc.exe $(DEFINES) -D__GNUC__ -DWIN32 -IP:/Programs/Qt/5.5/mingw492_32/mkspecs/win32-g++ -IO:/OneDrive/GitHub/Projet-ZZ2/src/NuageDeMotsGUI -IO:/OneDrive/GitHub/Projet-ZZ2/src/NuageDeMots/include -IO:/OneDrive/GitHub/Projet-ZZ2/src/NuageDeMots/src -IP:/Programs/Qt/5.5/mingw492_32/include -IP:/Programs/Qt/5.5/mingw492_32/include/QtWidgets -IP:/Programs/Qt/5.5/mingw492_32/include/QtGui -IP:/Programs/Qt/5.5/mingw492_32/include/QtANGLE -IP:/Programs/Qt/5.5/mingw492_32/include/QtCore -I. ..\..\src\NuageDeMotsGUI\mainwindow.h -o release\moc_mainwindow.cpp
+	P:\Programs\Qt\5.5\mingw492_32\bin\moc.exe $(DEFINES) -D__GNUC__ -DWIN32 -IP:/Programs/Qt/5.5/mingw492_32/mkspecs/win32-g++ -IO:/OneDrive/GitHub/Projet-ZZ2/src/NuageDeMotsGUI -IO:/OneDrive/GitHub/Projet-ZZ2/src/NuageDeMots/include -IO:/OneDrive/GitHub/Projet-ZZ2/src/NuageDeMots/src -IO:/OneDrive/GitHub/Projet-ZZ2/libraries/zlib -IP:/Programs/Qt/5.5/mingw492_32/include -IP:/Programs/Qt/5.5/mingw492_32/include/QtWidgets -IP:/Programs/Qt/5.5/mingw492_32/include/QtGui -IP:/Programs/Qt/5.5/mingw492_32/include/QtANGLE -IP:/Programs/Qt/5.5/mingw492_32/include/QtCore -I. ..\..\src\NuageDeMotsGUI\mainwindow.h -o release\moc_mainwindow.cpp
 
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
@@ -1145,63 +1142,16 @@ release/mainwindow.o: ../../src/NuageDeMotsGUI/mainwindow.cpp ../../src/NuageDeM
 		../../src/NuageDeMotsGUI/Node.tpp \
 		../../src/NuageDeMots/src/BinarySearchTree.tpp \
 		../../src/NuageDeMots/src/FileReader.tpp \
-		ui_mainwindow.h \
-		P:/Programs/Qt/5.5/mingw492_32/include/QtCore/QVariant \
-		P:/Programs/Qt/5.5/mingw492_32/include/QtWidgets/QAction \
-		P:/Programs/Qt/5.5/mingw492_32/include/QtWidgets/qaction.h \
-		P:/Programs/Qt/5.5/mingw492_32/include/QtWidgets/qactiongroup.h \
-		P:/Programs/Qt/5.5/mingw492_32/include/QtWidgets/QApplication \
-		P:/Programs/Qt/5.5/mingw492_32/include/QtWidgets/qapplication.h \
-		P:/Programs/Qt/5.5/mingw492_32/include/QtWidgets/qdesktopwidget.h \
-		P:/Programs/Qt/5.5/mingw492_32/include/QtWidgets/QButtonGroup \
-		P:/Programs/Qt/5.5/mingw492_32/include/QtWidgets/qbuttongroup.h \
-		P:/Programs/Qt/5.5/mingw492_32/include/QtWidgets/QGridLayout \
-		P:/Programs/Qt/5.5/mingw492_32/include/QtWidgets/qgridlayout.h \
-		P:/Programs/Qt/5.5/mingw492_32/include/QtWidgets/qlayout.h \
-		P:/Programs/Qt/5.5/mingw492_32/include/QtWidgets/qlayoutitem.h \
-		P:/Programs/Qt/5.5/mingw492_32/include/QtWidgets/qboxlayout.h \
-		P:/Programs/Qt/5.5/mingw492_32/include/QtWidgets/QHeaderView \
-		P:/Programs/Qt/5.5/mingw492_32/include/QtWidgets/qheaderview.h \
-		P:/Programs/Qt/5.5/mingw492_32/include/QtWidgets/qabstractitemview.h \
-		P:/Programs/Qt/5.5/mingw492_32/include/QtWidgets/qabstractscrollarea.h \
-		P:/Programs/Qt/5.5/mingw492_32/include/QtWidgets/qframe.h \
-		P:/Programs/Qt/5.5/mingw492_32/include/QtWidgets/qabstractitemdelegate.h \
-		P:/Programs/Qt/5.5/mingw492_32/include/QtWidgets/qstyleoption.h \
-		P:/Programs/Qt/5.5/mingw492_32/include/QtWidgets/qabstractspinbox.h \
-		P:/Programs/Qt/5.5/mingw492_32/include/QtWidgets/qslider.h \
-		P:/Programs/Qt/5.5/mingw492_32/include/QtWidgets/qabstractslider.h \
-		P:/Programs/Qt/5.5/mingw492_32/include/QtWidgets/qstyle.h \
-		P:/Programs/Qt/5.5/mingw492_32/include/QtWidgets/qtabbar.h \
-		P:/Programs/Qt/5.5/mingw492_32/include/QtWidgets/qrubberband.h \
-		P:/Programs/Qt/5.5/mingw492_32/include/QtWidgets/QLabel \
-		P:/Programs/Qt/5.5/mingw492_32/include/QtWidgets/qlabel.h \
-		P:/Programs/Qt/5.5/mingw492_32/include/QtWidgets/QLineEdit \
-		P:/Programs/Qt/5.5/mingw492_32/include/QtWidgets/qlineedit.h \
-		P:/Programs/Qt/5.5/mingw492_32/include/QtWidgets/QMenu \
-		P:/Programs/Qt/5.5/mingw492_32/include/QtWidgets/qmenu.h \
-		P:/Programs/Qt/5.5/mingw492_32/include/QtWidgets/QMenuBar \
-		P:/Programs/Qt/5.5/mingw492_32/include/QtWidgets/qmenubar.h \
-		P:/Programs/Qt/5.5/mingw492_32/include/QtWidgets/QPushButton \
-		P:/Programs/Qt/5.5/mingw492_32/include/QtWidgets/qpushbutton.h \
-		P:/Programs/Qt/5.5/mingw492_32/include/QtWidgets/qabstractbutton.h \
-		P:/Programs/Qt/5.5/mingw492_32/include/QtWidgets/QSpacerItem \
-		P:/Programs/Qt/5.5/mingw492_32/include/QtWidgets/QSpinBox \
-		P:/Programs/Qt/5.5/mingw492_32/include/QtWidgets/qspinbox.h \
-		P:/Programs/Qt/5.5/mingw492_32/include/QtWidgets/QStatusBar \
-		P:/Programs/Qt/5.5/mingw492_32/include/QtWidgets/qstatusbar.h \
-		P:/Programs/Qt/5.5/mingw492_32/include/QtWidgets/QTextEdit \
-		P:/Programs/Qt/5.5/mingw492_32/include/QtWidgets/qtextedit.h \
-		P:/Programs/Qt/5.5/mingw492_32/include/QtWidgets/QWidget
+		ui_mainwindow.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\mainwindow.o ..\..\src\NuageDeMotsGUI\mainwindow.cpp
 
 release/Countable.o: ../../src/NuageDeMots/src/Countable.cpp ../../src/NuageDeMots/include/Countable.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\Countable.o ..\..\src\NuageDeMots\src\Countable.cpp
 
-release/Node.o: ../../src/NuageDeMots/src/Node.tpp 
-	$(CC) -c $(CFLAGS) $(INCPATH) -o release\Node.o ..\..\src\NuageDeMots\src\Node.tpp
-
 release/PDFReader.o: ../../src/NuageDeMots/src/PDFReader.cpp ../../src/NuageDeMots/include/PDFReader.h \
-		../../src/NuageDeMots/include/pdf.h
+		../../src/NuageDeMots/include/pdf.h \
+		../../libraries/zlib/zlib.h \
+		../../libraries/zlib/zconf.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\PDFReader.o ..\..\src\NuageDeMots\src\PDFReader.cpp
 
 release/moc_mainwindow.o: release/moc_mainwindow.cpp 

@@ -114,8 +114,8 @@ std::string Hashtable<T>::toString() const {
 }
 
 template <typename T>
-std::string Hashtable<T>::sort() {
-    std::string result;
+std::vector<std::string> Hashtable<T>::sort() {
+    std::vector<std::string> result;
     sorted_.push_front(HashElement<T>());
     for(unsigned i = 0 ; i < size_ ; ++i) {
         for(unsigned j = 0 ; j < table_[i].size() ; ++j) {
@@ -129,8 +129,13 @@ std::string Hashtable<T>::sort() {
         }
     }
     for(auto it = std::begin(sorted_); it!=std::end(sorted_) ; ++it) {
-        if((*it).getValue().size() > 0)
+        if((*it).getValue().size() > 0) {
+            std::stringstream ss;
+            ss << (*it).number();
+            std::string numb = ss.str();
+            result.push_back(std::string((*it).getValue()+"") + "/" + numb + "\n");
             std::cout << (*it).getValue() << "\t#" << (*it).number() << std::endl;
+        }
     }
 
     return result;

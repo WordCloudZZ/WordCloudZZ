@@ -140,10 +140,9 @@ void MainWindow::on_extract_clicked() {
     ui->textZone->clear(); /// Clear the zone before rewriting
 
     unsigned int maxPrint = ui->nbSelect->value(); /// Get the desired printed number
-    unsigned int nb = 0; /// The actual number printed in the loop
 
     /// Creating the filereader and getting the stats on the text
-    fr = new FileReader<Hashtable>(buff1, buff2);
+    fr = new FileReader<BinarySearchTree>(buff1, buff2);
     if(fr != NULL) {
         // TODO : mettre les analyses dans un thread, et recup le vector a printer,
         // mais pas sur que ca regle certains soucis
@@ -155,12 +154,12 @@ void MainWindow::on_extract_clicked() {
 
         /// Prints the result in the large text area
         std::vector<std::string> list;
-///        list = fr->stringList();
-
+        list = fr->printStudyTable();
+        maxPrint = std::min(maxPrint, list.size());
         std::cout << "Affichage des resultats" << std::endl;
-        for(std::vector<std::string>::reverse_iterator it = list.rbegin(); it != list.rend() && nb < maxPrint; it++, nb++) {
-            ui->textZone->append(QString::fromStdString(*it));
-            qApp->processEvents(); // Propage le changement et raffraichit l'affichage
+        for(unsigned i = 0 ; i < maxPrint ; ++i) {
+            ui->textZone->append(QString::fromStdString(list[i]));
+            //qApp->processEvents(); // Propage le changement et raffraichit l'affichage
         }
 
         std::cout << "Fin de l'extraction" << std::endl;
