@@ -12,7 +12,11 @@ class Stats {
         double                  m_average,
                                 m_variance,
                                 m_radius,
+                                m_total,
+                                m_min,
+                                m_max,
                                 m_time;
+        std::vector<double>     m_ech;
         unsigned long long      m_number;
 
     public:
@@ -26,9 +30,13 @@ class Stats {
         void setNumber(unsigned long long);
 
         double average() const  { return m_average; }
+        double total() const  { return m_total; }
+        double min() const  { return m_min; }
+        double max() const  { return m_max; }
         double variance() const { return m_variance; }
         double radius() const   { return m_radius; }
         double time() const     { return m_time; }
+        std::vector<double> samples() const     { return m_ech; }
         unsigned long long number() const   { return m_number; }
 };
 

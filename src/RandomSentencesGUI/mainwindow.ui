@@ -6,19 +6,19 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>640</width>
+    <width>800</width>
     <height>480</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
-    <width>640</width>
+    <width>800</width>
     <height>480</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
-    <width>640</width>
+    <width>800</width>
     <height>480</height>
    </size>
   </property>
@@ -47,6 +47,9 @@
       <width>621</width>
       <height>201</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
     </property>
     <property name="title">
      <string>Réglages</string>
@@ -110,7 +113,7 @@ color: black;</string>
       </rect>
      </property>
      <property name="text">
-      <string>Nombre d'itérations</string>
+      <string>Nombre de générations</string>
      </property>
     </widget>
     <widget class="QLineEdit" name="lineEdit_3">
@@ -187,7 +190,7 @@ color: black;</string>
      <property name="geometry">
       <rect>
        <x>20</x>
-       <y>30</y>
+       <y>20</y>
        <width>181</width>
        <height>21</height>
       </rect>
@@ -216,26 +219,26 @@ color: black;</string>
      <property name="geometry">
       <rect>
        <x>20</x>
-       <y>60</y>
+       <y>80</y>
        <width>131</width>
        <height>21</height>
       </rect>
      </property>
      <property name="text">
-      <string>Variance des tirages</string>
+      <string>Ecart type</string>
      </property>
     </widget>
     <widget class="QLabel" name="label_8">
      <property name="geometry">
       <rect>
        <x>20</x>
-       <y>90</y>
+       <y>100</y>
        <width>131</width>
        <height>21</height>
       </rect>
      </property>
      <property name="text">
-      <string>Intervale de confiance</string>
+      <string>Intervalle de confiance</string>
      </property>
     </widget>
     <widget class="QLabel" name="label_9">
@@ -255,7 +258,7 @@ color: black;</string>
      <property name="geometry">
       <rect>
        <x>20</x>
-       <y>130</y>
+       <y>140</y>
        <width>131</width>
        <height>21</height>
       </rect>
@@ -268,10 +271,13 @@ color: black;</string>
      <property name="geometry">
       <rect>
        <x>20</x>
-       <y>110</y>
+       <y>120</y>
        <width>381</width>
        <height>21</height>
       </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font-weight: bold;</string>
      </property>
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
@@ -281,7 +287,7 @@ color: black;</string>
      <property name="geometry">
       <rect>
        <x>240</x>
-       <y>130</y>
+       <y>140</y>
        <width>161</width>
        <height>21</height>
       </rect>
@@ -297,7 +303,7 @@ color: black;</string>
      <property name="geometry">
       <rect>
        <x>240</x>
-       <y>90</y>
+       <y>100</y>
        <width>161</width>
        <height>21</height>
       </rect>
@@ -313,7 +319,7 @@ color: black;</string>
      <property name="geometry">
       <rect>
        <x>240</x>
-       <y>60</y>
+       <y>80</y>
        <width>161</width>
        <height>21</height>
       </rect>
@@ -325,17 +331,75 @@ color: black;</string>
       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
      </property>
     </widget>
-    <widget class="QLabel" name="labelAverage">
+    <widget class="QLabel" name="labelFrequency">
      <property name="geometry">
       <rect>
        <x>240</x>
-       <y>30</y>
+       <y>20</y>
        <width>161</width>
        <height>21</height>
       </rect>
      </property>
      <property name="text">
       <string>0 %</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+    <widget class="QLabel" name="labelAverage">
+     <property name="geometry">
+      <rect>
+       <x>240</x>
+       <y>40</y>
+       <width>161</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>0</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_6">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>40</y>
+       <width>181</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Nombre de tirages moyen</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_11">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>60</y>
+       <width>181</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Nombre de tirages total</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="labelTotal">
+     <property name="geometry">
+      <rect>
+       <x>240</x>
+       <y>60</y>
+       <width>161</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>0</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -364,14 +428,14 @@ color: black;</string>
    <widget class="QPushButton" name="pushButton">
     <property name="geometry">
      <rect>
-      <x>470</x>
+      <x>480</x>
       <y>220</y>
       <width>131</width>
       <height>41</height>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true"/>
+     <string notr="true">font-weight: bold;</string>
     </property>
     <property name="text">
      <string>Générer</string>
@@ -380,7 +444,7 @@ color: black;</string>
    <widget class="QPushButton" name="pushButton_3">
     <property name="geometry">
      <rect>
-      <x>470</x>
+      <x>480</x>
       <y>270</y>
       <width>131</width>
       <height>41</height>
@@ -396,7 +460,7 @@ color: black;</string>
    <widget class="QPushButton" name="pushButton_4">
     <property name="geometry">
      <rect>
-      <x>470</x>
+      <x>480</x>
       <y>320</y>
       <width>131</width>
       <height>41</height>
@@ -412,7 +476,7 @@ color: black;</string>
    <widget class="QPushButton" name="pushButton_5">
     <property name="geometry">
      <rect>
-      <x>470</x>
+      <x>480</x>
       <y>370</y>
       <width>131</width>
       <height>41</height>
@@ -428,7 +492,7 @@ color: black;</string>
    <widget class="QPushButton" name="pushButton_6">
     <property name="geometry">
      <rect>
-      <x>470</x>
+      <x>480</x>
       <y>420</y>
       <width>131</width>
       <height>41</height>
@@ -439,6 +503,35 @@ color: black;</string>
     </property>
     <property name="text">
      <string>Quitter</string>
+    </property>
+   </widget>
+   <widget class="QListWidget" name="listEch">
+    <property name="geometry">
+     <rect>
+      <x>650</x>
+      <y>40</y>
+      <width>141</width>
+      <height>421</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font-weight: bold;</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_3">
+    <property name="geometry">
+     <rect>
+      <x>650</x>
+      <y>20</y>
+      <width>151</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <property name="text">
+     <string>Echantillons du processus</string>
     </property>
    </widget>
   </widget>

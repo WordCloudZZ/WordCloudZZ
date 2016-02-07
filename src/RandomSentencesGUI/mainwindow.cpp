@@ -90,11 +90,22 @@ void MainWindow::on_pushButton_clicked()
 
 void MainWindow::changeStats(Stats stats) {
     unsigned long long rayon = stats.radius();
-    ui->labelAverage->setText(QString::number(100/stats.average())+"%");
-    ui->labelVariance->setText(QString::number((unsigned long long)stats.variance()));
+    ui->labelFrequency->setText(QString::number(100/stats.average())+"%");
+    ui->labelAverage->setText(QString::number((unsigned long long)stats.average()));
+    ui->labelTotal->setText(QString::number((unsigned long long)stats.total()));
+    ui->labelVariance->setText(QString::number((unsigned long long)sqrt(stats.variance())));
     ui->labelTime->setText(QString::number(stats.time()));
     ui->labelUnitTime->setText(QString::number(stats.time()/stats.number()));
     ui->labelConfidence->setText("[ "+QString::number((unsigned long long)((stats.average()-rayon)<0?0:stats.average()-rayon))+" ; "+QString::number((unsigned long long)(stats.average()+rayon))+" ]");
+
+    for(double val : stats.samples()) {
+        QListWidgetItem * qlwi = new QListWidgetItem(QString::number((unsigned long long)val));
+        unsigned couleur = 150 * (val-stats.min()) / (stats.max()-stats.min());
+        qlwi->setBackgroundColor(QColor(50 + couleur, 200 - couleur, 0, 200));
+        qlwi->setTextColor(QColor(255,255,255));
+        qlwi->setTextAlignment(Qt::AlignRight);
+        ui->listEch->addItem(qlwi);
+    }
 
     this->ui->pushButton->setText("Générer");
     this->ui->pushButton_3->setDisabled(false);
@@ -124,10 +135,14 @@ void MainWindow::on_pushButton_3_clicked() {
     ui->lineEdit_3->setText("");
     ui->spinBox->setValue(10);
     ui->progressBar->setValue(0);
+    ui->alphabet->setText("");
 }
 
 void MainWindow::resetResults() {
-    ui->labelAverage->setText("0%");
+    ui->listEch->clear();
+    ui->labelFrequency->setText("0%");
+    ui->labelAverage->setText("0");
+    ui->labelTotal->setText("0");
     ui->labelVariance->setText("0");
     ui->labelTime->setText("0");
     ui->labelUnitTime->setText("0");

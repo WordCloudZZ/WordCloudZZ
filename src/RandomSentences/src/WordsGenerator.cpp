@@ -92,9 +92,11 @@ Stats WordsGenerator::studySentence(std::string p_str, unsigned p_iter, std::ost
 
     out << "////////////////////////////////////////////////////////////////" << std::endl;
     out << "\tRESULTS:" << std::endl;
+    out << "\t +\tFrequency:\t" << 1.0/(unsigned long long)results.average() << std::endl;
     out << "\t +\tAverage:\t" << (unsigned long long)results.average() << std::endl;
-    out << "\t +\tVariance:\t" << (unsigned long long)results.variance() << std::endl;
-    out << "\t +\tConfidence int:\t[ " << (unsigned long long)(results.average()-results.radius()) << " ; " << (unsigned long long)(results.average()+results.radius()) << " ]" << std::endl;
+    out << "\t +\tDrawings:\t" << (unsigned long long)results.total() << std::endl;
+    out << "\t +\tStd deviation:\t" << (unsigned long long)sqrt((unsigned long long)results.variance()) << std::endl;
+    out << "\t +\tConfidence int:\t[ " << (unsigned long long)std::max(0.,(results.average()-results.radius())) << " ; " << (unsigned long long)(results.average()+results.radius()) << " ]" << std::endl;
     out << "\t +\tExecution time:\t" << results.time() << " s" << std::endl;
     out << "\t +\tUnit exe. time:\t" << results.time()/(double)tirages.size() << " s" << std::endl;
     out << "////////////////////////////////////////////////////////////////" << std::endl;

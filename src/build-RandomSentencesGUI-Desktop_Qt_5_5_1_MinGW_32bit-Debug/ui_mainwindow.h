@@ -18,6 +18,7 @@
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
+#include <QtWidgets/QListWidget>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QProgressBar>
 #include <QtWidgets/QPushButton>
@@ -51,21 +52,27 @@ public:
     QLabel *labelTime;
     QLabel *labelConfidence;
     QLabel *labelVariance;
+    QLabel *labelFrequency;
     QLabel *labelAverage;
+    QLabel *label_6;
+    QLabel *label_11;
+    QLabel *labelTotal;
     QProgressBar *progressBar;
     QPushButton *pushButton;
     QPushButton *pushButton_3;
     QPushButton *pushButton_4;
     QPushButton *pushButton_5;
     QPushButton *pushButton_6;
+    QListWidget *listEch;
+    QLabel *label_3;
 
     void setupUi(QMainWindow *MainWindow)
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
-        MainWindow->resize(640, 480);
-        MainWindow->setMinimumSize(QSize(640, 480));
-        MainWindow->setMaximumSize(QSize(640, 480));
+        MainWindow->resize(800, 480);
+        MainWindow->setMinimumSize(QSize(800, 480));
+        MainWindow->setMaximumSize(QSize(800, 480));
         QIcon icon;
         QString iconThemeName = QStringLiteral("dice.png");
         if (QIcon::hasThemeIcon(iconThemeName)) {
@@ -82,6 +89,7 @@ public:
         groupBox = new QGroupBox(centralWidget);
         groupBox->setObjectName(QStringLiteral("groupBox"));
         groupBox->setGeometry(QRect(10, 10, 621, 201));
+        groupBox->setStyleSheet(QStringLiteral(""));
         lineEdit = new QLineEdit(groupBox);
         lineEdit->setObjectName(QStringLiteral("lineEdit"));
         lineEdit->setGeometry(QRect(140, 40, 471, 21));
@@ -121,44 +129,59 @@ public:
         groupBox_2->setGeometry(QRect(10, 270, 421, 191));
         label_5 = new QLabel(groupBox_2);
         label_5->setObjectName(QStringLiteral("label_5"));
-        label_5->setGeometry(QRect(20, 30, 181, 21));
+        label_5->setGeometry(QRect(20, 20, 181, 21));
         labelUnitTime = new QLabel(groupBox_2);
         labelUnitTime->setObjectName(QStringLiteral("labelUnitTime"));
         labelUnitTime->setGeometry(QRect(240, 160, 161, 21));
         labelUnitTime->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
         label_7 = new QLabel(groupBox_2);
         label_7->setObjectName(QStringLiteral("label_7"));
-        label_7->setGeometry(QRect(20, 60, 131, 21));
+        label_7->setGeometry(QRect(20, 80, 131, 21));
         label_8 = new QLabel(groupBox_2);
         label_8->setObjectName(QStringLiteral("label_8"));
-        label_8->setGeometry(QRect(20, 90, 131, 21));
+        label_8->setGeometry(QRect(20, 100, 131, 21));
         label_9 = new QLabel(groupBox_2);
         label_9->setObjectName(QStringLiteral("label_9"));
         label_9->setGeometry(QRect(20, 160, 131, 21));
         label_10 = new QLabel(groupBox_2);
         label_10->setObjectName(QStringLiteral("label_10"));
-        label_10->setGeometry(QRect(20, 130, 131, 21));
+        label_10->setGeometry(QRect(20, 140, 131, 21));
         line = new QFrame(groupBox_2);
         line->setObjectName(QStringLiteral("line"));
-        line->setGeometry(QRect(20, 110, 381, 21));
+        line->setGeometry(QRect(20, 120, 381, 21));
+        line->setStyleSheet(QStringLiteral("font-weight: bold;"));
         line->setFrameShape(QFrame::HLine);
         line->setFrameShadow(QFrame::Sunken);
         labelTime = new QLabel(groupBox_2);
         labelTime->setObjectName(QStringLiteral("labelTime"));
-        labelTime->setGeometry(QRect(240, 130, 161, 21));
+        labelTime->setGeometry(QRect(240, 140, 161, 21));
         labelTime->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
         labelConfidence = new QLabel(groupBox_2);
         labelConfidence->setObjectName(QStringLiteral("labelConfidence"));
-        labelConfidence->setGeometry(QRect(240, 90, 161, 21));
+        labelConfidence->setGeometry(QRect(240, 100, 161, 21));
         labelConfidence->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
         labelVariance = new QLabel(groupBox_2);
         labelVariance->setObjectName(QStringLiteral("labelVariance"));
-        labelVariance->setGeometry(QRect(240, 60, 161, 21));
+        labelVariance->setGeometry(QRect(240, 80, 161, 21));
         labelVariance->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
+        labelFrequency = new QLabel(groupBox_2);
+        labelFrequency->setObjectName(QStringLiteral("labelFrequency"));
+        labelFrequency->setGeometry(QRect(240, 20, 161, 21));
+        labelFrequency->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
         labelAverage = new QLabel(groupBox_2);
         labelAverage->setObjectName(QStringLiteral("labelAverage"));
-        labelAverage->setGeometry(QRect(240, 30, 161, 21));
+        labelAverage->setGeometry(QRect(240, 40, 161, 21));
         labelAverage->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
+        label_6 = new QLabel(groupBox_2);
+        label_6->setObjectName(QStringLiteral("label_6"));
+        label_6->setGeometry(QRect(20, 40, 181, 21));
+        label_11 = new QLabel(groupBox_2);
+        label_11->setObjectName(QStringLiteral("label_11"));
+        label_11->setGeometry(QRect(20, 60, 181, 21));
+        labelTotal = new QLabel(groupBox_2);
+        labelTotal->setObjectName(QStringLiteral("labelTotal"));
+        labelTotal->setGeometry(QRect(240, 60, 161, 21));
+        labelTotal->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
         progressBar = new QProgressBar(centralWidget);
         progressBar->setObjectName(QStringLiteral("progressBar"));
         progressBar->setGeometry(QRect(10, 230, 461, 21));
@@ -167,24 +190,32 @@ public:
         progressBar->setInvertedAppearance(false);
         pushButton = new QPushButton(centralWidget);
         pushButton->setObjectName(QStringLiteral("pushButton"));
-        pushButton->setGeometry(QRect(470, 220, 131, 41));
-        pushButton->setStyleSheet(QStringLiteral(""));
+        pushButton->setGeometry(QRect(480, 220, 131, 41));
+        pushButton->setStyleSheet(QStringLiteral("font-weight: bold;"));
         pushButton_3 = new QPushButton(centralWidget);
         pushButton_3->setObjectName(QStringLiteral("pushButton_3"));
-        pushButton_3->setGeometry(QRect(470, 270, 131, 41));
+        pushButton_3->setGeometry(QRect(480, 270, 131, 41));
         pushButton_3->setStyleSheet(QStringLiteral(""));
         pushButton_4 = new QPushButton(centralWidget);
         pushButton_4->setObjectName(QStringLiteral("pushButton_4"));
-        pushButton_4->setGeometry(QRect(470, 320, 131, 41));
+        pushButton_4->setGeometry(QRect(480, 320, 131, 41));
         pushButton_4->setStyleSheet(QStringLiteral(""));
         pushButton_5 = new QPushButton(centralWidget);
         pushButton_5->setObjectName(QStringLiteral("pushButton_5"));
-        pushButton_5->setGeometry(QRect(470, 370, 131, 41));
+        pushButton_5->setGeometry(QRect(480, 370, 131, 41));
         pushButton_5->setStyleSheet(QStringLiteral(""));
         pushButton_6 = new QPushButton(centralWidget);
         pushButton_6->setObjectName(QStringLiteral("pushButton_6"));
-        pushButton_6->setGeometry(QRect(470, 420, 131, 41));
+        pushButton_6->setGeometry(QRect(480, 420, 131, 41));
         pushButton_6->setStyleSheet(QStringLiteral(""));
+        listEch = new QListWidget(centralWidget);
+        listEch->setObjectName(QStringLiteral("listEch"));
+        listEch->setGeometry(QRect(650, 40, 141, 421));
+        listEch->setStyleSheet(QStringLiteral("font-weight: bold;"));
+        label_3 = new QLabel(centralWidget);
+        label_3->setObjectName(QStringLiteral("label_3"));
+        label_3->setGeometry(QRect(650, 20, 151, 16));
+        label_3->setStyleSheet(QStringLiteral(""));
         MainWindow->setCentralWidget(centralWidget);
 
         retranslateUi(MainWindow);
@@ -198,25 +229,30 @@ public:
         groupBox->setTitle(QApplication::translate("MainWindow", "R\303\251glages", 0));
         spinBox->setPrefix(QString());
         label->setText(QApplication::translate("MainWindow", "Phrase \303\240 g\303\251n\303\251rer", 0));
-        label_2->setText(QApplication::translate("MainWindow", "Nombre d'it\303\251rations", 0));
+        label_2->setText(QApplication::translate("MainWindow", "Nombre de g\303\251n\303\251rations", 0));
         label_4->setText(QApplication::translate("MainWindow", "Alphabet de g\303\251n\303\251ration", 0));
         toolButton->setText(QApplication::translate("MainWindow", "...", 0));
         groupBox_2->setTitle(QApplication::translate("MainWindow", "R\303\251sultats", 0));
         label_5->setText(QApplication::translate("MainWindow", "Fr\303\251quence d'apparition de la phrase", 0));
         labelUnitTime->setText(QApplication::translate("MainWindow", "0", 0));
-        label_7->setText(QApplication::translate("MainWindow", "Variance des tirages", 0));
-        label_8->setText(QApplication::translate("MainWindow", "Intervale de confiance", 0));
+        label_7->setText(QApplication::translate("MainWindow", "Ecart type", 0));
+        label_8->setText(QApplication::translate("MainWindow", "Intervalle de confiance", 0));
         label_9->setText(QApplication::translate("MainWindow", "Temps d'ex\303\251cution unitaire", 0));
         label_10->setText(QApplication::translate("MainWindow", "Temps d'ex\303\251cution", 0));
         labelTime->setText(QApplication::translate("MainWindow", "0", 0));
         labelConfidence->setText(QApplication::translate("MainWindow", "[ 0 ; 0 ]", 0));
         labelVariance->setText(QApplication::translate("MainWindow", "0", 0));
-        labelAverage->setText(QApplication::translate("MainWindow", "0 %", 0));
+        labelFrequency->setText(QApplication::translate("MainWindow", "0 %", 0));
+        labelAverage->setText(QApplication::translate("MainWindow", "0", 0));
+        label_6->setText(QApplication::translate("MainWindow", "Nombre de tirages moyen", 0));
+        label_11->setText(QApplication::translate("MainWindow", "Nombre de tirages total", 0));
+        labelTotal->setText(QApplication::translate("MainWindow", "0", 0));
         pushButton->setText(QApplication::translate("MainWindow", "G\303\251n\303\251rer", 0));
         pushButton_3->setText(QApplication::translate("MainWindow", "Remettre \303\240 z\303\251ro", 0));
         pushButton_4->setText(QApplication::translate("MainWindow", "Aide", 0));
         pushButton_5->setText(QApplication::translate("MainWindow", "Exporter", 0));
         pushButton_6->setText(QApplication::translate("MainWindow", "Quitter", 0));
+        label_3->setText(QApplication::translate("MainWindow", "Echantillons du processus", 0));
     } // retranslateUi
 
 };

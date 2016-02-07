@@ -1,6 +1,6 @@
 #include "Stats.h"
 
-Stats::Stats() : m_average(0), m_variance(0), m_radius(0), m_time(0), m_number(1) {
+Stats::Stats() : m_average(0), m_variance(0), m_radius(0), m_total(0), m_min(0), m_max(0), m_time(0), m_number(1) {
 
 }
 
@@ -15,9 +15,17 @@ void Stats::setAverage(const std::vector<double> & p_tab) {
     /* En entree: p_tab : vector<double>                                    */
     /* -------------------------------------------------------------------- */
     double esperance = 0.0;
+    m_ech = p_tab;
+    if(p_tab.size()>0) {
+        m_max = p_tab[0];
+        m_min = p_tab[0];
+    }
     for(unsigned int i = 0 ; i < p_tab.size() ; ++i) {
         esperance += p_tab.at(i);
+        m_max = std::max(m_max, p_tab.at(i));
+        m_min = std::min(m_min, p_tab.at(i));
     }
+    m_total = esperance;
     esperance = esperance / (double)(p_tab.size());
     m_average = esperance;
     m_number = p_tab.size();
