@@ -18,7 +18,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->displaySeparator->setText("Fichier par défaut");
     ui->displayPrincipal->setText("Fichier exemple");
     ui->nbSelect->setValue(10);
-    setWindowIcon(QIcon(QCoreApplication::applicationDirPath() + "/nuage.ico"));
+    setWindowIcon(QIcon(QCoreApplication::applicationDirPath() + "/nuage.png"));
 }
 
 

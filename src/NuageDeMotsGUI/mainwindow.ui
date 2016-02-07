@@ -29,7 +29,8 @@
    <string>Nuage de Mots</string>
   </property>
   <property name="windowIcon">
-   <iconset theme="nuage.ico"/>
+   <iconset theme="nuage.png">
+    <normaloff>.</normaloff>.</iconset>
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QGridLayout" name="gridLayout_3">

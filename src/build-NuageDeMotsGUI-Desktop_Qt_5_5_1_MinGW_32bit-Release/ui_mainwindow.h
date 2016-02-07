@@ -71,7 +71,13 @@ public:
         MainWindow->setMinimumSize(QSize(803, 388));
         MainWindow->setBaseSize(QSize(320, 240));
         MainWindow->setMouseTracking(false);
-        QIcon icon(QIcon::fromTheme(QStringLiteral("nuage.ico")));
+        QIcon icon;
+        QString iconThemeName = QStringLiteral("nuage.png");
+        if (QIcon::hasThemeIcon(iconThemeName)) {
+            icon = QIcon::fromTheme(iconThemeName);
+        } else {
+            icon.addFile(QStringLiteral("."), QSize(), QIcon::Normal, QIcon::Off);
+        }
         MainWindow->setWindowIcon(icon);
         actionOuvrir = new QAction(MainWindow);
         actionOuvrir->setObjectName(QStringLiteral("actionOuvrir"));
