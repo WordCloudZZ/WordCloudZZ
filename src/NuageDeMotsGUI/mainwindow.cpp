@@ -18,6 +18,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->displaySeparator->setText("Fichier par défaut");
     ui->displayPrincipal->setText("Fichier exemple");
     ui->nbSelect->setValue(10);
+    setWindowIcon(QIcon(QCoreApplication::applicationDirPath() + "/nuage.ico"));
 }
 
 
@@ -137,7 +138,7 @@ void MainWindow::on_extract_clicked() {
     lock_controls(); /// Locks controls in the ui to avoid unpredicted behaviours
 
     ui->centralWidget->setCursor(Qt::BusyCursor); /// Display a loading cursor to the user
-    ui->textZone->clear(); /// Clear the zone before rewriting
+    ui->listWidget->clear(); /// Clear the zone before rewriting
 
     unsigned int maxPrint = ui->nbSelect->value(); /// Get the desired printed number
 
@@ -155,11 +156,19 @@ void MainWindow::on_extract_clicked() {
         /// Prints the result in the large text area
         std::vector<std::string> list;
         list = fr->printStudyTable();
+        int maxOccur = QString::fromLatin1(list[list.size()-1].c_str()).split(QRegExp("[/\r\n]"), QString::SplitBehavior::SkipEmptyParts).at(1).toInt();
+        int ratio = 1;
         maxPrint = std::min(maxPrint, list.size());
         std::cout << "Affichage des resultats" << std::endl;
         for(unsigned i = 0 ; i < maxPrint ; ++i) {
-            ui->textZone->append(QString::fromStdString(list[i]));
-            //qApp->processEvents(); // Propage le changement et raffraichit l'affichage
+            QString mot = QString::fromLatin1(list[list.size()-1-i].c_str());
+            QStringList qlist = mot.split(QRegExp("[/\r\n]"), QString::SplitBehavior::SkipEmptyParts);
+            ui->listWidget->addItem(qlist.at(1)+'\t'+qlist.at(0));
+            ui->listWidget->item(i)->setTextAlignment(Qt::AlignJustify);
+
+            // determinaison de la couleur
+            ratio = 255*qlist[1].toInt()/maxOccur;
+            ui->listWidget->item(i)->setBackgroundColor(QColor(std::min(ratio*125/100,255),60,255-ratio,169));
         }
 
         std::cout << "Fin de l'extraction" << std::endl;

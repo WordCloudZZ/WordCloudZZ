@@ -11,7 +11,6 @@
 				<Option object_output="obj/Debug/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
-				<Option parameters="hill.pdf" />
 				<Compiler>
 					<Add option="-O2" />
 					<Add directory="include" />
@@ -45,10 +44,12 @@
 			<Add option="-fexceptions" />
 			<Add option="-lz" />
 			<Add directory="../../libraries/zlib" />
+			<Add directory="P:/Programs/Python27/include" />
 		</Compiler>
 		<Linker>
 			<Add option="-pg -lgmon" />
 			<Add library="..\..\libraries\zlib\libz.a" />
+			<Add library="P:\Programs\Python27\libs\libpython27.a" />
 			<Add directory="../../libraries/zlib" />
 		</Linker>
 		<Unit filename="include/BinarySearchTree.h" />
