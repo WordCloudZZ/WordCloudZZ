@@ -9,7 +9,8 @@
 #include <iostream>
 #include <string>
 
-#include "FileReader.h"
+//#include "FileReader.h"
+#include "processthread.h"
 
 namespace Ui {
     class MainWindow;
@@ -19,11 +20,15 @@ class MainWindow : public QMainWindow {
     Q_OBJECT
 
 private :
-    IFileReader * fr;
+    typedef std::vector<std::string> stringVec;
+
+    //IFileReader * fr;
     std::string buff[3];
     std::string buff0;
     std::string buff1;
     std::string buff2;
+
+    ProcessThread * thread;
 
     void lock_controls();
 
@@ -49,6 +54,8 @@ private slots:
     void on_defaultIgnore_clicked();
 
     void on_defaultSeparator_clicked();
+
+    void print_results(stringVec);
 
 private:
     Ui::MainWindow *ui;

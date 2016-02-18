@@ -9,6 +9,9 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow) {
     ui->setupUi(this);
+
+    qRegisterMetaType<stringVec>("stringVec");
+
     buff0 = "";
     buff1 = "";
     buff2 = "";
@@ -27,10 +30,12 @@ MainWindow::MainWindow(QWidget *parent) :
  */
 MainWindow::~MainWindow() {
     delete ui;
+/*
     if(fr != NULL) {
          delete fr;
     }
-/* TODO : warning bizarre quand ej fais ca ...
+*/
+/* TODO : warning bizarre quand je fais ca ...
     if(buff != NULL) {
         delete [] buff;
     }
@@ -140,44 +145,31 @@ void MainWindow::on_extract_clicked() {
     ui->centralWidget->setCursor(Qt::BusyCursor); /// Display a loading cursor to the user
     ui->listWidget->clear(); /// Clear the zone before rewriting
 
+    /// Creating the process thread and connect signal
+    thread = new ProcessThread(buff0, buff1, buff2);
+    QObject::connect(thread, SIGNAL(processEnd(stringVec)), this, SLOT(print_results(stringVec)));
+    thread->start(QThread::HighPriority); /// Can be highest also
+}
+
+void MainWindow::print_results(stringVec list) {
     unsigned int maxPrint = ui->nbSelect->value(); /// Get the desired printed number
+    int maxOccur = QString::fromLatin1(list[list.size()-1].c_str()).split(QRegExp("[/\r\n]"), QString::SplitBehavior::SkipEmptyParts).at(1).toInt();
+    int ratio = 1;
 
-    /// Creating the filereader and getting the stats on the text
-    fr = new FileReader<BinarySearchTree>(buff1, buff2);
-    if(fr != NULL) {
-        // TODO : mettre les analyses dans un thread, et recup le vector a printer,
-        // mais pas sur que ca regle certains soucis
-        std::cout << "Analyse du texte" << std::endl;
-        fr->read(buff0);
+    maxPrint = std::min(maxPrint, list.size());
+    std::cout << "Affichage des resultats" << std::endl;
+    for(unsigned i = 0 ; i < maxPrint ; ++i) {
+        QString mot = QString::fromLatin1(list[list.size()-1-i].c_str());
+        QStringList qlist = mot.split(QRegExp("[/\r\n]"), QString::SplitBehavior::SkipEmptyParts);
+        ui->listWidget->addItem(qlist.at(1)+'\t'+qlist.at(0));
+        ui->listWidget->item(i)->setTextAlignment(Qt::AlignJustify);
 
-        std::cout << "Tri des mots" << std::endl;
-///        fr->sortTable();
-
-        /// Prints the result in the large text area
-        std::vector<std::string> list;
-        list = fr->printStudyTable();
-        int maxOccur = QString::fromLatin1(list[list.size()-1].c_str()).split(QRegExp("[/\r\n]"), QString::SplitBehavior::SkipEmptyParts).at(1).toInt();
-        int ratio = 1;
-        maxPrint = std::min(maxPrint, list.size());
-        std::cout << "Affichage des resultats" << std::endl;
-        for(unsigned i = 0 ; i < maxPrint ; ++i) {
-            QString mot = QString::fromLatin1(list[list.size()-1-i].c_str());
-            QStringList qlist = mot.split(QRegExp("[/\r\n]"), QString::SplitBehavior::SkipEmptyParts);
-            ui->listWidget->addItem(qlist.at(1)+'\t'+qlist.at(0));
-            ui->listWidget->item(i)->setTextAlignment(Qt::AlignJustify);
-
-            // determinaison de la couleur
-            ratio = 255*qlist[1].toInt()/maxOccur;
-            ui->listWidget->item(i)->setBackgroundColor(QColor(std::min(ratio*125/100,255),60,255-ratio,169));
-        }
-
-        std::cout << "Fin de l'extraction" << std::endl;
-
-        delete fr; /// Freeing memory
-        fr = NULL;
-    } else {
-        std::cout << "Erreur avec la creation du FileReader" << std::endl;
+        /// Determining color
+        ratio = 255*qlist[1].toInt()/maxOccur;
+        ui->listWidget->item(i)->setBackgroundColor(QColor(std::min(ratio*125/100,255),60,255-ratio,169));
     }
+
+    delete thread; /// Free the thread memory
 
     unlock_controls(); /// Unlockign controls
     ui->centralWidget->setCursor(Qt::ArrowCursor); /// Reseting cursor to default
