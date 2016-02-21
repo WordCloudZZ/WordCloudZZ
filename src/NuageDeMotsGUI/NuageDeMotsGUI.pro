@@ -22,7 +22,11 @@ SOURCES += main.cpp\
     ../NuageDeMots/src/HashElement.tpp \
     ../NuageDeMots/src/Hashtable.tpp \
     ../NuageDeMots/src/PDFReader.cpp \
+<<<<<<< HEAD
     TagCloud.cpp
+=======
+    processthread.cpp
+>>>>>>> refs/remotes/origin/master
 
 
 HEADERS  += mainwindow.h \
@@ -34,7 +38,11 @@ HEADERS  += mainwindow.h \
     ../NuageDeMots/include/Node.h \
     ../NuageDeMots/include/pdf.h \
     ../NuageDeMots/include/PDFReader.h \
+<<<<<<< HEAD
     TagCloud.h
+=======
+    processthread.h
+>>>>>>> refs/remotes/origin/master
 
 
 FORMS    += mainwindow.ui

@@ -10,15 +10,18 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow) {
     ui->setupUi(this);
-    buff0 = "";
-    buff1 = "";
-    buff2 = "";
+
+    qRegisterMetaType<stringVec>("stringVec");
+
+    this->setDefaultFiles("","","");
 
     /// Setting text in the display areas
     ui->displayIgnore->setText("Fichier par défaut");
     ui->displaySeparator->setText("Fichier par défaut");
-    ui->displayPrincipal->setText("Fichier exemple");
-    ui->nbSelect->setValue(25);
+    ui->displayPrincipal->setText("Fichier exemple (hill.bk)");
+    ui->nbSelect->setValue(10);
+
+    /// App tray logo
     setWindowIcon(QIcon(QCoreApplication::applicationDirPath() + "/nuage.png"));
     std::vector<TagCloud::tagPair> liste;
 }
@@ -29,14 +32,6 @@ MainWindow::MainWindow(QWidget *parent) :
  */
 MainWindow::~MainWindow() {
     delete ui;
-    if(fr != NULL) {
-         delete fr;
-    }
-/* TODO : warning bizarre quand ej fais ca ...
-    if(buff != NULL) {
-        delete [] buff;
-    }
-*/
 }
 
 /**
@@ -72,8 +67,8 @@ void MainWindow::on_actionQuitter_triggered() {
  */
 void MainWindow::on_browsePrincipal_clicked() {
     /// Open file selection window
-    QString fichier = QFileDialog::getOpenFileName(this, "Choix du fichier principal", QString(), "Formats supportés (*.txt *.html *.pdf);;Autre (*)");
-    //std::cout << "Localise " << fichier.toStdString() << std::endl; // Affiche le résultat
+    QString fichier = QFileDialog::getOpenFileName(this, "Choix du fichier principal", QString(), "Formats supportés (*.txt *.html *.pdf *.bk);;Autre (*)");
+
     if(fichier.length() != 0) { /// Test if a file is selected
         buff0 = fichier.toStdString();
         ui->displayPrincipal->setText(fichier);
@@ -87,7 +82,7 @@ void MainWindow::on_browsePrincipal_clicked() {
 void MainWindow::on_browseIgnore_clicked() {
     /// Open file selection window
     QString fichier = QFileDialog::getOpenFileName(this, "Choix du fichier de mots à ignorer", QString(), "Fichier de configuration (*.conf)");
-    //std::cout << "Localise " << fichier.toStdString() << std::endl; // Affiche le résultat
+
     if(fichier.length() != 0) {
         buff1 = fichier.toStdString();
         ui->displayIgnore->setText(fichier);
@@ -101,7 +96,7 @@ void MainWindow::on_browseIgnore_clicked() {
 void MainWindow::on_browseSeparator_clicked() {
     /// Open file selection window
     QString fichier = QFileDialog::getOpenFileName(this, "Choix du fichier de séparateurs", QString(), "Fichier de configuration (*.conf)");
-    //std::cout << "Localise " << fichier.toStdString() << std::endl; // Affiche le résultat
+
     if(fichier.length() != 0) {
         buff2 = fichier.toStdString();
         ui->displaySeparator->setText(fichier);
@@ -137,52 +132,51 @@ void MainWindow::on_defaultSeparator_clicked() {
  * @brief Extraction process
  */
 void MainWindow::on_extract_clicked() {
-    lock_controls(); /// Locks controls in the ui to avoid unpredicted behaviours
+    if(QFile::exists(QString::fromStdString(buff0))) { /// check the main file
+        if(QFile::exists(QString::fromStdString(buff1))) { /// Check the ignore file
+            if(QFile::exists(QString::fromStdString(buff2))) { /// check the separator file
+                lock_controls(); /// Locks controls in the ui to avoid unpredicted behaviours
 
-    ui->centralWidget->setCursor(Qt::BusyCursor); /// Display a loading cursor to the user
-    ui->listWidget->clear(); /// Clear the zone before rewriting
+                ui->centralWidget->setCursor(Qt::BusyCursor); /// Display a loading cursor to the user
+                ui->listWidget->clear(); /// Clear the zone before rewriting
 
-    unsigned int maxPrint = ui->nbSelect->value(); /// Get the desired printed number
-
-    /// Creating the filereader and getting the stats on the text
-    fr = new FileReader<BinarySearchTree>(buff1, buff2);
-    if(fr != NULL) {
-        // TODO : mettre les analyses dans un thread, et recup le vector a printer,
-        // mais pas sur que ca regle certains soucis
-        std::cout << "Analyse du texte" << std::endl;
-        fr->read(buff0);
-
-        std::cout << "Tri des mots" << std::endl;
-///        fr->sortTable();
-
-        /// Prints the result in the large text area
-        std::vector<std::string> list;
-        list = fr->printStudyTable();
-        int maxOccur = QString::fromLatin1(list[list.size()-1].c_str()).split(QRegExp("[/\r\n]"), QString::SplitBehavior::SkipEmptyParts).at(1).toInt();
-        int ratio = 1;
-        std::vector<TagCloud::tagPair> toDraw;
-        maxPrint = std::min(maxPrint, list.size());
-        std::cout << "Affichage des resultats" << std::endl;
-        for(unsigned i = 0 ; i < maxPrint ; ++i) {
-            QString mot = QString::fromLatin1(list[list.size()-1-i].c_str());
-            QStringList qlist = mot.split(QRegExp("[/\r\n]"), QString::SplitBehavior::SkipEmptyParts);
-            toDraw.push_back(TagCloud::tagPair(qlist.at(0), atoi(qlist.at(1).toStdString().c_str())));
-            ui->listWidget->addItem(qlist.at(1)+'\t'+qlist.at(0));
-            ui->listWidget->item(i)->setTextAlignment(Qt::AlignJustify);
-
-            // determinaison de la couleur
-            ratio = 255*qlist[1].toInt()/maxOccur;
-            ui->listWidget->item(i)->setBackgroundColor(QColor(std::min(ratio*125/100,255),60,255-ratio,169));
-            ui->frameTag->populate(toDraw);
+                /// Creating the process thread and connect signal
+                thread = new ProcessThread(buff0, buff1, buff2);
+                QObject::connect(thread, SIGNAL(processEnd(stringVec)), this, SLOT(print_results(stringVec)));
+                thread->start(QThread::HighPriority); /// Can be highest also
+            } else { /// Separator file does not exist
+                QMessageBox::critical(this, "Fichier incorrect", "Le <b>fichier de séparateurs</b> n'existe pas ou n'est pas valide.", QMessageBox::Ok);
+            }
+        } else { /// Ignore file does not exist
+            QMessageBox::critical(this, "Fichier incorrect", "Le <b>fichier de mot à ignorer</b> n'existe pas ou n'est pas valide.", QMessageBox::Ok);
         }
-
-        std::cout << "Fin de l'extraction" << std::endl;
-
-        delete fr; /// Freeing memory
-        fr = NULL;
-    } else {
-        std::cout << "Erreur avec la creation du FileReader" << std::endl;
+    } else { /// Main file does not exist
+        QMessageBox::critical(this, "Fichier incorrect", "Le <b>fichier principal</b> n'existe pas ou n'est pas valide.", QMessageBox::Ok);
     }
+}
+
+void MainWindow::print_results(stringVec list) {
+    unsigned int maxPrint = ui->nbSelect->value(); /// Get the desired printed number
+    int maxOccur = QString::fromLatin1(list[list.size()-1].c_str()).split(QRegExp("[/\r\n]"), QString::SplitBehavior::SkipEmptyParts).at(1).toInt();
+    int ratio = 1;
+	std::vector<TagCloud::tagPair> toDraw;
+	
+    maxPrint = std::min(maxPrint, list.size());
+    std::cout << "Affichage des resultats" << std::endl;
+    for(unsigned i = 0 ; i < maxPrint ; ++i) {
+        QString mot = QString::fromLatin1(list[list.size()-1-i].c_str());
+        QStringList qlist = mot.split(QRegExp("[/\r\n]"), QString::SplitBehavior::SkipEmptyParts);
+		toDraw.push_back(TagCloud::tagPair(qlist.at(0), atoi(qlist.at(1).toStdString().c_str())));
+        ui->listWidget->addItem(qlist.at(1)+'\t'+qlist.at(0));
+        ui->listWidget->item(i)->setTextAlignment(Qt::AlignJustify);
+
+        /// Determining color
+        ratio = 255*qlist[1].toInt()/maxOccur;
+        ui->listWidget->item(i)->setBackgroundColor(QColor(std::min(ratio*125/100,255),60,255-ratio,169));
+		ui->frameTag->populate(toDraw);
+    }
+
+    delete thread; /// Free the thread memory
 
     unlock_controls(); /// Unlockign controls
     ui->centralWidget->setCursor(Qt::ArrowCursor); /// Reseting cursor to default
