@@ -25,6 +25,9 @@ MainWindow::MainWindow(QWidget *parent) :
 =======
     ui->displayPrincipal->setText("Fichier exemple");
     ui->nbSelect->setValue(10);
+<<<<<<< HEAD
+>>>>>>> parent of e40eafa... Tentative de  nuage graphique + modification code métier é
+=======
 >>>>>>> parent of e40eafa... Tentative de  nuage graphique + modification code métier é
     setWindowIcon(QIcon(QCoreApplication::applicationDirPath() + "/nuage.png"));
 }
@@ -188,6 +191,9 @@ void MainWindow::on_extract_clicked() {
             // determinaison de la couleur
             ratio = 255*qlist[1].toInt()/maxOccur;
             ui->listWidget->item(i)->setBackgroundColor(QColor(std::min(ratio*125/100,255),60,255-ratio,169));
+<<<<<<< HEAD
+>>>>>>> parent of e40eafa... Tentative de  nuage graphique + modification code métier é
+=======
 >>>>>>> parent of e40eafa... Tentative de  nuage graphique + modification code métier é
         }
     } else { /// Main file does not exist

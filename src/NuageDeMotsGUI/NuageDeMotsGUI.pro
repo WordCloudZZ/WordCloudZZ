@@ -22,12 +22,16 @@ SOURCES += main.cpp\
     ../NuageDeMots/src/HashElement.tpp \
     ../NuageDeMots/src/Hashtable.tpp \
 <<<<<<< HEAD
+<<<<<<< HEAD
     ../NuageDeMots/src/PDFReader.cpp \
 <<<<<<< HEAD
     TagCloud.cpp
 =======
     processthread.cpp
 >>>>>>> refs/remotes/origin/master
+=======
+    ../NuageDeMots/src/PDFReader.cpp
+>>>>>>> parent of e40eafa... Tentative de  nuage graphique + modification code métier é
 =======
     ../NuageDeMots/src/PDFReader.cpp
 >>>>>>> parent of e40eafa... Tentative de  nuage graphique + modification code métier é
@@ -42,12 +46,16 @@ HEADERS  += mainwindow.h \
     ../NuageDeMots/include/Node.h \
     ../NuageDeMots/include/pdf.h \
 <<<<<<< HEAD
+<<<<<<< HEAD
     ../NuageDeMots/include/PDFReader.h \
 <<<<<<< HEAD
     TagCloud.h
 =======
     processthread.h
 >>>>>>> refs/remotes/origin/master
+=======
+    ../NuageDeMots/include/PDFReader.h
+>>>>>>> parent of e40eafa... Tentative de  nuage graphique + modification code métier é
 =======
     ../NuageDeMots/include/PDFReader.h
 >>>>>>> parent of e40eafa... Tentative de  nuage graphique + modification code métier é
