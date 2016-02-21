@@ -26,6 +26,7 @@
 #include <QtWidgets/QSpinBox>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QWidget>
+#include "TagCloud.h"
 
 QT_BEGIN_NAMESPACE
 
@@ -41,17 +42,17 @@ public:
     QGridLayout *gridLayout;
     QPushButton *defaultSeparator;
     QPushButton *defaultIgnore;
-    QLabel *label_2;
-    QPushButton *browseIgnore;
     QLabel *label;
-    QLineEdit *displaySeparator;
+    QPushButton *browseIgnore;
     QPushButton *browseSeparator;
+    QLabel *label_2;
+    QLineEdit *displaySeparator;
     QLabel *label_3;
+    QSpacerItem *horizontalSpacer;
     QLineEdit *displayPrincipal;
     QLineEdit *displayIgnore;
-    QSpacerItem *verticalSpacer;
     QPushButton *browsePrincipal;
-    QSpacerItem *horizontalSpacer;
+    TagCloud *frameTag;
     QGridLayout *gridLayout_2;
     QPushButton *extract;
     QSpinBox *nbSelect;
@@ -67,11 +68,17 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
-        MainWindow->resize(803, 388);
-        MainWindow->setMinimumSize(QSize(803, 388));
+        MainWindow->resize(900, 480);
+        MainWindow->setMinimumSize(QSize(900, 480));
         MainWindow->setBaseSize(QSize(320, 240));
         MainWindow->setMouseTracking(false);
-        QIcon icon(QIcon::fromTheme(QStringLiteral("nuage.ico")));
+        QIcon icon;
+        QString iconThemeName = QStringLiteral("nuage.png");
+        if (QIcon::hasThemeIcon(iconThemeName)) {
+            icon = QIcon::fromTheme(iconThemeName);
+        } else {
+            icon.addFile(QStringLiteral("."), QSize(), QIcon::Normal, QIcon::Off);
+        }
         MainWindow->setWindowIcon(icon);
         actionOuvrir = new QAction(MainWindow);
         actionOuvrir->setObjectName(QStringLiteral("actionOuvrir"));
@@ -106,26 +113,15 @@ public:
 
         gridLayout->addWidget(defaultIgnore, 2, 3, 1, 1);
 
-        label_2 = new QLabel(centralWidget);
-        label_2->setObjectName(QStringLiteral("label_2"));
-
-        gridLayout->addWidget(label_2, 2, 0, 1, 2);
-
-        browseIgnore = new QPushButton(centralWidget);
-        browseIgnore->setObjectName(QStringLiteral("browseIgnore"));
-
-        gridLayout->addWidget(browseIgnore, 2, 2, 1, 1);
-
         label = new QLabel(centralWidget);
         label->setObjectName(QStringLiteral("label"));
 
         gridLayout->addWidget(label, 0, 0, 1, 2);
 
-        displaySeparator = new QLineEdit(centralWidget);
-        displaySeparator->setObjectName(QStringLiteral("displaySeparator"));
-        displaySeparator->setReadOnly(true);
+        browseIgnore = new QPushButton(centralWidget);
+        browseIgnore->setObjectName(QStringLiteral("browseIgnore"));
 
-        gridLayout->addWidget(displaySeparator, 5, 0, 1, 4);
+        gridLayout->addWidget(browseIgnore, 2, 2, 1, 1);
 
         browseSeparator = new QPushButton(centralWidget);
         browseSeparator->setObjectName(QStringLiteral("browseSeparator"));
@@ -134,10 +130,25 @@ public:
 
         gridLayout->addWidget(browseSeparator, 4, 2, 1, 1);
 
+        label_2 = new QLabel(centralWidget);
+        label_2->setObjectName(QStringLiteral("label_2"));
+
+        gridLayout->addWidget(label_2, 2, 0, 1, 2);
+
+        displaySeparator = new QLineEdit(centralWidget);
+        displaySeparator->setObjectName(QStringLiteral("displaySeparator"));
+        displaySeparator->setReadOnly(true);
+
+        gridLayout->addWidget(displaySeparator, 5, 0, 1, 4);
+
         label_3 = new QLabel(centralWidget);
         label_3->setObjectName(QStringLiteral("label_3"));
 
         gridLayout->addWidget(label_3, 4, 0, 1, 2);
+
+        horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Minimum, QSizePolicy::Minimum);
+
+        gridLayout->addItem(horizontalSpacer, 0, 3, 1, 1);
 
         displayPrincipal = new QLineEdit(centralWidget);
         displayPrincipal->setObjectName(QStringLiteral("displayPrincipal"));
@@ -151,10 +162,6 @@ public:
 
         gridLayout->addWidget(displayIgnore, 3, 0, 1, 4);
 
-        verticalSpacer = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
-
-        gridLayout->addItem(verticalSpacer, 6, 0, 1, 4);
-
         browsePrincipal = new QPushButton(centralWidget);
         browsePrincipal->setObjectName(QStringLiteral("browsePrincipal"));
         browsePrincipal->setEnabled(true);
@@ -163,9 +170,13 @@ public:
 
         gridLayout->addWidget(browsePrincipal, 0, 2, 1, 1);
 
-        horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Minimum, QSizePolicy::Minimum);
+        frameTag = new TagCloud(centralWidget);
+        frameTag->setObjectName(QStringLiteral("frameTag"));
+        frameTag->setStyleSheet(QStringLiteral("background-color: rgb(255, 255, 255);"));
+        frameTag->setFrameShape(QFrame::StyledPanel);
+        frameTag->setFrameShadow(QFrame::Raised);
 
-        gridLayout->addItem(horizontalSpacer, 0, 3, 1, 1);
+        gridLayout->addWidget(frameTag, 6, 0, 1, 4);
 
 
         gridLayout_3->addLayout(gridLayout, 0, 0, 1, 1);
@@ -221,7 +232,7 @@ public:
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 803, 21));
+        menuBar->setGeometry(QRect(0, 0, 900, 21));
         menuFichier = new QMenu(menuBar);
         menuFichier->setObjectName(QStringLiteral("menuFichier"));
         menu = new QMenu(menuBar);
@@ -252,10 +263,10 @@ public:
         actionA_propos->setText(QApplication::translate("MainWindow", "A propos", 0));
         defaultSeparator->setText(QApplication::translate("MainWindow", "Par d\303\251faut", 0));
         defaultIgnore->setText(QApplication::translate("MainWindow", "Par d\303\251faut", 0));
-        label_2->setText(QApplication::translate("MainWindow", "Mots \303\240 ignorer", 0));
-        browseIgnore->setText(QApplication::translate("MainWindow", "Parcourir ...", 0));
         label->setText(QApplication::translate("MainWindow", "Fichier principal", 0));
+        browseIgnore->setText(QApplication::translate("MainWindow", "Parcourir ...", 0));
         browseSeparator->setText(QApplication::translate("MainWindow", "Parcourir ...", 0));
+        label_2->setText(QApplication::translate("MainWindow", "Mots \303\240 ignorer", 0));
         label_3->setText(QApplication::translate("MainWindow", "S\303\251parateurs", 0));
         displayPrincipal->setText(QString());
         browsePrincipal->setText(QApplication::translate("MainWindow", "Parcourir ...", 0));

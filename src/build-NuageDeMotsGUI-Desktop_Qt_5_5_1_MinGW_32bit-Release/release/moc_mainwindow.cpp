@@ -19,8 +19,8 @@
 
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_MainWindow_t {
-    QByteArrayData data[9];
-    char stringdata0[189];
+    QByteArrayData data[11];
+    char stringdata0[213];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -37,7 +37,9 @@ QT_MOC_LITERAL(4, 66, 23), // "on_browseIgnore_clicked"
 QT_MOC_LITERAL(5, 90, 26), // "on_browseSeparator_clicked"
 QT_MOC_LITERAL(6, 117, 18), // "on_extract_clicked"
 QT_MOC_LITERAL(7, 136, 24), // "on_defaultIgnore_clicked"
-QT_MOC_LITERAL(8, 161, 27) // "on_defaultSeparator_clicked"
+QT_MOC_LITERAL(8, 161, 27), // "on_defaultSeparator_clicked"
+QT_MOC_LITERAL(9, 189, 13), // "print_results"
+QT_MOC_LITERAL(10, 203, 9) // "stringVec"
 
     },
     "MainWindow\0on_actionQuitter_triggered\0"
@@ -45,7 +47,8 @@ QT_MOC_LITERAL(8, 161, 27) // "on_defaultSeparator_clicked"
     "on_browseIgnore_clicked\0"
     "on_browseSeparator_clicked\0"
     "on_extract_clicked\0on_defaultIgnore_clicked\0"
-    "on_defaultSeparator_clicked"
+    "on_defaultSeparator_clicked\0print_results\0"
+    "stringVec"
 };
 #undef QT_MOC_LITERAL
 
@@ -55,7 +58,7 @@ static const uint qt_meta_data_MainWindow[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-       7,   14, // methods
+       8,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -63,13 +66,14 @@ static const uint qt_meta_data_MainWindow[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    0,   49,    2, 0x08 /* Private */,
-       3,    0,   50,    2, 0x08 /* Private */,
-       4,    0,   51,    2, 0x08 /* Private */,
-       5,    0,   52,    2, 0x08 /* Private */,
-       6,    0,   53,    2, 0x08 /* Private */,
-       7,    0,   54,    2, 0x08 /* Private */,
-       8,    0,   55,    2, 0x08 /* Private */,
+       1,    0,   54,    2, 0x08 /* Private */,
+       3,    0,   55,    2, 0x08 /* Private */,
+       4,    0,   56,    2, 0x08 /* Private */,
+       5,    0,   57,    2, 0x08 /* Private */,
+       6,    0,   58,    2, 0x08 /* Private */,
+       7,    0,   59,    2, 0x08 /* Private */,
+       8,    0,   60,    2, 0x08 /* Private */,
+       9,    1,   61,    2, 0x08 /* Private */,
 
  // slots: parameters
     QMetaType::Void,
@@ -79,6 +83,7 @@ static const uint qt_meta_data_MainWindow[] = {
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
+    QMetaType::Void, 0x80000000 | 10,    2,
 
        0        // eod
 };
@@ -96,10 +101,10 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 4: _t->on_extract_clicked(); break;
         case 5: _t->on_defaultIgnore_clicked(); break;
         case 6: _t->on_defaultSeparator_clicked(); break;
+        case 7: _t->print_results((*reinterpret_cast< stringVec(*)>(_a[1]))); break;
         default: ;
         }
     }
-    Q_UNUSED(_a);
 }
 
 const QMetaObject MainWindow::staticMetaObject = {
@@ -127,13 +132,13 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 7)
+        if (_id < 8)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 7;
+        _id -= 8;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 7)
+        if (_id < 8)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 7;
+        _id -= 8;
     }
     return _id;
 }

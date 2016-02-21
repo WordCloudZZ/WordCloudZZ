@@ -18,7 +18,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->displayIgnore->setText("Fichier par défaut");
     ui->displaySeparator->setText("Fichier par défaut");
     ui->displayPrincipal->setText("Fichier exemple (hill.bk)");
-    ui->nbSelect->setValue(10);
+    ui->nbSelect->setValue(16);
 
     /// App tray logo
     setWindowIcon(QIcon(QCoreApplication::applicationDirPath() + "/nuage.png"));
@@ -157,6 +157,7 @@ void MainWindow::print_results(stringVec list) {
     unsigned int maxPrint = ui->nbSelect->value(); /// Get the desired printed number
     int maxOccur = QString::fromLatin1(list[list.size()-1].c_str()).split(QRegExp("[/\r\n]"), QString::SplitBehavior::SkipEmptyParts).at(1).toInt();
     int ratio = 1;
+    std::vector<TagCloud::tagPair> toDraw;
 
     maxPrint = std::min(maxPrint, list.size());
     std::cout << "Affichage des resultats" << std::endl;
@@ -164,12 +165,14 @@ void MainWindow::print_results(stringVec list) {
         QString mot = QString::fromLatin1(list[list.size()-1-i].c_str());
         QStringList qlist = mot.split(QRegExp("[/\r\n]"), QString::SplitBehavior::SkipEmptyParts);
         ui->listWidget->addItem(qlist.at(1)+'\t'+qlist.at(0));
+        toDraw.push_back(TagCloud::tagPair(qlist.at(0), atoi(qlist.at(1).toStdString().c_str())));
         ui->listWidget->item(i)->setTextAlignment(Qt::AlignJustify);
 
         /// Determining color
         ratio = 255*qlist[1].toInt()/maxOccur;
         ui->listWidget->item(i)->setBackgroundColor(QColor(std::min(ratio*125/100,255),60,255-ratio,169));
     }
+    ui->frameTag->populate(toDraw);
 
     delete thread; /// Free the thread memory
 
