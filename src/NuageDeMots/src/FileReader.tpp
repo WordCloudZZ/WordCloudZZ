@@ -84,8 +84,18 @@ void FileReader<C>::read(std::string p_filename) {
 }
 
 template<template<typename = std::string> class C>
+unsigned FileReader<C>::minuscule(unsigned c) {
+    if(c=='É')
+        return 'é';
+    else
+        return tolower(c);
+}
+
+template<template<typename = std::string> class C>
 void FileReader<C>::process(std::string p_stringToProcess) {
-    std::transform(p_stringToProcess.begin(), p_stringToProcess.end(), p_stringToProcess.begin(), tolower);
+    for(unsigned i = 0 ; i < p_stringToProcess.size() ; i++) {
+        p_stringToProcess[i] = minuscule(p_stringToProcess[i]);
+    }
     if(p_stringToProcess.length() > 2 && !m_ignoredWords.contains(p_stringToProcess)) {
         m_studiedWords.add(p_stringToProcess);
     }

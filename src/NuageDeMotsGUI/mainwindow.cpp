@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "TagCloud.h"
 
 /**
  * @brief MainWindow::MainWindow
@@ -17,8 +18,9 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->displayIgnore->setText("Fichier par défaut");
     ui->displaySeparator->setText("Fichier par défaut");
     ui->displayPrincipal->setText("Fichier exemple");
-    ui->nbSelect->setValue(10);
+    ui->nbSelect->setValue(25);
     setWindowIcon(QIcon(QCoreApplication::applicationDirPath() + "/nuage.png"));
+    std::vector<TagCloud::tagPair> liste;
 }
 
 
@@ -158,17 +160,20 @@ void MainWindow::on_extract_clicked() {
         list = fr->printStudyTable();
         int maxOccur = QString::fromLatin1(list[list.size()-1].c_str()).split(QRegExp("[/\r\n]"), QString::SplitBehavior::SkipEmptyParts).at(1).toInt();
         int ratio = 1;
+        std::vector<TagCloud::tagPair> toDraw;
         maxPrint = std::min(maxPrint, list.size());
         std::cout << "Affichage des resultats" << std::endl;
         for(unsigned i = 0 ; i < maxPrint ; ++i) {
             QString mot = QString::fromLatin1(list[list.size()-1-i].c_str());
             QStringList qlist = mot.split(QRegExp("[/\r\n]"), QString::SplitBehavior::SkipEmptyParts);
+            toDraw.push_back(TagCloud::tagPair(qlist.at(0), atoi(qlist.at(1).toStdString().c_str())));
             ui->listWidget->addItem(qlist.at(1)+'\t'+qlist.at(0));
             ui->listWidget->item(i)->setTextAlignment(Qt::AlignJustify);
 
             // determinaison de la couleur
             ratio = 255*qlist[1].toInt()/maxOccur;
             ui->listWidget->item(i)->setBackgroundColor(QColor(std::min(ratio*125/100,255),60,255-ratio,169));
+            ui->frameTag->populate(toDraw);
         }
 
         std::cout << "Fin de l'extraction" << std::endl;
