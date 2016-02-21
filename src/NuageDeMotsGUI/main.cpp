@@ -1,6 +1,22 @@
 // Includes Qt
 #include "mainwindow.h"
 #include <QApplication>
+/*
+// Includes c++
+#include <iostream>
+#include <string>
+
+int main(int argc, char* argv[]) {
+    std::string filePath = "";
+
+    QApplication a(argc, argv); // Objet de l'app
+    MainWindow w; // Fenetre principale
+    w.show(); // Affiche la fenetre
+
+
+    return a.exec();
+}
+*/
 
 #include <iostream>
 #include <string>
@@ -13,7 +29,7 @@
 using namespace std;
 
 /** \brief Test if the file exists or not
- *
+
  * \param The full path or name of the file to test
  *
  * \return True if the file exists, else false
@@ -23,12 +39,6 @@ bool is_readable(const string &file) {
   return !fichier.fail();
 }
 
-/**
- * @brief Entry point of the program
- * @param argc Program arg number
- * @param argv Program arg values
- * @return Exit state
- */
 int main(int argc, char** argv) {
     std::string                         buff1           = "",
                                         buff2           = "",
@@ -160,6 +170,7 @@ int main(int argc, char** argv) {
     } else {    // erreur
         cout << "Argument inconnu" << endl;
     }
+
 
     return 0;
 }
