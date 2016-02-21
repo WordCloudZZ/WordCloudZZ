@@ -1,6 +1,5 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "TagCloud.h"
 
 /**
  * @brief MainWindow::MainWindow
@@ -18,12 +17,16 @@ MainWindow::MainWindow(QWidget *parent) :
     /// Setting text in the display areas
     ui->displayIgnore->setText("Fichier par défaut");
     ui->displaySeparator->setText("Fichier par défaut");
+<<<<<<< HEAD
     ui->displayPrincipal->setText("Fichier exemple (hill.bk)");
     ui->nbSelect->setValue(10);
 
     /// App tray logo
+=======
+    ui->displayPrincipal->setText("Fichier exemple");
+    ui->nbSelect->setValue(10);
+>>>>>>> parent of e40eafa... Tentative de  nuage graphique + modification code métier é
     setWindowIcon(QIcon(QCoreApplication::applicationDirPath() + "/nuage.png"));
-    std::vector<TagCloud::tagPair> liste;
 }
 
 
@@ -132,6 +135,7 @@ void MainWindow::on_defaultSeparator_clicked() {
  * @brief Extraction process
  */
 void MainWindow::on_extract_clicked() {
+<<<<<<< HEAD
     if(QFile::exists(QString::fromStdString(buff0))) { /// check the main file
         if(QFile::exists(QString::fromStdString(buff1))) { /// Check the ignore file
             if(QFile::exists(QString::fromStdString(buff2))) { /// check the separator file
@@ -149,6 +153,42 @@ void MainWindow::on_extract_clicked() {
             }
         } else { /// Ignore file does not exist
             QMessageBox::critical(this, "Fichier incorrect", "Le <b>fichier de mot à ignorer</b> n'existe pas ou n'est pas valide.", QMessageBox::Ok);
+=======
+    lock_controls(); /// Locks controls in the ui to avoid unpredicted behaviours
+
+    ui->centralWidget->setCursor(Qt::BusyCursor); /// Display a loading cursor to the user
+    ui->listWidget->clear(); /// Clear the zone before rewriting
+
+    unsigned int maxPrint = ui->nbSelect->value(); /// Get the desired printed number
+
+    /// Creating the filereader and getting the stats on the text
+    fr = new FileReader<BinarySearchTree>(buff1, buff2);
+    if(fr != NULL) {
+        // TODO : mettre les analyses dans un thread, et recup le vector a printer,
+        // mais pas sur que ca regle certains soucis
+        std::cout << "Analyse du texte" << std::endl;
+        fr->read(buff0);
+
+        std::cout << "Tri des mots" << std::endl;
+///        fr->sortTable();
+
+        /// Prints the result in the large text area
+        std::vector<std::string> list;
+        list = fr->printStudyTable();
+        int maxOccur = QString::fromLatin1(list[list.size()-1].c_str()).split(QRegExp("[/\r\n]"), QString::SplitBehavior::SkipEmptyParts).at(1).toInt();
+        int ratio = 1;
+        maxPrint = std::min(maxPrint, list.size());
+        std::cout << "Affichage des resultats" << std::endl;
+        for(unsigned i = 0 ; i < maxPrint ; ++i) {
+            QString mot = QString::fromLatin1(list[list.size()-1-i].c_str());
+            QStringList qlist = mot.split(QRegExp("[/\r\n]"), QString::SplitBehavior::SkipEmptyParts);
+            ui->listWidget->addItem(qlist.at(1)+'\t'+qlist.at(0));
+            ui->listWidget->item(i)->setTextAlignment(Qt::AlignJustify);
+
+            // determinaison de la couleur
+            ratio = 255*qlist[1].toInt()/maxOccur;
+            ui->listWidget->item(i)->setBackgroundColor(QColor(std::min(ratio*125/100,255),60,255-ratio,169));
+>>>>>>> parent of e40eafa... Tentative de  nuage graphique + modification code métier é
         }
     } else { /// Main file does not exist
         QMessageBox::critical(this, "Fichier incorrect", "Le <b>fichier principal</b> n'existe pas ou n'est pas valide.", QMessageBox::Ok);

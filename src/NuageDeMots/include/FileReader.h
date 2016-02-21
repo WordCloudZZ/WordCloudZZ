@@ -42,7 +42,6 @@ class FileReader : public IFileReader {
         std::streambuf * open(std::string);
         bool contains(std::string) const;
         void process(std::string);
-        unsigned minuscule(unsigned c);
 
         std::vector<std::string> printStudyTable();
 
