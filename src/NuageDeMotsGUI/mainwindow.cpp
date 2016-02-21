@@ -27,6 +27,9 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->nbSelect->setValue(10);
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> parent of e40eafa... Tentative de  nuage graphique + modification code métier é
+=======
 >>>>>>> parent of e40eafa... Tentative de  nuage graphique + modification code métier é
 =======
 >>>>>>> parent of e40eafa... Tentative de  nuage graphique + modification code métier é
@@ -196,6 +199,9 @@ void MainWindow::on_extract_clicked() {
             ui->listWidget->item(i)->setBackgroundColor(QColor(std::min(ratio*125/100,255),60,255-ratio,169));
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> parent of e40eafa... Tentative de  nuage graphique + modification code métier é
+=======
 >>>>>>> parent of e40eafa... Tentative de  nuage graphique + modification code métier é
 =======
 >>>>>>> parent of e40eafa... Tentative de  nuage graphique + modification code métier é
