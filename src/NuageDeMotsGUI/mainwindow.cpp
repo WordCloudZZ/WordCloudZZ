@@ -28,6 +28,9 @@ MainWindow::MainWindow(QWidget *parent) :
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> parent of e40eafa... Tentative de  nuage graphique + modification code métier é
+=======
 >>>>>>> parent of e40eafa... Tentative de  nuage graphique + modification code métier é
 =======
 >>>>>>> parent of e40eafa... Tentative de  nuage graphique + modification code métier é
@@ -200,6 +203,9 @@ void MainWindow::on_extract_clicked() {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> parent of e40eafa... Tentative de  nuage graphique + modification code métier é
+=======
 >>>>>>> parent of e40eafa... Tentative de  nuage graphique + modification code métier é
 =======
 >>>>>>> parent of e40eafa... Tentative de  nuage graphique + modification code métier é
