@@ -5,6 +5,7 @@
 #include <QtGui>
 #include <QFileDialog>
 #include <QString>
+#include <QMessageBox>
 
 #include <iostream>
 #include <string>

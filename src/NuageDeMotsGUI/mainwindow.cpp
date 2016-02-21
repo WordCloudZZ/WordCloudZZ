@@ -12,15 +12,15 @@ MainWindow::MainWindow(QWidget *parent) :
 
     qRegisterMetaType<stringVec>("stringVec");
 
-    buff0 = "";
-    buff1 = "";
-    buff2 = "";
+    this->setDefaultFiles("","","");
 
     /// Setting text in the display areas
     ui->displayIgnore->setText("Fichier par défaut");
     ui->displaySeparator->setText("Fichier par défaut");
-    ui->displayPrincipal->setText("Fichier exemple");
+    ui->displayPrincipal->setText("Fichier exemple (hill.bk)");
     ui->nbSelect->setValue(10);
+
+    /// App tray logo
     setWindowIcon(QIcon(QCoreApplication::applicationDirPath() + "/nuage.png"));
 }
 
@@ -30,16 +30,6 @@ MainWindow::MainWindow(QWidget *parent) :
  */
 MainWindow::~MainWindow() {
     delete ui;
-/*
-    if(fr != NULL) {
-         delete fr;
-    }
-*/
-/* TODO : warning bizarre quand je fais ca ...
-    if(buff != NULL) {
-        delete [] buff;
-    }
-*/
 }
 
 /**
@@ -75,8 +65,8 @@ void MainWindow::on_actionQuitter_triggered() {
  */
 void MainWindow::on_browsePrincipal_clicked() {
     /// Open file selection window
-    QString fichier = QFileDialog::getOpenFileName(this, "Choix du fichier principal", QString(), "Formats supportés (*.txt *.html *.pdf);;Autre (*)");
-    //std::cout << "Localise " << fichier.toStdString() << std::endl; // Affiche le résultat
+    QString fichier = QFileDialog::getOpenFileName(this, "Choix du fichier principal", QString(), "Formats supportés (*.txt *.html *.pdf *.bk);;Autre (*)");
+
     if(fichier.length() != 0) { /// Test if a file is selected
         buff0 = fichier.toStdString();
         ui->displayPrincipal->setText(fichier);
@@ -90,7 +80,7 @@ void MainWindow::on_browsePrincipal_clicked() {
 void MainWindow::on_browseIgnore_clicked() {
     /// Open file selection window
     QString fichier = QFileDialog::getOpenFileName(this, "Choix du fichier de mots à ignorer", QString(), "Fichier de configuration (*.conf)");
-    //std::cout << "Localise " << fichier.toStdString() << std::endl; // Affiche le résultat
+
     if(fichier.length() != 0) {
         buff1 = fichier.toStdString();
         ui->displayIgnore->setText(fichier);
@@ -104,7 +94,7 @@ void MainWindow::on_browseIgnore_clicked() {
 void MainWindow::on_browseSeparator_clicked() {
     /// Open file selection window
     QString fichier = QFileDialog::getOpenFileName(this, "Choix du fichier de séparateurs", QString(), "Fichier de configuration (*.conf)");
-    //std::cout << "Localise " << fichier.toStdString() << std::endl; // Affiche le résultat
+
     if(fichier.length() != 0) {
         buff2 = fichier.toStdString();
         ui->displaySeparator->setText(fichier);
@@ -140,15 +130,27 @@ void MainWindow::on_defaultSeparator_clicked() {
  * @brief Extraction process
  */
 void MainWindow::on_extract_clicked() {
-    lock_controls(); /// Locks controls in the ui to avoid unpredicted behaviours
+    if(QFile::exists(QString::fromStdString(buff0))) { /// check the main file
+        if(QFile::exists(QString::fromStdString(buff1))) { /// Check the ignore file
+            if(QFile::exists(QString::fromStdString(buff2))) { /// check the separator file
+                lock_controls(); /// Locks controls in the ui to avoid unpredicted behaviours
 
-    ui->centralWidget->setCursor(Qt::BusyCursor); /// Display a loading cursor to the user
-    ui->listWidget->clear(); /// Clear the zone before rewriting
+                ui->centralWidget->setCursor(Qt::BusyCursor); /// Display a loading cursor to the user
+                ui->listWidget->clear(); /// Clear the zone before rewriting
 
-    /// Creating the process thread and connect signal
-    thread = new ProcessThread(buff0, buff1, buff2);
-    QObject::connect(thread, SIGNAL(processEnd(stringVec)), this, SLOT(print_results(stringVec)));
-    thread->start(QThread::HighPriority); /// Can be highest also
+                /// Creating the process thread and connect signal
+                thread = new ProcessThread(buff0, buff1, buff2);
+                QObject::connect(thread, SIGNAL(processEnd(stringVec)), this, SLOT(print_results(stringVec)));
+                thread->start(QThread::HighPriority); /// Can be highest also
+            } else { /// Separator file does not exist
+                QMessageBox::critical(this, "Fichier incorrect", "Le <b>fichier de séparateurs</b> n'existe pas ou n'est pas valide.", QMessageBox::Ok);
+            }
+        } else { /// Ignore file does not exist
+            QMessageBox::critical(this, "Fichier incorrect", "Le <b>fichier de mot à ignorer</b> n'existe pas ou n'est pas valide.", QMessageBox::Ok);
+        }
+    } else { /// Main file does not exist
+        QMessageBox::critical(this, "Fichier incorrect", "Le <b>fichier principal</b> n'existe pas ou n'est pas valide.", QMessageBox::Ok);
+    }
 }
 
 void MainWindow::print_results(stringVec list) {
