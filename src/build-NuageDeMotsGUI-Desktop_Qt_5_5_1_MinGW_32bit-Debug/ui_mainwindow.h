@@ -33,7 +33,6 @@ QT_BEGIN_NAMESPACE
 class Ui_MainWindow
 {
 public:
-    QAction *actionOuvrir;
     QAction *actionQuitter;
     QAction *actionAide;
     QAction *actionA_propos;
@@ -80,8 +79,6 @@ public:
             icon.addFile(QStringLiteral("."), QSize(), QIcon::Normal, QIcon::Off);
         }
         MainWindow->setWindowIcon(icon);
-        actionOuvrir = new QAction(MainWindow);
-        actionOuvrir->setObjectName(QStringLiteral("actionOuvrir"));
         actionQuitter = new QAction(MainWindow);
         actionQuitter->setObjectName(QStringLiteral("actionQuitter"));
         actionAide = new QAction(MainWindow);
@@ -257,7 +254,6 @@ public:
     void retranslateUi(QMainWindow *MainWindow)
     {
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "Nuage de Mots", 0));
-        actionOuvrir->setText(QApplication::translate("MainWindow", "Ouvrir ...", 0));
         actionQuitter->setText(QApplication::translate("MainWindow", "Quitter", 0));
         actionAide->setText(QApplication::translate("MainWindow", "Aide", 0));
         actionA_propos->setText(QApplication::translate("MainWindow", "A propos", 0));

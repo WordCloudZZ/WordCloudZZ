@@ -58,6 +58,10 @@ private slots:
 
     void print_results(stringVec);
 
+    void on_actionAide_triggered();
+
+    void on_actionA_propos_triggered();
+
 private:
     Ui::MainWindow *ui;
 };

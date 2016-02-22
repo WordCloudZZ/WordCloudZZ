@@ -283,11 +283,6 @@
    <addaction name="menu"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
-  <action name="actionOuvrir">
-   <property name="text">
-    <string>Ouvrir ...</string>
-   </property>
-  </action>
   <action name="actionQuitter">
    <property name="text">
     <string>Quitter</string>

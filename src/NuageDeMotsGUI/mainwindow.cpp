@@ -57,6 +57,16 @@ void MainWindow::setDefaultFiles(const std::string & f, const std::string & i, c
  * @brief Event to call on 'quit' trigger
  */
 void MainWindow::on_actionQuitter_triggered() {
+    if(thread != NULL) {
+        while(thread->isRunning()) {
+            std::cout << "Tentative d'arret du thread" << std::endl;
+            thread->exit();
+            thread->requestInterruption();
+            thread->terminate();
+            thread->requestInterruption();
+        }
+    }
+
     delete ui;
     close();
 }
@@ -162,7 +172,7 @@ void MainWindow::on_extract_clicked() {
         /// Stop the thread and recover initial state
         std::cout << "Annulation du thread" << std::endl;
 
-        while(!thread->isFinished()) {
+        while(thread->isRunning()) {
             std::cout << "Tentative d'arret du thread" << std::endl;
             thread->exit();
             thread->requestInterruption();
@@ -242,4 +252,25 @@ void MainWindow::unlock_controls() {
     // ui->extract->setEnabled(true);
 
     std::cout << "Controles debloques" << std::endl;
+}
+
+void MainWindow::on_actionAide_triggered() {
+    QString text = "Utilisation :\n\n";
+    text += "1. Sélectionner un fichier à traiter.\n";
+    text += "2. Sélectionner un fichier contenant les mots du texte à ignorer (laisser vide pour utiliser le fichier par défaut).\n";
+    text += "3. Sélectionner un fichier contenant les séparateurs du texte(laisser vide pour utiliser le fichier par défaut).\n";
+    text += "4. Sélectionner le nombre de mots à afficher dans la case correspondante (le maximum est de 500).\n";
+    text += "5. Cliquer sur le bouton \"Extraire\".\n";
+    text += "\nLe résultat s'affichera automatiquement dans la partie droite de l'application, et une image se génèrera dans la partie ingférieure gauche\n";
+
+    QMessageBox::information(this, "Aide", text, QMessageBox::Ok);
+}
+
+void MainWindow::on_actionA_propos_triggered() {
+    QString text = "Cette application à été concue et développée par\n";
+    text += "Benjamin BARBESANGE (a.k.a bebarbesan) && Benoît GARCON (a.k.a begarco),\n";
+    text += "dans le cadre de leur projet de 2ème année.\n\n";
+    text += "ISIMA 2015-2016 - Bleu";
+
+    QMessageBox::information(this, "A propos...", text, QMessageBox::Cancel);
 }

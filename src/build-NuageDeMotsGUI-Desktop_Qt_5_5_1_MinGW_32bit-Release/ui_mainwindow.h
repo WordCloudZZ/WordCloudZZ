@@ -33,7 +33,6 @@ QT_BEGIN_NAMESPACE
 class Ui_MainWindow
 {
 public:
-    QAction *actionOuvrir;
     QAction *actionQuitter;
     QAction *actionAide;
     QAction *actionA_propos;
@@ -80,8 +79,6 @@ public:
             icon.addFile(QStringLiteral("."), QSize(), QIcon::Normal, QIcon::Off);
         }
         MainWindow->setWindowIcon(icon);
-        actionOuvrir = new QAction(MainWindow);
-        actionOuvrir->setObjectName(QStringLiteral("actionOuvrir"));
         actionQuitter = new QAction(MainWindow);
         actionQuitter->setObjectName(QStringLiteral("actionQuitter"));
         actionAide = new QAction(MainWindow);
@@ -232,7 +229,7 @@ public:
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 900, 21));
+        menuBar->setGeometry(QRect(0, 0, 900, 20));
         menuFichier = new QMenu(menuBar);
         menuFichier->setObjectName(QStringLiteral("menuFichier"));
         menu = new QMenu(menuBar);
@@ -257,7 +254,6 @@ public:
     void retranslateUi(QMainWindow *MainWindow)
     {
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "Nuage de Mots", 0));
-        actionOuvrir->setText(QApplication::translate("MainWindow", "Ouvrir ...", 0));
         actionQuitter->setText(QApplication::translate("MainWindow", "Quitter", 0));
         actionAide->setText(QApplication::translate("MainWindow", "Aide", 0));
         actionA_propos->setText(QApplication::translate("MainWindow", "A propos", 0));
@@ -270,7 +266,7 @@ public:
         label_3->setText(QApplication::translate("MainWindow", "S\303\251parateurs", 0));
         displayPrincipal->setText(QString());
         browsePrincipal->setText(QApplication::translate("MainWindow", "Parcourir ...", 0));
-        extract->setText(QApplication::translate("MainWindow", "Extraction", 0));
+        extract->setText(QApplication::translate("MainWindow", "Extraire", 0));
         label_4->setText(QApplication::translate("MainWindow", "Nombre de mots", 0));
         menuFichier->setTitle(QApplication::translate("MainWindow", "Fichier", 0));
         menu->setTitle(QApplication::translate("MainWindow", "?", 0));
