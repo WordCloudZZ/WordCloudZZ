@@ -19,6 +19,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->displaySeparator->setText("Fichier par défaut");
     ui->displayPrincipal->setText("Fichier exemple (hill.bk)");
     ui->nbSelect->setValue(16);
+    ui->extract->setText("Extraire");
 
     /// App tray logo
     setWindowIcon(QIcon(QCoreApplication::applicationDirPath() + "/nuage.png"));
@@ -130,27 +131,57 @@ void MainWindow::on_defaultSeparator_clicked() {
  * @brief Extraction process
  */
 void MainWindow::on_extract_clicked() {
-    if(QFile::exists(QString::fromStdString(buff0))) { /// check the main file
-        if(QFile::exists(QString::fromStdString(buff1))) { /// Check the ignore file
-            if(QFile::exists(QString::fromStdString(buff2))) { /// check the separator file
-                lock_controls(); /// Locks controls in the ui to avoid unpredicted behaviours
 
-                ui->centralWidget->setCursor(Qt::BusyCursor); /// Display a loading cursor to the user
-                ui->listWidget->clear(); /// Clear the zone before rewriting
+    if(ui->extract->text() == "Extraire") { /// Process the text
+        if(QFile::exists(QString::fromStdString(buff0))) { /// check the main file
+            if(QFile::exists(QString::fromStdString(buff1))) { /// Check the ignore file
+                if(QFile::exists(QString::fromStdString(buff2))) { /// check the separator file
+                    lock_controls(); /// Locks controls in the ui to avoid unpredicted behaviours
 
-                /// Creating the process thread and connect signal
-                thread = new ProcessThread(buff0, buff1, buff2);
-                QObject::connect(thread, SIGNAL(processEnd(stringVec)), this, SLOT(print_results(stringVec)));
-                thread->start(QThread::HighPriority); /// Can be highest also
-            } else { /// Separator file does not exist
-                QMessageBox::critical(this, "Fichier incorrect", "Le <b>fichier de séparateurs</b> n'existe pas ou n'est pas valide.", QMessageBox::Ok);
+                    ui->centralWidget->setCursor(Qt::BusyCursor); /// Display a loading cursor to the user
+                    ui->listWidget->clear(); /// Clear the zone before rewriting
+
+                    /// Creating the process thread and connect signal
+                    thread = new ProcessThread(buff0, buff1, buff2);
+                    QObject::connect(thread, SIGNAL(processEnd(stringVec)), this, SLOT(print_results(stringVec)));
+
+                    thread->start(QThread::HighPriority); /// Can be highest also
+
+                    ui->extract->setText("Annuler"); /// Change the label name
+
+                } else { /// Separator file does not exist
+                    QMessageBox::critical(this, "Fichier incorrect", "Le <b>fichier de séparateurs</b> n'existe pas ou n'est pas valide.", QMessageBox::Ok);
+                }
+            } else { /// Ignore file does not exist
+                QMessageBox::critical(this, "Fichier incorrect", "Le <b>fichier de mot à ignorer</b> n'existe pas ou n'est pas valide.", QMessageBox::Ok);
             }
-        } else { /// Ignore file does not exist
-            QMessageBox::critical(this, "Fichier incorrect", "Le <b>fichier de mot à ignorer</b> n'existe pas ou n'est pas valide.", QMessageBox::Ok);
+        } else { /// Main file does not exist
+            QMessageBox::critical(this, "Fichier incorrect", "Le <b>fichier principal</b> n'existe pas ou n'est pas valide.", QMessageBox::Ok);
         }
-    } else { /// Main file does not exist
-        QMessageBox::critical(this, "Fichier incorrect", "Le <b>fichier principal</b> n'existe pas ou n'est pas valide.", QMessageBox::Ok);
+    } else if (ui->extract->text() == "Annuler") { /// Cancel extraction
+        /// Stop the thread and recover initial state
+        std::cout << "Annulation du thread" << std::endl;
+
+        while(!thread->isFinished()) {
+            std::cout << "Tentative d'arret du thread" << std::endl;
+            thread->exit();
+            thread->requestInterruption();
+            thread->terminate();
+            thread->requestInterruption();
+        }
+
+        delete thread;
+
+        ui->extract->setText("Extraire"); /// Change the label name
+
+        unlock_controls();
+        ui->centralWidget->setCursor(Qt::ArrowCursor); /// Reseting cursor to default
+
+        std::cout << "Thread annule" << std::endl;
+    } else {
+        std::cout << "Erreur avec l'utilisation du bouton" << std::endl;
     }
+
 }
 
 void MainWindow::print_results(stringVec list) {
@@ -176,6 +207,7 @@ void MainWindow::print_results(stringVec list) {
 
     delete thread; /// Free the thread memory
 
+    ui->extract->setText("Extraire"); /// Resetting name to be used correctly after
     unlock_controls(); /// Unlockign controls
     ui->centralWidget->setCursor(Qt::ArrowCursor); /// Reseting cursor to default
 }
@@ -191,7 +223,7 @@ void MainWindow::lock_controls() {
     ui->defaultSeparator->setEnabled(false);
     ui->nbSelect->setEnabled(false);
 
-    ui->extract->setEnabled(false);
+    // ui->extract->setEnabled(false); // Not disable to be used as a cancel button
 
     std::cout << "Controles bloques" << std::endl;
 }
@@ -207,7 +239,7 @@ void MainWindow::unlock_controls() {
     ui->defaultSeparator->setEnabled(true);
     ui->nbSelect->setEnabled(true);
 
-    ui->extract->setEnabled(true);
+    // ui->extract->setEnabled(true);
 
     std::cout << "Controles debloques" << std::endl;
 }

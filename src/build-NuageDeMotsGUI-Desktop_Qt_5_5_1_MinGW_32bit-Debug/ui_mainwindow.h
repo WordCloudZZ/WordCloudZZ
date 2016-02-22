@@ -232,7 +232,7 @@ public:
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 900, 21));
+        menuBar->setGeometry(QRect(0, 0, 900, 20));
         menuFichier = new QMenu(menuBar);
         menuFichier->setObjectName(QStringLiteral("menuFichier"));
         menu = new QMenu(menuBar);
@@ -270,7 +270,7 @@ public:
         label_3->setText(QApplication::translate("MainWindow", "S\303\251parateurs", 0));
         displayPrincipal->setText(QString());
         browsePrincipal->setText(QApplication::translate("MainWindow", "Parcourir ...", 0));
-        extract->setText(QApplication::translate("MainWindow", "Extraction", 0));
+        extract->setText(QApplication::translate("MainWindow", "Extraire", 0));
         label_4->setText(QApplication::translate("MainWindow", "Nombre de mots", 0));
         menuFichier->setTitle(QApplication::translate("MainWindow", "Fichier", 0));
         menu->setTitle(QApplication::translate("MainWindow", "?", 0));
