@@ -69,6 +69,7 @@ void MainWindow::on_actionQuitter_triggered() {
 
     delete ui;
     close();
+    exit(0);
 }
 
 /**

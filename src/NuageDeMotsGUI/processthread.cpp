@@ -14,7 +14,7 @@ ProcessThread::ProcessThread(std::string p, std::string i, std::string s) {
     separator = s;
 
     /// Creating the filereader
-    fr = new FileReader<Hashtable>(ignore, separator);
+    fr = new FileReader<BinarySearchTree>(ignore, separator);
 }
 
 /**
