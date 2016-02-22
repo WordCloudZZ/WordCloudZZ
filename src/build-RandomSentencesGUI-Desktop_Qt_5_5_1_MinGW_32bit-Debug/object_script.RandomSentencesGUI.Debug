@@ -1,0 +1,12 @@
+INPUT(
+./debug\main.o
+./debug\Stats.o
+./debug\Student.o
+./debug\WordsGenerator.o
+./debug\ComputingThread.o
+./debug\MainWindow.o
+./debug\LoadThread.o
+./debug\moc_ComputingThread.o
+./debug\moc_MainWindow.o
+./debug\moc_LoadThread.o
+);
