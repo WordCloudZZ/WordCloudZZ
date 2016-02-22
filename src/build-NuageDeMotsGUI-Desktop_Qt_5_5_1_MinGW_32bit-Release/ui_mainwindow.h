@@ -169,6 +169,11 @@ public:
 
         frameTag = new TagCloud(centralWidget);
         frameTag->setObjectName(QStringLiteral("frameTag"));
+        QSizePolicy sizePolicy1(QSizePolicy::Ignored, QSizePolicy::Ignored);
+        sizePolicy1.setHorizontalStretch(0);
+        sizePolicy1.setVerticalStretch(0);
+        sizePolicy1.setHeightForWidth(frameTag->sizePolicy().hasHeightForWidth());
+        frameTag->setSizePolicy(sizePolicy1);
         frameTag->setStyleSheet(QStringLiteral("background-color: rgb(255, 255, 255);"));
         frameTag->setFrameShape(QFrame::StyledPanel);
         frameTag->setFrameShadow(QFrame::Raised);
@@ -184,11 +189,11 @@ public:
         gridLayout_2->setSizeConstraint(QLayout::SetMaximumSize);
         extract = new QPushButton(centralWidget);
         extract->setObjectName(QStringLiteral("extract"));
-        QSizePolicy sizePolicy1(QSizePolicy::Minimum, QSizePolicy::Fixed);
-        sizePolicy1.setHorizontalStretch(0);
-        sizePolicy1.setVerticalStretch(0);
-        sizePolicy1.setHeightForWidth(extract->sizePolicy().hasHeightForWidth());
-        extract->setSizePolicy(sizePolicy1);
+        QSizePolicy sizePolicy2(QSizePolicy::Minimum, QSizePolicy::Fixed);
+        sizePolicy2.setHorizontalStretch(0);
+        sizePolicy2.setVerticalStretch(0);
+        sizePolicy2.setHeightForWidth(extract->sizePolicy().hasHeightForWidth());
+        extract->setSizePolicy(sizePolicy2);
         extract->setMaximumSize(QSize(80, 16777215));
 
         gridLayout_2->addWidget(extract, 0, 3, 1, 1);
@@ -206,11 +211,11 @@ public:
 
         label_4 = new QLabel(centralWidget);
         label_4->setObjectName(QStringLiteral("label_4"));
-        QSizePolicy sizePolicy2(QSizePolicy::Fixed, QSizePolicy::Preferred);
-        sizePolicy2.setHorizontalStretch(0);
-        sizePolicy2.setVerticalStretch(0);
-        sizePolicy2.setHeightForWidth(label_4->sizePolicy().hasHeightForWidth());
-        label_4->setSizePolicy(sizePolicy2);
+        QSizePolicy sizePolicy3(QSizePolicy::Fixed, QSizePolicy::Preferred);
+        sizePolicy3.setHorizontalStretch(0);
+        sizePolicy3.setVerticalStretch(0);
+        sizePolicy3.setHeightForWidth(label_4->sizePolicy().hasHeightForWidth());
+        label_4->setSizePolicy(sizePolicy3);
 
         gridLayout_2->addWidget(label_4, 0, 0, 1, 1);
 
