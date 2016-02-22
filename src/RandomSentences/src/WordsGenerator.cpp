@@ -75,7 +75,7 @@ Stats WordsGenerator::studySentence(std::string p_str, unsigned p_iter, std::ost
     out << "////////////////////////////////////////////////////////////////" << std::endl;
     out << "----------------------------------------------------------------" << std::endl;
 
-    start = clock();    // temps de debut
+    time(&start);    // temps de debut
 
     for(unsigned i = 0 ; i < p_iter ; ++i) {        // calcul des echantillons
         out << "Round " << i+1 << ":" << std::endl;
@@ -83,12 +83,12 @@ Stats WordsGenerator::studySentence(std::string p_str, unsigned p_iter, std::ost
         out << "----------------------------------------------------------------" << std::endl;
     }
 
-    end = clock();      // temps de fin
+    time(&end);      // temps de fin
 
     results.setAverage(tirages);
     results.setVariance(tirages, results.average());
     results.setRadius(results.variance(),tirages.size());
-    results.setTime((end-start)/1000.0);
+    results.setTime(difftime(end,start));
 
     out << "////////////////////////////////////////////////////////////////" << std::endl;
     out << "\tRESULTS:" << std::endl;
