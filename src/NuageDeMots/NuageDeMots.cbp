@@ -45,6 +45,7 @@
 			<Add option="-lz" />
 			<Add directory="../../libraries/zlib" />
 			<Add directory="P:/Programs/Python27/include" />
+			<Add directory="src" />
 		</Compiler>
 		<Linker>
 			<Add option="-pg -lgmon" />

@@ -43,16 +43,7 @@ void MainWindow::on_pushButton_clicked()
             alpha = ui->lineEdit_3->text().toStdString();
         }
         if(!QFile::exists(this->ui->lineEdit_3->text())) {
-            QMessageBox::warning(this, "Fichier inexistant", "Le fichier renseigné n'existe pas, le fichier par défaut va donc être utilisé.");QString fichier = QString::fromStdString(alpha);
-            if(fichier.length() != 0) { /// Test if a file is selected
-                ui->lineEdit_3->setText(fichier);
-                QFile f(fichier);
-                if(f.open(QFile::ReadOnly)) {
-                    QTextStream flux(&f);
-                    ui->alphabet->setText(flux.readLine());
-                    f.close();
-                }
-            }
+            QMessageBox::warning(this, "Fichier inexistant", "Le fichier renseigné n'existe pas, le fichier par défaut va donc être utilisé.");
         }
 
         /// on bloque les boutons
@@ -99,7 +90,7 @@ void MainWindow::on_pushButton_clicked()
 
 void MainWindow::changeStats(Stats stats) {
     unsigned long long rayon = stats.radius();
-    ui->labelFrequency->setText((stats.average()==0?QString::number(0):QString::number(100/stats.average()))+"%");
+    ui->labelFrequency->setText(QString::number(100/stats.average())+"%");
     ui->labelAverage->setText(QString::number((unsigned long long)stats.average()));
     ui->labelTotal->setText(QString::number((unsigned long long)stats.total()));
     ui->labelVariance->setText(QString::number((unsigned long long)sqrt(stats.variance())));

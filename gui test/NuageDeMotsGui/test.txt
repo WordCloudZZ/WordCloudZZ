@@ -1,2 +1,0 @@
-Benoît a écrit ce texte dans le but de tester le comptage de mots.
-Toutefois il serait intéressant d'utiliser entre  et  fichiers différents.

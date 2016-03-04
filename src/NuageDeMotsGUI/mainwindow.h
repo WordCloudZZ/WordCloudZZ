@@ -5,13 +5,11 @@
 #include <QtGui>
 #include <QFileDialog>
 #include <QString>
-#include <QMessageBox>
 
 #include <iostream>
 #include <string>
 
-//#include "FileReader.h"
-#include "processthread.h"
+#include "FileReader.h"
 
 namespace Ui {
     class MainWindow;
@@ -21,15 +19,11 @@ class MainWindow : public QMainWindow {
     Q_OBJECT
 
 private :
-    typedef std::vector<std::string> stringVec;
-
-    //IFileReader * fr;
+    IFileReader * fr;
     std::string buff[3];
     std::string buff0;
     std::string buff1;
     std::string buff2;
-
-    ProcessThread * thread;
 
     void lock_controls();
 
@@ -55,12 +49,6 @@ private slots:
     void on_defaultIgnore_clicked();
 
     void on_defaultSeparator_clicked();
-
-    void print_results(stringVec);
-
-    void on_actionAide_triggered();
-
-    void on_actionA_propos_triggered();
 
 private:
     Ui::MainWindow *ui;

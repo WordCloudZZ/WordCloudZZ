@@ -44,9 +44,9 @@ int main(int argc, char** argv) {
                     output_choice = 1;
                 } else if(c=='x') { // interface graphique
                     output_choice = 2;
-                } else if(c=='h') { // interface graphique
+                } else if(c=='h') { // hashtable
                     useABRE = false;
-                } else if(c=='a') { // interface graphique
+                } else if(c=='a') { // arbre
                     useABRE = true;
                 } else {
                     output_choice = -1;
@@ -64,6 +64,7 @@ int main(int argc, char** argv) {
             analyseur = new FileReader<Hashtable>(buff[1], buff[2]);   // initialisation (ignore,separateurs)
         analyseur->read(buff[0]);                          // lecture du fichier
         std::vector<std::string> b = analyseur->printStudyTable();                   // affichage des resultats
+
         delete analyseur;                               // liberation de la memoire
     } else if(output_choice==1) {   // menu console
         while(choice != 9) {

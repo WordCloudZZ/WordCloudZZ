@@ -21,9 +21,7 @@ SOURCES += main.cpp\
     ../NuageDeMots/src/FileReader.tpp \
     ../NuageDeMots/src/HashElement.tpp \
     ../NuageDeMots/src/Hashtable.tpp \
-    ../NuageDeMots/src/PDFReader.cpp \
-    processthread.cpp \
-    TagCloud.cpp
+    ../NuageDeMots/src/PDFReader.cpp
 
 
 HEADERS  += mainwindow.h \
@@ -34,9 +32,7 @@ HEADERS  += mainwindow.h \
     ../NuageDeMots/include/Hashtable.h \
     ../NuageDeMots/include/Node.h \
     ../NuageDeMots/include/pdf.h \
-    ../NuageDeMots/include/PDFReader.h \
-    processthread.h \
-    TagCloud.h
+    ../NuageDeMots/include/PDFReader.h
 
 
 FORMS    += mainwindow.ui

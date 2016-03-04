@@ -26,13 +26,13 @@
 #include <QtWidgets/QSpinBox>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QWidget>
-#include "TagCloud.h"
 
 QT_BEGIN_NAMESPACE
 
 class Ui_MainWindow
 {
 public:
+    QAction *actionOuvrir;
     QAction *actionQuitter;
     QAction *actionAide;
     QAction *actionA_propos;
@@ -41,17 +41,17 @@ public:
     QGridLayout *gridLayout;
     QPushButton *defaultSeparator;
     QPushButton *defaultIgnore;
-    QLabel *label;
-    QPushButton *browseIgnore;
-    QPushButton *browseSeparator;
     QLabel *label_2;
+    QPushButton *browseIgnore;
+    QLabel *label;
     QLineEdit *displaySeparator;
+    QPushButton *browseSeparator;
     QLabel *label_3;
-    QSpacerItem *horizontalSpacer;
     QLineEdit *displayPrincipal;
     QLineEdit *displayIgnore;
+    QSpacerItem *verticalSpacer;
     QPushButton *browsePrincipal;
-    TagCloud *frameTag;
+    QSpacerItem *horizontalSpacer;
     QGridLayout *gridLayout_2;
     QPushButton *extract;
     QSpinBox *nbSelect;
@@ -67,8 +67,8 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
-        MainWindow->resize(900, 480);
-        MainWindow->setMinimumSize(QSize(900, 480));
+        MainWindow->resize(803, 388);
+        MainWindow->setMinimumSize(QSize(803, 388));
         MainWindow->setBaseSize(QSize(320, 240));
         MainWindow->setMouseTracking(false);
         QIcon icon;
@@ -79,6 +79,8 @@ public:
             icon.addFile(QStringLiteral("."), QSize(), QIcon::Normal, QIcon::Off);
         }
         MainWindow->setWindowIcon(icon);
+        actionOuvrir = new QAction(MainWindow);
+        actionOuvrir->setObjectName(QStringLiteral("actionOuvrir"));
         actionQuitter = new QAction(MainWindow);
         actionQuitter->setObjectName(QStringLiteral("actionQuitter"));
         actionAide = new QAction(MainWindow);
@@ -110,15 +112,26 @@ public:
 
         gridLayout->addWidget(defaultIgnore, 2, 3, 1, 1);
 
-        label = new QLabel(centralWidget);
-        label->setObjectName(QStringLiteral("label"));
+        label_2 = new QLabel(centralWidget);
+        label_2->setObjectName(QStringLiteral("label_2"));
 
-        gridLayout->addWidget(label, 0, 0, 1, 2);
+        gridLayout->addWidget(label_2, 2, 0, 1, 2);
 
         browseIgnore = new QPushButton(centralWidget);
         browseIgnore->setObjectName(QStringLiteral("browseIgnore"));
 
         gridLayout->addWidget(browseIgnore, 2, 2, 1, 1);
+
+        label = new QLabel(centralWidget);
+        label->setObjectName(QStringLiteral("label"));
+
+        gridLayout->addWidget(label, 0, 0, 1, 2);
+
+        displaySeparator = new QLineEdit(centralWidget);
+        displaySeparator->setObjectName(QStringLiteral("displaySeparator"));
+        displaySeparator->setReadOnly(true);
+
+        gridLayout->addWidget(displaySeparator, 5, 0, 1, 4);
 
         browseSeparator = new QPushButton(centralWidget);
         browseSeparator->setObjectName(QStringLiteral("browseSeparator"));
@@ -127,25 +140,10 @@ public:
 
         gridLayout->addWidget(browseSeparator, 4, 2, 1, 1);
 
-        label_2 = new QLabel(centralWidget);
-        label_2->setObjectName(QStringLiteral("label_2"));
-
-        gridLayout->addWidget(label_2, 2, 0, 1, 2);
-
-        displaySeparator = new QLineEdit(centralWidget);
-        displaySeparator->setObjectName(QStringLiteral("displaySeparator"));
-        displaySeparator->setReadOnly(true);
-
-        gridLayout->addWidget(displaySeparator, 5, 0, 1, 4);
-
         label_3 = new QLabel(centralWidget);
         label_3->setObjectName(QStringLiteral("label_3"));
 
         gridLayout->addWidget(label_3, 4, 0, 1, 2);
-
-        horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Minimum, QSizePolicy::Minimum);
-
-        gridLayout->addItem(horizontalSpacer, 0, 3, 1, 1);
 
         displayPrincipal = new QLineEdit(centralWidget);
         displayPrincipal->setObjectName(QStringLiteral("displayPrincipal"));
@@ -159,6 +157,10 @@ public:
 
         gridLayout->addWidget(displayIgnore, 3, 0, 1, 4);
 
+        verticalSpacer = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
+
+        gridLayout->addItem(verticalSpacer, 6, 0, 1, 4);
+
         browsePrincipal = new QPushButton(centralWidget);
         browsePrincipal->setObjectName(QStringLiteral("browsePrincipal"));
         browsePrincipal->setEnabled(true);
@@ -167,18 +169,9 @@ public:
 
         gridLayout->addWidget(browsePrincipal, 0, 2, 1, 1);
 
-        frameTag = new TagCloud(centralWidget);
-        frameTag->setObjectName(QStringLiteral("frameTag"));
-        QSizePolicy sizePolicy1(QSizePolicy::Preferred, QSizePolicy::Preferred);
-        sizePolicy1.setHorizontalStretch(0);
-        sizePolicy1.setVerticalStretch(0);
-        sizePolicy1.setHeightForWidth(frameTag->sizePolicy().hasHeightForWidth());
-        frameTag->setSizePolicy(sizePolicy1);
-        frameTag->setStyleSheet(QStringLiteral("background-color: rgb(255, 255, 255);"));
-        frameTag->setFrameShape(QFrame::StyledPanel);
-        frameTag->setFrameShadow(QFrame::Raised);
+        horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Minimum, QSizePolicy::Minimum);
 
-        gridLayout->addWidget(frameTag, 6, 0, 1, 4);
+        gridLayout->addItem(horizontalSpacer, 0, 3, 1, 1);
 
 
         gridLayout_3->addLayout(gridLayout, 0, 0, 1, 1);
@@ -189,11 +182,11 @@ public:
         gridLayout_2->setSizeConstraint(QLayout::SetMaximumSize);
         extract = new QPushButton(centralWidget);
         extract->setObjectName(QStringLiteral("extract"));
-        QSizePolicy sizePolicy2(QSizePolicy::Minimum, QSizePolicy::Fixed);
-        sizePolicy2.setHorizontalStretch(0);
-        sizePolicy2.setVerticalStretch(0);
-        sizePolicy2.setHeightForWidth(extract->sizePolicy().hasHeightForWidth());
-        extract->setSizePolicy(sizePolicy2);
+        QSizePolicy sizePolicy1(QSizePolicy::Minimum, QSizePolicy::Fixed);
+        sizePolicy1.setHorizontalStretch(0);
+        sizePolicy1.setVerticalStretch(0);
+        sizePolicy1.setHeightForWidth(extract->sizePolicy().hasHeightForWidth());
+        extract->setSizePolicy(sizePolicy1);
         extract->setMaximumSize(QSize(80, 16777215));
 
         gridLayout_2->addWidget(extract, 0, 3, 1, 1);
@@ -211,11 +204,11 @@ public:
 
         label_4 = new QLabel(centralWidget);
         label_4->setObjectName(QStringLiteral("label_4"));
-        QSizePolicy sizePolicy3(QSizePolicy::Fixed, QSizePolicy::Preferred);
-        sizePolicy3.setHorizontalStretch(0);
-        sizePolicy3.setVerticalStretch(0);
-        sizePolicy3.setHeightForWidth(label_4->sizePolicy().hasHeightForWidth());
-        label_4->setSizePolicy(sizePolicy3);
+        QSizePolicy sizePolicy2(QSizePolicy::Fixed, QSizePolicy::Preferred);
+        sizePolicy2.setHorizontalStretch(0);
+        sizePolicy2.setVerticalStretch(0);
+        sizePolicy2.setHeightForWidth(label_4->sizePolicy().hasHeightForWidth());
+        label_4->setSizePolicy(sizePolicy2);
 
         gridLayout_2->addWidget(label_4, 0, 0, 1, 1);
 
@@ -234,7 +227,7 @@ public:
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 900, 20));
+        menuBar->setGeometry(QRect(0, 0, 803, 21));
         menuFichier = new QMenu(menuBar);
         menuFichier->setObjectName(QStringLiteral("menuFichier"));
         menu = new QMenu(menuBar);
@@ -259,19 +252,20 @@ public:
     void retranslateUi(QMainWindow *MainWindow)
     {
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "Nuage de Mots", 0));
+        actionOuvrir->setText(QApplication::translate("MainWindow", "Ouvrir ...", 0));
         actionQuitter->setText(QApplication::translate("MainWindow", "Quitter", 0));
         actionAide->setText(QApplication::translate("MainWindow", "Aide", 0));
         actionA_propos->setText(QApplication::translate("MainWindow", "A propos", 0));
         defaultSeparator->setText(QApplication::translate("MainWindow", "Par d\303\251faut", 0));
         defaultIgnore->setText(QApplication::translate("MainWindow", "Par d\303\251faut", 0));
-        label->setText(QApplication::translate("MainWindow", "Fichier principal", 0));
-        browseIgnore->setText(QApplication::translate("MainWindow", "Parcourir ...", 0));
-        browseSeparator->setText(QApplication::translate("MainWindow", "Parcourir ...", 0));
         label_2->setText(QApplication::translate("MainWindow", "Mots \303\240 ignorer", 0));
+        browseIgnore->setText(QApplication::translate("MainWindow", "Parcourir ...", 0));
+        label->setText(QApplication::translate("MainWindow", "Fichier principal", 0));
+        browseSeparator->setText(QApplication::translate("MainWindow", "Parcourir ...", 0));
         label_3->setText(QApplication::translate("MainWindow", "S\303\251parateurs", 0));
         displayPrincipal->setText(QString());
         browsePrincipal->setText(QApplication::translate("MainWindow", "Parcourir ...", 0));
-        extract->setText(QApplication::translate("MainWindow", "Extraire", 0));
+        extract->setText(QApplication::translate("MainWindow", "Extraction", 0));
         label_4->setText(QApplication::translate("MainWindow", "Nombre de mots", 0));
         menuFichier->setTitle(QApplication::translate("MainWindow", "Fichier", 0));
         menu->setTitle(QApplication::translate("MainWindow", "?", 0));

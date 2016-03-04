@@ -142,7 +142,7 @@ public:
         label_8->setGeometry(QRect(20, 100, 131, 21));
         label_9 = new QLabel(groupBox_2);
         label_9->setObjectName(QStringLiteral("label_9"));
-        label_9->setGeometry(QRect(20, 160, 171, 21));
+        label_9->setGeometry(QRect(20, 160, 131, 21));
         label_10 = new QLabel(groupBox_2);
         label_10->setObjectName(QStringLiteral("label_10"));
         label_10->setGeometry(QRect(20, 140, 131, 21));
@@ -233,12 +233,12 @@ public:
         label_4->setText(QApplication::translate("MainWindow", "Alphabet de g\303\251n\303\251ration", 0));
         toolButton->setText(QApplication::translate("MainWindow", "...", 0));
         groupBox_2->setTitle(QApplication::translate("MainWindow", "R\303\251sultats", 0));
-        label_5->setText(QApplication::translate("MainWindow", "Probabilit\303\251 d'apparition de la phrase", 0));
+        label_5->setText(QApplication::translate("MainWindow", "Fr\303\251quence d'apparition de la phrase", 0));
         labelUnitTime->setText(QApplication::translate("MainWindow", "0", 0));
         label_7->setText(QApplication::translate("MainWindow", "Ecart type", 0));
         label_8->setText(QApplication::translate("MainWindow", "Intervalle de confiance", 0));
-        label_9->setText(QApplication::translate("MainWindow", "Temps d'ex\303\251cution unitaire (en s)", 0));
-        label_10->setText(QApplication::translate("MainWindow", "Temps d'ex\303\251cution (en s)", 0));
+        label_9->setText(QApplication::translate("MainWindow", "Temps d'ex\303\251cution unitaire", 0));
+        label_10->setText(QApplication::translate("MainWindow", "Temps d'ex\303\251cution", 0));
         labelTime->setText(QApplication::translate("MainWindow", "0", 0));
         labelConfidence->setText(QApplication::translate("MainWindow", "[ 0 ; 0 ]", 0));
         labelVariance->setText(QApplication::translate("MainWindow", "0", 0));

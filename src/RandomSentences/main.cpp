@@ -10,16 +10,17 @@ int main(int argc, char** argv) {
     unsigned 				iter_number 	= 10;
     string 					sentence 		= "random",
                             seed            = "Le hasard ne fait pas de phrase.",
+                            alphabet        = "alpha.az",
                             arg;
 
     if(argc > 1) {
         arg = argv[1];
         if(arg=="-h") {
-            cout << endl << "Usage:\n RandomSentences [option] [ <sentence> [ <iterations> [ <random_seed> ] ] ]" << endl << endl;
+            cout << endl << "Usage:\n RandomSentences [option] [ <sentence> [ <iterations> [ <alphabet_file> ] ] ]" << endl << endl;
             cout << "Arguments:" << endl <<
             " <sentence>\t\tsentence to compute\n" <<
             " <iterations>\t\tnumber of iterations to compute\n" <<
-            " <random_seed>\t\tseed for the MT generator\n" <<
+            " <alphabet_file>\t\tfile containing the chosen alphabet\n" <<
             "\nOptions:\n -h\t\t\tdisplay this helpful text\n" << endl;
             exit(0);
         } else {
@@ -30,9 +31,9 @@ int main(int argc, char** argv) {
     	iter_number = atoi(argv[2]);
     }
     if(argc > 3) {
-    	seed = argv[3];
+    	alphabet = argv[3];
     }
-    WordsGenerator 			wg(seed);
+    WordsGenerator 			wg(seed, alphabet.c_str());
 
     wg.studySentence(sentence, iter_number, cout);
 
