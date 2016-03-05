@@ -301,7 +301,7 @@ void MainWindow::on_export_2_clicked() {
 
 
             QFile exportFile(fichier);
-            if(exportFile.open(QIODevice::WriteOnly | QIODevice::Text | QIODevice::Truncate)) { /// Write only, replace if exists, textmode
+            if(exportFile.open(QIODevice::WriteOnly | QIODevice::Truncate | QIODevice::Text)) { /// Write only, replace if exists, textmode
                 /// We can export
                 std::cout << "Exportation dans : " << fichier.toStdString() << std::endl;
                 QTextStream out(&exportFile); // Easier to manage with a text stream
@@ -318,6 +318,6 @@ void MainWindow::on_export_2_clicked() {
 
         }
     } else { // Nothing to export
-        QMessageBox::critical(this, "Erreur", "Rien ne peut être exporté, il faut d'abbord lancer une extraction.", QMessageBox::Ok);
+        QMessageBox::critical(this, "Erreur", "Rien ne peut être exporté, il faut d'abord lancer une extraction.", QMessageBox::Ok);
     }
 }
