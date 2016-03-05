@@ -44,13 +44,11 @@
 			<Add option="-fexceptions" />
 			<Add option="-lz" />
 			<Add directory="../../libraries/zlib" />
-			<Add directory="P:/Programs/Python27/include" />
 			<Add directory="src" />
 		</Compiler>
 		<Linker>
 			<Add option="-pg -lgmon" />
 			<Add library="..\..\libraries\zlib\libz.a" />
-			<Add library="P:\Programs\Python27\libs\libpython27.a" />
 			<Add directory="../../libraries/zlib" />
 		</Linker>
 		<Unit filename="include/BinarySearchTree.h" />

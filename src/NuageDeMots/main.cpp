@@ -153,7 +153,7 @@ int main(int argc, char** argv) {
                     ofstream fichierCsv(buffCsv, ios::out | ios::trunc); // Ecriture + raz s'il existe
                     if(fichierCsv) {
                         for(int i = 0; i < res.size(); i++) {
-                            fichierCsv << res[i] << std::endl;
+                            fichierCsv << res[i];
                         }
                     } else {
                         std::cout << "Erreur lors de la creation du fichier" << std::endl;

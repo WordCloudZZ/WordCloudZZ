@@ -135,7 +135,7 @@ std::vector<std::string> Hashtable<T>::sort() {
             ss << (*it).number();
             std::string numb = ss.str();
             result.push_back(std::string((*it).getValue()+"") + ";" + numb + "\n");
-            //std::cout << (*it).getValue() << "\t#" << (*it).number() << std::endl;
+            std::cout << (*it).getValue() << "\t#" << (*it).number() << std::endl;
         }
     }
 

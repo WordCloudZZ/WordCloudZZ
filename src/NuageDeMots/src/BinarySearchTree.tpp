@@ -84,7 +84,7 @@ std::vector<std::string> BinarySearchTree<T>::sort() {
         std::stringstream ss;
         ss << po.second.number();
         std::string numb = ss.str();
-        result.push_back(po.second.getValue() + "/" + numb + "\n");
+        result.push_back(po.second.getValue() + ";" + numb + "\n");
         std::cout << po.second.getValue() << "\t#" << po.second.number() << std::endl;
     }
 
