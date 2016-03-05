@@ -10,6 +10,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow) {
     ui->setupUi(this);
 
+    this->lastList = NULL;
     qRegisterMetaType<stringVec>("stringVec");
 
     this->setDefaultFiles("","","");
@@ -30,6 +31,14 @@ MainWindow::MainWindow(QWidget *parent) :
  * @brief MainWindow::~MainWindow
  */
 MainWindow::~MainWindow() {
+    if(this->thread != NULL) {
+        delete this->thread;
+    }
+
+    if(this->lastList != NULL) {
+        delete this->lastList;
+    }
+
     delete ui;
 }
 
@@ -196,8 +205,9 @@ void MainWindow::on_extract_clicked() {
 }
 
 void MainWindow::print_results(stringVec list) {
+    this->lastList = new stringVec(list.begin(), list.end()); // Copy this list in the context to export if needed
     unsigned int maxPrint = ui->nbSelect->value(); /// Get the desired printed number
-    int maxOccur = QString::fromLatin1(list[list.size()-1].c_str()).split(QRegExp("[/\r\n]"), QString::SplitBehavior::SkipEmptyParts).at(1).toInt();
+    int maxOccur = QString::fromLatin1(list[list.size()-1].c_str()).split(QRegExp("[;\r\n]"), QString::SplitBehavior::SkipEmptyParts).at(1).toInt();
     int ratio = 1;
     std::vector<TagCloud::tagPair> toDraw;
 
@@ -205,7 +215,7 @@ void MainWindow::print_results(stringVec list) {
     std::cout << "Affichage des resultats" << std::endl;
     for(unsigned i = 0 ; i < maxPrint ; ++i) {
         QString mot = QString::fromLatin1(list[list.size()-1-i].c_str());
-        QStringList qlist = mot.split(QRegExp("[/\r\n]"), QString::SplitBehavior::SkipEmptyParts);
+        QStringList qlist = mot.split(QRegExp("[;\r\n]"), QString::SplitBehavior::SkipEmptyParts);
         ui->listWidget->addItem(qlist.at(1)+'\t'+qlist.at(0));
         toDraw.push_back(TagCloud::tagPair(qlist.at(0), atoi(qlist.at(1).toStdString().c_str())));
         ui->listWidget->item(i)->setTextAlignment(Qt::AlignJustify);
@@ -233,6 +243,7 @@ void MainWindow::lock_controls() {
     ui->defaultIgnore->setEnabled(false);
     ui->defaultSeparator->setEnabled(false);
     ui->nbSelect->setEnabled(false);
+    ui->export_2->setEnabled(false);
 
     // ui->extract->setEnabled(false); // Not disable to be used as a cancel button
 
@@ -249,6 +260,7 @@ void MainWindow::unlock_controls() {
     ui->defaultIgnore->setEnabled(true);
     ui->defaultSeparator->setEnabled(true);
     ui->nbSelect->setEnabled(true);
+    ui->export_2->setEnabled(true);
 
     // ui->extract->setEnabled(true);
 
@@ -263,6 +275,7 @@ void MainWindow::on_actionAide_triggered() {
     text += "4. Sélectionner le nombre de mots à afficher dans la case correspondante (le maximum est de 500).\n";
     text += "5. Cliquer sur le bouton \"Extraire\".\n";
     text += "\nLe résultat s'affichera automatiquement dans la partie droite de l'application, et une image se génèrera dans la partie ingférieure gauche\n";
+    text += "\nPour exporter les résultats sous formats .csvn cliquer sur le bouton \"Exporter\" et sélectionner l'endroit et le nom pour enregistrer le fichier\n";
 
     QMessageBox::information(this, "Aide", text, QMessageBox::Ok);
 }
@@ -274,4 +287,37 @@ void MainWindow::on_actionA_propos_triggered() {
     text += "ISIMA 2015-2016 - Bleu";
 
     QMessageBox::information(this, "A propos...", text, QMessageBox::Cancel);
+}
+
+void MainWindow::on_export_2_clicked() {
+    if(this->lastList != NULL) { // A process was launched
+        /// Open file selection window
+        QString fichier = QFileDialog::getSaveFileName(this, "Exportation des résultats", QString(), "Formats csv (*.csv);;Autre (*)");
+
+        if(fichier.length() != 0) { /// Test if a file is selected
+            if(!fichier.endsWith(".csv")) { /// Add the .csv suffix if needed
+                fichier.append(".csv");
+            }
+
+
+            QFile exportFile(fichier);
+            if(exportFile.open(QIODevice::WriteOnly | QIODevice::Text | QIODevice::Truncate)) { /// Write only, replace if exists, textmode
+                /// We can export
+                std::cout << "Exportation dans : " << fichier.toStdString() << std::endl;
+                QTextStream out(&exportFile); // Easier to manage with a text stream
+
+                /// Writing in the text stream
+                for(unsigned int i = 0; i < this->lastList->size(); i++) {
+                    std::string s = this->lastList->at(i);
+                    out << QString::fromLatin1(s.c_str());
+                }
+
+            } else { // Not ok
+                QMessageBox::critical(this, "Erreur", "Le fichier n'a pas pu être crée correctement, rééssayez", QMessageBox::Ok);
+            }
+
+        }
+    } else { // Nothing to export
+        QMessageBox::critical(this, "Erreur", "Rien ne peut être exporté, il faut d'abbord lancer une extraction.", QMessageBox::Ok);
+    }
 }

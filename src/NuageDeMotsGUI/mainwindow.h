@@ -29,6 +29,8 @@ private :
     std::string buff1;
     std::string buff2;
 
+    stringVec * lastList; // La derniere liste affichee
+
     ProcessThread * thread;
 
     void lock_controls();
@@ -61,6 +63,8 @@ private slots:
     void on_actionAide_triggered();
 
     void on_actionA_propos_triggered();
+
+    void on_export_2_clicked();
 
 private:
     Ui::MainWindow *ui;
