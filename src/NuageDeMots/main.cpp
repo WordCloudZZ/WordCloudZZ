@@ -1,11 +1,12 @@
 #include <iostream>
 #include <string>
 #include <cstring>
+#include <fstream>
 
 #include "FileReader.h"
 #include "BinarySearchTree.h"
 #include "Hashtable.h"
-#include "Python.h"
+//#include "Python.h"
 
 using namespace std;
 
@@ -21,9 +22,9 @@ bool is_readable(const string &file) {
 }
 
 int main(int argc, char** argv) {
-    std::string                         buff1           = "",
-                                        buff2           = "",
-                                        buff3           = "",
+    std::string                         buff1           = "", // fichier principal
+                                        buff2           = "", // fichier de mots a ignorer
+                                        buff3           = "", // fichier de separateurs
                                         buff[3]         = {"hill.bk","ignore.conf","filereader.conf"};
     unsigned                            choice          = 0,
                 /** Choix du mode de l'interface : 0-ligne de commande;1-menu console;2-interface graphique */
@@ -130,7 +131,34 @@ int main(int argc, char** argv) {
                 analyseur->read(buff3.c_str());
 
                 // Affichage de la liste de mots triee par occurences
-                analyseur->printStudyTable();
+                std::vector<std::string> res; // Recuperation pour possible ecriture dans fichier
+                res = analyseur->printStudyTable();
+
+                // Enregistrement dans fichier
+                std::string buffCsv = "";
+                cout << "\Enregistrer vos resultats dans un fichier csv (laissez vide pour ignorer, ou entrez son nom pour poursuivre) ? : \n";
+                getline(cin, buffCsv);
+
+                if(buffCsv != "") {
+                    // Ajout de l'extension
+                    std::string suffix = ".csv"; // Extension
+                    if(buffCsv.length() > suffix.length()) {
+                        if(buffCsv.compare(buffCsv.length() - suffix.length(), suffix.length(), suffix) != 0) {
+                            buffCsv.append(suffix);
+                        }
+                    } else {
+                        buffCsv.append(suffix);
+                    }
+
+                    ofstream fichierCsv(buffCsv, ios::out | ios::trunc); // Ecriture + raz s'il existe
+                    if(fichierCsv) {
+                        for(int i = 0; i < res.size(); i++) {
+                            fichierCsv << res[i] << std::endl;
+                        }
+                    } else {
+                        std::cout << "Erreur lors de la creation du fichier" << std::endl;
+                    }
+                }
 
                 // Liberation de memoire
                 delete analyseur;

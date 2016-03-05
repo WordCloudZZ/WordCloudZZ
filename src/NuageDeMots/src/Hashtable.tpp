@@ -127,16 +127,17 @@ std::vector<std::string> Hashtable<T>::sort() {
             }
             sorted_.emplace_after(pit, table_[i][j]);
         }
-    }/*
+    }
+
     for(auto it = std::begin(sorted_); it!=std::end(sorted_) ; ++it) {
         if((*it).getValue().size() > 0) {
             std::stringstream ss;
             ss << (*it).number();
             std::string numb = ss.str();
-            result.push_back(std::string((*it).getValue()+"") + "/" + numb + "\n");
-            std::cout << (*it).getValue() << "\t#" << (*it).number() << std::endl;
+            result.push_back(std::string((*it).getValue()+"") + ";" + numb + "\n");
+            //std::cout << (*it).getValue() << "\t#" << (*it).number() << std::endl;
         }
-    }*/
+    }
 
     return result;
 }
