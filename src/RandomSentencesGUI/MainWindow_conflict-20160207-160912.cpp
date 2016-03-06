@@ -43,7 +43,16 @@ void MainWindow::on_pushButton_clicked()
             alpha = ui->lineEdit_3->text().toStdString();
         }
         if(!QFile::exists(this->ui->lineEdit_3->text())) {
-            QMessageBox::warning(this, "Fichier inexistant", "Le fichier renseigné n'existe pas, le fichier par défaut va donc être utilisé.");
+            QMessageBox::warning(this, "Fichier inexistant", "Le fichier renseigné n'existe pas, le fichier par défaut va donc être utilisé.");QString fichier = QString::fromStdString(alpha);
+            if(fichier.length() != 0) { /// Test if a file is selected
+                ui->lineEdit_3->setText(fichier);
+                QFile f(fichier);
+                if(f.open(QFile::ReadOnly)) {
+                    QTextStream flux(&f);
+                    ui->alphabet->setText(flux.readLine());
+                    f.close();
+                }
+            }
         }
 
         /// on bloque les boutons
@@ -90,7 +99,7 @@ void MainWindow::on_pushButton_clicked()
 
 void MainWindow::changeStats(Stats stats) {
     unsigned long long rayon = stats.radius();
-    ui->labelFrequency->setText(QString::number(100/stats.average())+"%");
+    ui->labelFrequency->setText((stats.average()==0?QString::number(0):QString::number(100/stats.average()))+"%");
     ui->labelAverage->setText(QString::number((unsigned long long)stats.average()));
     ui->labelTotal->setText(QString::number((unsigned long long)stats.total()));
     ui->labelVariance->setText(QString::number((unsigned long long)sqrt(stats.variance())));
@@ -150,7 +159,7 @@ void MainWindow::resetResults() {
 }
 
 void MainWindow::on_pushButton_4_clicked() {    // Aide
-    QMessageBox::question(this, "Aide", "Voici les quelques étapes permettant d'utiliser au mieux ce programme :\n\t1- Entrez la phrase que vous souhaitez étudier ;\n\t2- Choisissez le nombre de générations à effectuer ;\n\t3- Choisissez une chaîne de caractères qui sera votre graine d'aléa ;\n\t4- Sélectionnez le fichier correpondant à votre alphabet de génération ;\n\t5- Cliquez sur générer.\nVous aurez alors l'ensemble des résultats affiché dans le cadre inférieur de la fenêtre et que vous pourrez exporter au format texte.",
+    QMessageBox::question(this, "Aide", "Voici les quelques étapes permettant d'utiliser au mieux ce programme :\n\t1- Entrez la phrase que vous souhaitez étudier ;\n\t2- Choisissez le nombre de générations à effectuer ;\n\t3- Sélectionnez le fichier correpondant à votre alphabet de génération ;\n\t4- Cliquez sur générer.\nVous aurez alors l'ensemble des résultats affiché dans le cadre inférieur de la fenêtre et que vous pourrez exporter au format texte.",
             QMessageBox::Ok);
 }
 
