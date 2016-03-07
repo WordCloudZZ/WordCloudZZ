@@ -74,7 +74,7 @@ int main(int argc, char** argv) {
                 "Selectionner une action :\
                 \n\t1 : Nuage de mots a partir de fichier texte\
                 \n\t9 : Quitter le programme\
-                \n\nChoix ? (1 / 2 / 9) : ";
+                \n\nChoix ? (1 / 9) : ";
             cin >> choice; fflush(stdin); // fflush pour pas que le \n soit pris dans le suivant cin
 
             if(choice == 1) { // Extraction du nuage
@@ -136,7 +136,7 @@ int main(int argc, char** argv) {
 
                 // Enregistrement dans fichier
                 std::string buffCsv = "";
-                cout << "\Enregistrer vos resultats dans un fichier csv (laissez vide pour ignorer, ou entrez son nom pour poursuivre) ? : \n";
+                cout << "\Enregistrer vos resultats dans un fichier csv (laissez vide pour ignorer, ou entrer son nom pour poursuivre) ? : \n";
                 getline(cin, buffCsv);
 
                 if(buffCsv != "") {
@@ -168,7 +168,7 @@ int main(int argc, char** argv) {
             }
         }
     } else if(output_choice==2) {   // graphique
-        cout << "L'interface graphique n'est pas encore prete :$" << endl;
+        cout << "L'interface graphique se lance avec NuageDeMotsGUI.exe" << endl;
     } else {    // erreur
         cout << "Argument inconnu" << endl;
     }

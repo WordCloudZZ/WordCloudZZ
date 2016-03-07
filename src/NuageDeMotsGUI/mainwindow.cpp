@@ -274,8 +274,8 @@ void MainWindow::on_actionAide_triggered() {
     text += "3. Sélectionner un fichier contenant les séparateurs du texte(laisser vide pour utiliser le fichier par défaut).\n";
     text += "4. Sélectionner le nombre de mots à afficher dans la case correspondante (le maximum est de 500).\n";
     text += "5. Cliquer sur le bouton \"Extraire\".\n";
-    text += "\nLe résultat s'affichera automatiquement dans la partie droite de l'application, et une image se génèrera dans la partie ingférieure gauche\n";
-    text += "\nPour exporter les résultats sous formats .csvn cliquer sur le bouton \"Exporter\" et sélectionner l'endroit et le nom pour enregistrer le fichier\n";
+    text += "\nLe résultat s'affichera automatiquement dans la partie droite de l'application, et une image se génèrera dans la partie ingférieure gauche.\n";
+    text += "\nPour exporter les résultats sous formats .csv, cliquer sur le bouton \"Exporter\" et sélectionner l'endroit et le nom pour enregistrer le fichier.\n";
 
     QMessageBox::information(this, "Aide", text, QMessageBox::Ok);
 }
